@@ -4,7 +4,7 @@
   <title><![CDATA[crafting code.]]></title>
   <link href="http://marcphilipp.github.com/atom.xml" rel="self"/>
   <link href="http://marcphilipp.github.com/"/>
-  <updated>2012-02-11T21:06:13+01:00</updated>
+  <updated>2012-02-12T12:25:07+01:00</updated>
   <id>http://marcphilipp.github.com/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -609,6 +609,665 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
 <li><a href="http://www.threeriversinstitute.org/blog/?p=155" title="Blog von Kent Beck">Blog von Kent Beck</a></li>
 </ol>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
+    <link href="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/"/>
+    <updated>2010-11-16T20:34:00+01:00</updated>
+    <id>http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers</id>
+    <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
+
+<h3>How to use them?</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While the above example is simple, it demonstrates one of the benefits of using <code>assertThat()</code> and Hamcrest matchers: assertions become very readable. Unfortunately, you often have to rely on a questionable Java mechanism: auto boxing/unboxing.</p>
+
+<p>Auto boxing and unboxing have been introduced in Java 5 to ease the use of primitive types and their counterparts: <em>real</em> objects (a.k.a. reference types). However, especially unboxing can lead to hidden NullPointerExceptions and thus is discouraged by many developers. For details see <a href="http://pboop.wordpress.com/2010/09/22/autoboxing-is-evil/">Autoboxing is Evil</a> by Nicole Rauch and Andreas Leidig.</p>
+
+<p>For this reason, the Eclipse Java compiler optionally shows warnings whenever boxing or unboxing occurs. While it is certainly a good idea to enable this warning, it also puts markers on code that is perfectly sane, like the test case above. To prevent un-/boxing and use matchers at the same time, one can go back to pre-Java 5 times and convert the
+primitive literals explicitly:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">),</span> <span class="n">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">)));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, this is not readable anymore!</p>
+
+<h3>Why do we need boxing in the first place?</h3>
+
+<p>When using <code>assertThat()</code> we need boxing for two reasons. First, there is no definition of <code>assertThat()</code> for primitive types, only for reference types:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">assertThat</span><span class="o">(</span><span class="n">T</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well, why don&#8217;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">assertThat</span><span class="o">(</span><span class="kt">int</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Java&#8217;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
+
+<h3>Hmm, anything we <em>can</em> do?</h3>
+
+<p>Yes! So how about</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">assertThat</span><span class="o">(</span><span class="kt">int</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">actual</span><span class="o">),</span> <span class="n">matcher</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without using auto boxing, we can now write:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">)));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That solves half of our problem: We got rid of the first boxing by overloading <code>assertEquals()</code>. However, we still need to explicity convert our <code>int</code> to <code>Integer</code> when calling the matcher factory method. Thus, we also need to overload the <code>is()</code> method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Problem solved! Really? Obviously, it requires a lot of work do define extra matcher factory methods for every combination of primitive type and matcher.</p>
+
+<h3>Solution: generate it!</h3>
+
+<p>Hamcrest already allows to <a href="http://code.google.com/p/hamcrest/wiki/Tutorial#Sugar_generation">generate matcher libraries</a>, i.e. classes that collect all static factory methods for easy access at a single entry point. So, we could simply generate extra methods for every matcher. To stay with the example from above, if we have an
+unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eight overloading methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Byte</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">byte</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Byte</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Short</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">short</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Short</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">long</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">float</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Float</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">char</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Character</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A matcher declaration which uses the object representation of a primitive type, e.g. <code>Matcher&lt;Integer&gt;</code>, is a special case that is even more simple. We would only need to generate a single extra method, such as</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">zero</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">zero</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Summing up, it would be great if Hamcrest provided built-in support for primitive types.</p>
+
+<h3>Update</h3>
+
+<p>My proposal was <a href="http://code.google.com/p/hamcrest/issues/detail?id=130">rejected</a> by the Hamcrest maintainers.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Combining SuiteBuilder and ClasspathSuite]]></title>
+    <link href="http://marcphilipp.github.com/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
+    <updated>2010-05-13T13:05:00+02:00</updated>
+    <id>http://marcphilipp.github.com/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
+    <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &#8220;alpha-ready implementation of <code>SuiteBuilder</code>&#8221;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
+
+<h3>Limitations of regular test suites</h3>
+
+<p>While an annotation can take parameters the arguments must be literals, e.g. constant String values or class literals. For example, the classic <code>Suite</code> runner is configured using the <code>@SuiteClasses</code> annotation that takes an array of class literals, i.e. the test classes to be run:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Suite</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">({</span>
+</span><span class='line'>    <span class="n">SomeTest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+</span><span class='line'>    <span class="n">YetAnotherTest</span><span class="o">.</span><span class="na">class</span>
+</span><span class='line'><span class="o">})</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Literals have a severe limitation: they must be know at compile-time! Thus, when using the <code>Suite</code> runner, there was no way of determining the classes to run by any other means such as scanning the current classpath.</p>
+
+<h3>ClasspathSuite to the rescue</h3>
+
+<p>For this original purpose, Johannes Link created the <a href="http://johanneslink.net/projects/cpsuite.jsp"><code>ClasspathSuite</code></a> runner. Its basic usage is very simple: just specify it using the <code>@RunWith</code> annotation. In addition, you can also include test classes in JAR files, filter by class names or types, and so on:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">ClasspathSuite</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@IncludeJars</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@ClassnameFilters</span><span class="o">({</span><span class="s">&quot;.*Test&quot;</span><span class="o">,</span> <span class="s">&quot;!.*AllTests&quot;</span><span class="o">})</span>
+</span><span class='line'><span class="nd">@BaseTypeFilter</span><span class="o">(</span><span class="n">MyBaseTest</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, the <code>ClasspathSuite</code> does not support JUnit&#8217;s categories as mentioned in an <a href="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
+
+<h3>Introducing SuiteBuilder</h3>
+
+<p>The <code>SuiteBuilder</code> runner is similar to the <code>Suite</code> runner, but reads the test classes it is supposed to run from a field of the suite class annotated with <code>@Classes</code>. The field can be freely initialized to hold an implementation of the <code>SuiteBuilder.Classes.Value</code> interface which simply wraps a collection of classes. E.g., the first example can be rewritten using the <code>SuiteBuilder</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SuiteBuilder</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllTests</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Classes</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Listed</span> <span class="n">classes</span> <span class="o">=</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">Listed</span><span class="o">(</span><span class="n">SomeTest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">YetAnotherTest</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In addition, you can filter the resulting test runners by annotating a field of type <code>SuiteBuilder.RunnerFilter.Value</code> with <code>@RunnerFilter</code>. For example, the latest commit included a <code>CategoryFilter</code> that filters tests by category:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SuiteBuilder</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlyYes</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Classes</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Listed</span> <span class="n">classes</span> <span class="o">=</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">Listed</span><span class="o">(</span><span class="n">SomeTest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">YetAnotherTest</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@RunnerFilter</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">CategoryFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="n">CategoryFilter</span><span class="o">.</span><span class="na">include</span><span class="o">(</span><span class="n">Yes</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Putting the pieces together</h3>
+
+<p>So what? Well, instead of specifying the classes explicitly you could employ the capabilities of the <code>ClasspathSuite</code> to determine the test classes dynamically. For this purpose, I have written a small wrapper around Johannes Links&#8217; <code>ClasspathSuite</code>. The above example can thus be rewritten without explicitly specifying the test classes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SuiteBuilder</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlyYes</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Classes</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">InClasspath</span> <span class="n">classes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InClasspath</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@RunnerFilter</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">CategoryFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="n">CategoryFilter</span><span class="o">.</span><span class="na">include</span><span class="o">(</span><span class="n">Yes</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The wrapper offers the same flexibility as the <code>ClasspathSuite</code>, e.g.:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SuiteBuilder</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlyYes</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Classes</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">InClasspath</span> <span class="n">classes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InClasspath</span><span class="o">().</span><span class="na">includingJars</span><span class="o">()</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">filteredBy</span><span class="o">(</span><span class="s">&quot;.*Test&quot;</span><span class="o">,</span> <span class="s">&quot;!.*AllTests&quot;</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">includingOnlySubclassesOf</span><span class="o">(</span><span class="n">MyBaseTest</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@RunnerFilter</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">CategoryFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="n">CategoryFilter</span><span class="o">.</span><span class="na">include</span><span class="o">(</span><span class="n">Yes</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While I will look into how this can be integrated into JUnit or ClasspathSuite feel free to contact me if you are interested in the source code of the <code>InClasspath</code> class.</p>
+
+<h3>Update</h3>
+
+<p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit&#8230; In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Applying DRY to JUnit Categories]]></title>
+    <link href="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/"/>
+    <updated>2010-03-13T22:08:00+01:00</updated>
+    <id>http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories</id>
+    <content type="html"><![CDATA[<p>Long awaited, <a href="http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html">JUnit 4.8</a> introduced support for categorizing test cases.</p>
+
+<p>A category marker is simply a class or interface, e.g.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SlowTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tests can be marked using the <code>@Category</code> annotation:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Category</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The annotation works both on methods and classes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Category</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Test suites that include or exclude the <code>SlowTests</code> category are defined by specifying the <code>Categories</code> runner and using the <code>@ExcludeCategory</code> or <code>@IncludeCategory</code> annotation, respectively:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="nd">@ExcludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllFastTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="nd">@IncludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllSlowTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this example, <code>AllFastTests</code> would execute only <code>A.a</code> while <code>AllSlowTests</code> would ignore <code>A.a</code> but run <code>A.b</code> and <code>B.c</code>.</p>
+
+<p>However, there is a major issue in the above suite declarations: they violate the <a href="http://c2.com/cgi/wiki?DontRepeatYourself" title="Don't Repeat Yourself">DRY</a> principle. Both test suites list all test classes in the <code>@SuiteClasses</code> annotation. While it seems feasible to maintain the list of test classes at two locations for a small number of classes, it certainly is not a viable option in a real-world setting, especially when there are multiple categories.</p>
+
+<p>Fortunately, there is a simple solution: use inheritance. You can define the list of test classes once in a normal test suite …</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Suite</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>… and declare subclasses that filter the list of classes by category:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@ExcludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllFastTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@IncludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllSlowTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Generic Matcher Pitfalls]]></title>
+    <link href="http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls/"/>
+    <updated>2010-02-16T22:45:00+01:00</updated>
+    <id>http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls</id>
+    <content type="html"><![CDATA[<p>Using <a href="http://code.google.com/p/hamcrest/">Hamcrest</a> matchers in combination with <code>assertThat</code> allows for more fluid specification of JUnit assertions.</p>
+
+<p>Recently, while working on the backend of <a href="http://projectusus.org/">Project Usus</a>, we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.</p>
+
+<p>Today, I had another look at the pre-defined matchers that come with Hamcrest and found the <code>empty()</code> matcher in <code>org.hamcrest.Matchers</code>. Since I&#8217;m not concerned with the actual implementation (at least for now), I&#8217;ll just give you the factory method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Factory</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">empty</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="n">IsEmptyCollection</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Great, I thought. So I readily changed our tests to use the pre-defined matcher…</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">assertThat</span><span class="o">(</span><span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(),</span> <span class="n">empty</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, this yielded a compile error because the compiler could not infer the type parameter of the method. It <em>did</em> work when stating the type parameter of the static method explicitly:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">assertThat</span><span class="o">(</span><span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(),</span> <span class="n">Matchers</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">empty</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But that looked horrible. My first shot was to define an own factory method…</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Factory</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">emptyOf</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="n">IsEmptyCollection</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>…that can be used like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">assertThat</span><span class="o">(</span><span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(),</span> <span class="n">emptyOf</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I was still not very pleased with the solution. Even more since it does not matter at all what kind of objects are inside the collection to determine whether it is empty. After playing around for a little while I came up with this solution:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IsEmptyCollection</span> <span class="kd">extends</span> <span class="n">TypeSafeMatcher</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;?&gt;&gt;</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">matchesSafely</span><span class="o">(</span><span class="n">Collection</span><span class="o">&lt;?&gt;</span> <span class="n">collection</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">collection</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">describeTo</span><span class="o">(</span><span class="n">Description</span> <span class="n">description</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">description</span><span class="o">.</span><span class="na">appendText</span><span class="o">(</span><span class="s">&quot;empty&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Factory</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">empty</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">IsEmptyCollection</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In conclusion, I think it is not trivial to write usable generic matchers. Therefore, avoid generics when you don&#8217;t need them!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Experimenting with Theories]]></title>
+    <link href="http://marcphilipp.github.com/blog/2010/02/13/experimenting-with-theories/"/>
+    <updated>2010-02-13T14:04:00+01:00</updated>
+    <id>http://marcphilipp.github.com/blog/2010/02/13/experimenting-with-theories</id>
+    <content type="html"><![CDATA[<p>The very first 4.x release of JUnit contained support for custom test runners. Moreover, it came with the <code>Parameterized</code> test runner that allows to execute the test cases in a test class against a collection of values, i.e. parameters.</p>
+
+<p>The example that comes with the Javadoc of the <code>Parameterized</code> class tests an imaginary Fibonacci calculator for a number of data points:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Parameterized</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciParameterizedTest</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Parameters</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">[]&gt;</span> <span class="n">data</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[][]</span> <span class="o">{</span> <span class="o">{</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span> <span class="o">},</span> <span class="o">{</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span> <span class="o">},</span>
+</span><span class='line'>                <span class="o">{</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span> <span class="o">},</span> <span class="o">{</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">2</span> <span class="o">},</span> <span class="o">{</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">3</span> <span class="o">},</span> <span class="o">{</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">5</span> <span class="o">},</span> <span class="o">{</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">8</span> <span class="o">}</span> <span class="o">});</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">input</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">expected</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">FibonacciParameterizedTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">input</span><span class="o">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">input</span> <span class="o">=</span> <span class="n">input</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">expected</span> <span class="o">=</span> <span class="n">expected</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="na">compute</span><span class="o">(</span><span class="n">input</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>JUnit 4.4 introduced Theories. A theory is an abstraction of a concrete test scenario, i.e. while a test specifies the behavior in one particular case, a theory captures more than a single scenario but is usually not as detailed in its assertions.</p>
+
+<p>When using a Parameterized test you usually specify the input along with the expected output. Of course, you can do the same with a theory. However, theories allow for a complete different approach to testing the Fibonacci calculator.</p>
+
+<p>E.g. a simple theory could state that for one of the seeds, i.e. 0 or 1, the same number is returned as result. Another theory could test the recurrence relation, i.e. that <code>Fibonacci(n)</code> always equals <code>Fibonacci(n-1)</code> + <code>Fibonacci(n-2)</code>. In Java this can be written as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Theories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciTheories</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@DataPoints</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">VALUES</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span> <span class="o">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Theory</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeds</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">assumeTrue</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">assertEquals</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Theory</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">recurrence</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">assumeTrue</span><span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">assertEquals</span><span class="o">(</span><span class="n">compute</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">),</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Even shorter yet:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Theories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciTheories</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Theory</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeds</span><span class="o">(</span><span class="nd">@TestedOn</span><span class="o">(</span><span class="n">ints</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span> <span class="o">})</span> <span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">assertEquals</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Theory</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">recurrence</span><span class="o">(</span><span class="nd">@TestedOn</span><span class="o">(</span><span class="n">ints</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span> <span class="o">})</span> <span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">assertEquals</span><span class="o">(</span><span class="n">compute</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">),</span> <span class="n">compute</span><span class="o">(</span><span class="n">n</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, which test is better? Actually, I am still undecided. While theories certainly look more elegant, a parameterized tests states its assumptions more clearly. The answer seems to be, as always: It depends.</p>
 ]]></content>
   </entry>
   

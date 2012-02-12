@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Applying DRY to JUnit Categories - crafting code.</title>
+  <meta name="author" content="Marc Philipp">
+
+  
+  <meta name="description" content="Long awaited, JUnit 4.8 introduced support for categorizing test cases. A category marker is simply a class or interface, e.g. 1
+public interface &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="crafting code." type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">crafting code.</a></h1>
+  
+    <h2>Marc Philipp</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:marcphilipp.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Applying DRY to JUnit Categories</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-13T22:08:00+01:00" pubdate data-updated="true">Mar 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Long awaited, <a href="http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html">JUnit 4.8</a> introduced support for categorizing test cases.</p>
+
+<p>A category marker is simply a class or interface, e.g.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SlowTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tests can be marked using the <code>@Category</code> annotation:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Category</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The annotation works both on methods and classes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Category</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Test</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span> <span class="o">{}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Test suites that include or exclude the <code>SlowTests</code> category are defined by specifying the <code>Categories</code> runner and using the <code>@ExcludeCategory</code> or <code>@IncludeCategory</code> annotation, respectively:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="nd">@ExcludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllFastTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="nd">@IncludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllSlowTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this example, <code>AllFastTests</code> would execute only <code>A.a</code> while <code>AllSlowTests</code> would ignore <code>A.a</code> but run <code>A.b</code> and <code>B.c</code>.</p>
+
+<p>However, there is a major issue in the above suite declarations: they violate the <a href="http://c2.com/cgi/wiki?DontRepeatYourself" title="Don't Repeat Yourself">DRY</a> principle. Both test suites list all test classes in the <code>@SuiteClasses</code> annotation. While it seems feasible to maintain the list of test classes at two locations for a small number of classes, it certainly is not a viable option in a real-world setting, especially when there are multiple categories.</p>
+
+<p>Fortunately, there is a simple solution: use inheritance. You can define the list of test classes once in a normal test suite …</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Suite</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@SuiteClasses</span><span class="o">(</span> <span class="o">{</span> <span class="n">A</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>… and declare subclasses that filter the list of classes by category:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@ExcludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllFastTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Categories</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="nd">@IncludeCategory</span><span class="o">(</span><span class="n">SlowTests</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AllSlowTests</span> <span class="kd">extends</span> <span class="n">AllTests</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Marc Philipp</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-13T22:08:00+01:00" pubdate data-updated="true">Mar 13<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/" data-via="marcphilipp" data-counturl="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/02/16/generic-matcher-pitfalls/" title="Previous Post: Generic Matcher Pitfalls">&laquo; Generic Matcher Pitfalls</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/" title="next Post: Combining SuiteBuilder and ClasspathSuite">Combining SuiteBuilder and ClasspathSuite &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("marcphilipp", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Marc Philipp -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'marcphilipp';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/';
+        var disqus_url = 'http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

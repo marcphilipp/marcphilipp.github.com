@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Primitive Matt(ch)ers? - crafting code.</title>
+  <meta name="author" content="Marc Philipp">
+
+  
+  <meta name="description" content="The Hamcrest project provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="crafting code." type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">crafting code.</a></h1>
+  
+    <h2>Marc Philipp</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:marcphilipp.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Primitive Matt(ch)ers?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-16T20:34:00+01:00" pubdate data-updated="true">Nov 16<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
+
+<h3>How to use them?</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While the above example is simple, it demonstrates one of the benefits of using <code>assertThat()</code> and Hamcrest matchers: assertions become very readable. Unfortunately, you often have to rely on a questionable Java mechanism: auto boxing/unboxing.</p>
+
+<p>Auto boxing and unboxing have been introduced in Java 5 to ease the use of primitive types and their counterparts: <em>real</em> objects (a.k.a. reference types). However, especially unboxing can lead to hidden NullPointerExceptions and thus is discouraged by many developers. For details see <a href="http://pboop.wordpress.com/2010/09/22/autoboxing-is-evil/">Autoboxing is Evil</a> by Nicole Rauch and Andreas Leidig.</p>
+
+<p>For this reason, the Eclipse Java compiler optionally shows warnings whenever boxing or unboxing occurs. While it is certainly a good idea to enable this warning, it also puts markers on code that is perfectly sane, like the test case above. To prevent un-/boxing and use matchers at the same time, one can go back to pre-Java 5 times and convert the
+primitive literals explicitly:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">),</span> <span class="n">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">)));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, this is not readable anymore!</p>
+
+<h3>Why do we need boxing in the first place?</h3>
+
+<p>When using <code>assertThat()</code> we need boxing for two reasons. First, there is no definition of <code>assertThat()</code> for primitive types, only for reference types:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">assertThat</span><span class="o">(</span><span class="n">T</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well, why don&#8217;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">assertThat</span><span class="o">(</span><span class="kt">int</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Java&#8217;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
+
+<h3>Hmm, anything we <em>can</em> do?</h3>
+
+<p>Yes! So how about</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">assertThat</span><span class="o">(</span><span class="kt">int</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">actual</span><span class="o">),</span> <span class="n">matcher</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without using auto boxing, we can now write:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onePlusOneIsTwo</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">)));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That solves half of our problem: We got rid of the first boxing by overloading <code>assertEquals()</code>. However, we still need to explicity convert our <code>int</code> to <code>Integer</code> when calling the matcher factory method. Thus, we also need to overload the <code>is()</code> method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Problem solved! Really? Obviously, it requires a lot of work do define extra matcher factory methods for every combination of primitive type and matcher.</p>
+
+<h3>Solution: generate it!</h3>
+
+<p>Hamcrest already allows to <a href="http://code.google.com/p/hamcrest/wiki/Tutorial#Sugar_generation">generate matcher libraries</a>, i.e. classes that collect all static factory methods for easy access at a single entry point. So, we could simply generate extra methods for every matcher. To stay with the example from above, if we have an
+unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eight overloading methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Byte</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">byte</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Byte</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Short</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">short</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Short</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">long</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">float</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Float</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">is</span><span class="o">(</span><span class="kt">char</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">is</span><span class="o">(</span><span class="n">Character</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A matcher declaration which uses the object representation of a primitive type, e.g. <code>Matcher&lt;Integer&gt;</code>, is a special case that is even more simple. We would only need to generate a single extra method, such as</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Matcher</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">zero</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">zero</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Summing up, it would be great if Hamcrest provided built-in support for primitive types.</p>
+
+<h3>Update</h3>
+
+<p>My proposal was <a href="http://code.google.com/p/hamcrest/issues/detail?id=130">rejected</a> by the Hamcrest maintainers.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Marc Philipp</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-16T20:34:00+01:00" pubdate data-updated="true">Nov 16<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/" data-via="marcphilipp" data-counturl="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/" title="Previous Post: Combining SuiteBuilder and ClasspathSuite">&laquo; Combining SuiteBuilder and ClasspathSuite</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/22/junit-rules/" title="next Post: JUnit Rules">JUnit Rules &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("marcphilipp", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Marc Philipp -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'marcphilipp';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/';
+        var disqus_url = 'http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
