@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Hamcrest | crafting code.]]></title>
-  <link href="http://marcphilipp.github.com/blog/categories/hamcrest/atom.xml" rel="self"/>
-  <link href="http://marcphilipp.github.com/"/>
-  <updated>2012-02-14T20:14:16+01:00</updated>
-  <id>http://marcphilipp.github.com/</id>
+  <link href="http://www.marcphilipp.de/blog/categories/hamcrest/atom.xml" rel="self"/>
+  <link href="http://www.marcphilipp.de/"/>
+  <updated>2012-02-14T20:16:54+01:00</updated>
+  <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/"/>
     <updated>2010-11-16T20:34:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers</id>
+    <id>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers</id>
     <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
 
 <h3>How to use them?</h3>
@@ -182,9 +182,9 @@ Matcher<Integer> zero(int value) {</p>
   
   <entry>
     <title type="html"><![CDATA[Generic Matcher Pitfalls]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls/"/>
     <updated>2010-02-16T22:45:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls</id>
+    <id>http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls</id>
     <content type="html"><![CDATA[<p>Using <a href="http://code.google.com/p/hamcrest/">Hamcrest</a> matchers in combination with <code>assertThat</code> allows for more fluid specification of JUnit assertions.</p>
 
 <p>Recently, while working on the backend of <a href="http://projectusus.org/">Project Usus</a>, we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.</p>

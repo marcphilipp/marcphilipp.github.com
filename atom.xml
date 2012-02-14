@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[crafting code.]]></title>
-  <link href="http://marcphilipp.github.com/atom.xml" rel="self"/>
-  <link href="http://marcphilipp.github.com/"/>
-  <updated>2012-02-14T20:14:16+01:00</updated>
-  <id>http://marcphilipp.github.com/</id>
+  <link href="http://www.marcphilipp.de/atom.xml" rel="self"/>
+  <link href="http://www.marcphilipp.de/"/>
+  <updated>2012-02-14T20:16:54+01:00</updated>
+  <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[JUnit Rules]]></title>
-    <link href="http://marcphilipp.github.com/blog/2011/12/22/junit-rules/"/>
+    <link href="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/"/>
     <updated>2011-12-22T14:24:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2011/12/22/junit-rules</id>
+    <id>http://www.marcphilipp.de/blog/2011/12/22/junit-rules</id>
     <content type="html"><![CDATA[<p>Marc Philipp, andrena objects ag<br/>
 Stefan Birkner, Immobilien Scout GmbH<br/>
 <em>Erschienen in Java aktuell, 1/2012, dem Magazin der <a href="http://www.ijug.eu/">iJUG</a>.</em></p>
@@ -614,9 +614,9 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
   
   <entry>
     <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/"/>
     <updated>2010-11-16T20:34:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/11/16/primitive-matt-ch-ers</id>
+    <id>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers</id>
     <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
 
 <h3>How to use them?</h3>
@@ -786,9 +786,9 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   
   <entry>
     <title type="html"><![CDATA[Combining SuiteBuilder and ClasspathSuite]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
     <updated>2010-05-13T13:05:00+02:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
+    <id>http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
     <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &#8220;alpha-ready implementation of <code>SuiteBuilder</code>&#8221;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
 
 <h3>Limitations of regular test suites</h3>
@@ -829,7 +829,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>However, the <code>ClasspathSuite</code> does not support JUnit&#8217;s categories as mentioned in an <a href="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
+<p>However, the <code>ClasspathSuite</code> does not support JUnit&#8217;s categories as mentioned in an <a href="http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
 
 <h3>Introducing SuiteBuilder</h3>
 
@@ -931,9 +931,9 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   
   <entry>
     <title type="html"><![CDATA[Applying DRY to JUnit Categories]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories/"/>
     <updated>2010-03-13T22:08:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/03/13/applying-dry-to-junit-categories</id>
+    <id>http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories</id>
     <content type="html"><![CDATA[<p>Long awaited, <a href="http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html">JUnit 4.8</a> introduced support for categorizing test cases.</p>
 
 <p>A category marker is simply a class or interface, e.g.</p>
@@ -1040,9 +1040,9 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   
   <entry>
     <title type="html"><![CDATA[Generic Matcher Pitfalls]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls/"/>
     <updated>2010-02-16T22:45:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/02/16/generic-matcher-pitfalls</id>
+    <id>http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls</id>
     <content type="html"><![CDATA[<p>Using <a href="http://code.google.com/p/hamcrest/">Hamcrest</a> matchers in combination with <code>assertThat</code> allows for more fluid specification of JUnit assertions.</p>
 
 <p>Recently, while working on the backend of <a href="http://projectusus.org/">Project Usus</a>, we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.</p>
@@ -1137,9 +1137,9 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   
   <entry>
     <title type="html"><![CDATA[Experimenting with Theories]]></title>
-    <link href="http://marcphilipp.github.com/blog/2010/02/13/experimenting-with-theories/"/>
+    <link href="http://www.marcphilipp.de/blog/2010/02/13/experimenting-with-theories/"/>
     <updated>2010-02-13T14:04:00+01:00</updated>
-    <id>http://marcphilipp.github.com/blog/2010/02/13/experimenting-with-theories</id>
+    <id>http://www.marcphilipp.de/blog/2010/02/13/experimenting-with-theories</id>
     <content type="html"><![CDATA[<p>The very first 4.x release of JUnit contained support for custom test runners. Moreover, it came with the <code>Parameterized</code> test runner that allows to execute the test cases in a test class against a collection of values, i.e. parameters.</p>
 
 <p>The example that comes with the Javadoc of the <code>Parameterized</code> class tests an imaginary Fibonacci calculator for a number of data points:</p>
