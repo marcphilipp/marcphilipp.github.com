@@ -4,7 +4,7 @@
   <title><![CDATA[crafting code.]]></title>
   <link href="http://www.marcphilipp.de/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2012-02-15T22:25:14+01:00</updated>
+  <updated>2012-03-13T21:34:14+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -12,6 +12,271 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Database Tests With DbUnit (Part 1)]]></title>
+    <link href="http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1/"/>
+    <updated>2012-03-13T21:00:00+01:00</updated>
+    <id>http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1</id>
+    <content type="html"><![CDATA[<p>Inspired by a recent <a href="http://blog.schauderhaft.de/2012/01/15/tipps-for-testing-database-code/">blog post</a> and <a href="http://www.sigs-datacom.de/oop2012/konferenz/sessiondetails.html?tx_mwconferences_pi1%5BshowUid%5D=752&amp;tx_mwconferences_pi1%5Banchor%5D=%23Mi64&amp;tx_mwconferences_pi1%5Bs%5D=0">presentation</a> by <a href="http://blog.schauderhaft.de/uber-jens-schauder/">Jens Schauder</a>, this blog posts starts a series of posts about using <a href="http://www.dbunit.org/">DbUnit</a> for database and integration tests. In addition, I will talk about <a href="http://www.andrena.de/veranstaltungen/datenbanktests-mit-dbunit">Database Tests with DbUnit</a> at ObjektForum Karlsruhe in April. This first post introduces DbUnit and demonstrates how it can be used to write database tests.</p>
+
+<!--more-->
+
+
+<p>For tests that use a database it is crucial to be able to set up the database to a known state before each test run. Otherwise such tests tend to be very fragile and will require a lot of manual care to keep them green over time as they will often fail due to different database contents.</p>
+
+<p>Suppose we want to test a class called <code>PersonRepository</code> that loads instances of <code>Person</code> from the database. For example, the method <code>findPersonByFirstName</code> should load the (first) person with a specified first name. How can we test this method? Our first test might look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">findsAndReadsExistingPersonByFirstName</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">PersonRepository</span> <span class="n">repository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PersonRepository</span><span class="o">(</span><span class="n">dataSource</span><span class="o">());</span>
+</span><span class='line'>  <span class="n">Person</span> <span class="n">charlie</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findPersonByFirstName</span><span class="o">(</span><span class="s">&quot;Charlie&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;Charlie&quot;</span><span class="o">));</span>
+</span><span class='line'>  <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getLastName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;Brown&quot;</span><span class="o">));</span>
+</span><span class='line'>  <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">42</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called &#8220;Charlie&#8221; before we can call  <code>findPersonByFirstName</code> and check the result.</p>
+
+<h2>Importing a dataset into the database</h2>
+
+<p>DbUnit offers a useful approach to solving this problem, e.g. it allows to cleanly insert a data set required by a test into the database. Usually, such a data set is specified in a separate XML file, like this:</p>
+
+<figure class='code'><figcaption><span>dataset.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dataset&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Bob&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Doe&quot;</span> <span class="na">AGE=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Alice&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Foo&quot;</span> <span class="na">AGE=</span><span class="s">&quot;23&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Charlie&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Brown&quot;</span> <span class="na">AGE=</span><span class="s">&quot;42&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dataset&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This simple dataset contains three rows of the <code>PERSON</code> table which has three columns, namely <code>NAME</code>, <code>LAST_NAME</code>, and <code>AGE</code>.</p>
+
+<p>DbUnit can then read the file into an <code>IDataSet</code> like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">IDataSet</span> <span class="nf">readDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nf">FlatXmlDataSetBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;dataset.xml&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we tell DbUnit to load our <code>IDataSet</code> into the database. In this example, we use an in-memory instance of <a href="http://www.h2database.com/">H2</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanlyInsertDataset</span><span class="o">(</span><span class="n">IDataSet</span> <span class="n">dataSet</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">IDatabaseTester</span> <span class="n">databaseTester</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JdbcDatabaseTester</span><span class="o">(</span>
+</span><span class='line'>      <span class="s">&quot;org.h2.Driver&quot;</span><span class="o">,</span> <span class="s">&quot;jdbc:h2:mem:test;DB_CLOSE_DELAY=-1&quot;</span><span class="o">,</span> <span class="s">&quot;sa&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="n">databaseTester</span><span class="o">.</span><span class="na">setSetUpOperation</span><span class="o">(</span><span class="n">DatabaseOperation</span><span class="o">.</span><span class="na">CLEAN_INSERT</span><span class="o">);</span>
+</span><span class='line'>  <span class="n">databaseTester</span><span class="o">.</span><span class="na">setDataSet</span><span class="o">(</span><span class="n">dataSet</span><span class="o">);</span>
+</span><span class='line'>  <span class="n">databaseTester</span><span class="o">.</span><span class="na">onSetup</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>CLEAN_INSERT</code> operation instructs DbUnit to delete all rows from the <code>PERSON</code> table and then insert the rows from our dataset into the database. In our test class, we will import the dataset before each test case using the <code>@Before</code> annotation of JUnit:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Before</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">importDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">IDataSet</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="n">readDataSet</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">cleanlyInsertDataset</span><span class="o">(</span><span class="n">dataSet</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Creating the database schema</h2>
+
+<p>However, before we can load the dataset into the database, we have to ensure that the database schema has been created. Since we are using a non-persistent H2 instance we can simply create the schema before running our first test case. In JUnit, this can be achieved using the <code>@BeforeClass</code> annotation like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@BeforeClass</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">createSchema</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">RunScript</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="s">&quot;jdbc:h2:mem:test;DB_CLOSE_DELAY=-1&quot;</span><span class="o">,</span>
+</span><span class='line'>                    <span class="s">&quot;sa&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;schema.sql&quot;</span><span class="o">,</span> <span class="n">UTF8</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>RunScript</code> is an utility class provided by H2 that executes the specified SQL file against the specified database. Other databases provide similiar mechanisms to execute SQL files. In our case, the <code>schema.sql</code> file looks like this:</p>
+
+<figure class='code'><figcaption><span>schema.sql </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">create</span> <span class="k">table</span> <span class="n">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="n">PERSON</span> <span class="p">(</span>
+</span><span class='line'>  <span class="n">ID</span> <span class="nb">int</span> <span class="k">identity</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">NAME</span> <span class="nb">varchar</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">LAST_NAME</span> <span class="nb">varchar</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">AGE</span>  <span class="nb">smallint</span><span class="p">,</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Putting the pieces together</h2>
+
+<p>Our test setup is complete. First, we create the database schema. Second, we import three rows from <code>dataset.xml</code> into the <code>PERSON</code> table. Third, we run our test case.</p>
+
+<p>Here are all the bits and pieces put together:</p>
+
+<figure class='code'><figcaption><span>XmlDatabaseTest.java </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">XmlDatabaseTest</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">JDBC_DRIVER</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="na">h2</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">JDBC_URL</span> <span class="o">=</span> <span class="s">&quot;jdbc:h2:mem:test;DB_CLOSE_DELAY=-1&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USER</span> <span class="o">=</span> <span class="s">&quot;sa&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@BeforeClass</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">createSchema</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">RunScript</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">JDBC_URL</span><span class="o">,</span> <span class="n">USER</span><span class="o">,</span> <span class="n">PASSWORD</span><span class="o">,</span> <span class="s">&quot;schema.sql&quot;</span><span class="o">,</span> <span class="n">UTF8</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Before</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">importDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">IDataSet</span> <span class="n">dataSet</span> <span class="o">=</span> <span class="n">readDataSet</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">cleanlyInsert</span><span class="o">(</span><span class="n">dataSet</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">IDataSet</span> <span class="nf">readDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">new</span> <span class="nf">FlatXmlDataSetBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;dataset.xml&quot;</span><span class="o">));</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanlyInsert</span><span class="o">(</span><span class="n">IDataSet</span> <span class="n">dataSet</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">IDatabaseTester</span> <span class="n">databaseTester</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JdbcDatabaseTester</span><span class="o">(</span><span class="n">JDBC_DRIVER</span><span class="o">,</span> <span class="n">JDBC_URL</span><span class="o">,</span> <span class="n">USER</span><span class="o">,</span> <span class="n">PASSWORD</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">databaseTester</span><span class="o">.</span><span class="na">setSetUpOperation</span><span class="o">(</span><span class="n">DatabaseOperation</span><span class="o">.</span><span class="na">CLEAN_INSERT</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">databaseTester</span><span class="o">.</span><span class="na">setDataSet</span><span class="o">(</span><span class="n">dataSet</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">databaseTester</span><span class="o">.</span><span class="na">onSetup</span><span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Test</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findsAndReadsExistingPersonByFirstName</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">PersonRepository</span> <span class="n">repository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PersonRepository</span><span class="o">(</span><span class="n">dataSource</span><span class="o">());</span>
+</span><span class='line'>      <span class="n">Person</span> <span class="n">charlie</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findPersonByFirstName</span><span class="o">(</span><span class="s">&quot;Charlie&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;Charlie&quot;</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getLastName</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">&quot;Brown&quot;</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">assertThat</span><span class="o">(</span><span class="n">charlie</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">42</span><span class="o">));</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Test</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">returnsNullWhenPersonCannotBeFoundByFirstName</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">PersonRepository</span> <span class="n">repository</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PersonRepository</span><span class="o">(</span><span class="n">dataSource</span><span class="o">());</span>
+</span><span class='line'>      <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findPersonByFirstName</span><span class="o">(</span><span class="s">&quot;iDoNotExist&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">assertThat</span><span class="o">(</span><span class="n">person</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">nullValue</span><span class="o">()));</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">JdbcDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JdbcDataSource</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">dataSource</span><span class="o">.</span><span class="na">setURL</span><span class="o">(</span><span class="n">JDBC_URL</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">dataSource</span><span class="o">.</span><span class="na">setUser</span><span class="o">(</span><span class="n">USER</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">dataSource</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">PASSWORD</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">dataSource</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course, there&#8217;s still some room for improvement. For example, <code>createSchema()</code>, <code>cleanlyInsert()</code>, and <code>dataSource()</code> have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;-)</p>
+
+<h2>What&#8217;s next?</h2>
+
+<p>In the next post, we will see how the test data (now hidden away in <code>dataset.xml</code>) can be moved into the test code. Stay tuned!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JUnit Rules]]></title>
