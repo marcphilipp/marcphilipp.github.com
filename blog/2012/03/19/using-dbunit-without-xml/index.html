@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using DbUnit Without XML - crafting code.</title>
+  <meta name="author" content="Marc Philipp">
+
+  
+  <meta name="description" content="In the previous post we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/marcphilipp" rel="alternate" title="crafting code." type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">crafting code.</a></h1>
+  
+    <h2>Marc Philipp</h2>
+  
+  <a href="http://github.com/marcphilipp"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/marcphilipp" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.marcphilipp.de" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using DbUnit Without XML</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-19T21:00:00+01:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
+
+<figure class='code'><figcaption><span>dataset.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dataset&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Bob&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Doe&quot;</span> <span class="na">AGE=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Alice&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Foo&quot;</span> <span class="na">AGE=</span><span class="s">&quot;23&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Charlie&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Brown&quot;</span> <span class="na">AGE=</span><span class="s">&quot;42&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dataset&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you can think about XML what you want but I (and hopefully most people) would rather not want to write such files but instead create the dataset directly in the code of the test class. As it turns out, this is very hard using plain DbUnit.</p>
+
+<h2>DataSetBuilder to the rescue</h2>
+
+<p>So, I thought, wouldn&#8217;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+
+<!--more-->
+
+
+<p>Here&#8217;s how it can be used to replace the <code>dataset.xml</code> file from above:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">IDataSet</span> <span class="nf">buildDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">DataSetException</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">DataSetBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataSetBuilder</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Bob&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;LAST_NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Doe&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;AGE&quot;</span><span class="o">,</span> <span class="mi">18</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Alice&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;LAST_NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;AGE&quot;</span><span class="o">,</span> <span class="mi">23</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Charlie&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;LAST_NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Brown&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;AGE&quot;</span><span class="o">,</span> <span class="mi">42</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lots of strings you might say. That&#8217;s what I thought as well. In addition, it&#8217;s not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there&#8217;s the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
+
+<p>Using a <code>ColumnSpec</code> the first row in the previous example can be written as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">ColumnSpec</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="n">ColumnSpec</span><span class="o">.</span><span class="na">newColumn</span><span class="o">(</span><span class="s">&quot;AGE&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Bob&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="s">&quot;LAST_NAME&quot;</span><span class="o">,</span> <span class="s">&quot;Doe&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">age</span><span class="o">,</span> <span class="mi">18</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, inserting a string into the age column would cause a compile error:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// compile error: method with(...) not applicable for the arguments (ColumnSpec&lt;Integer&gt;, String)</span>
+</span><span class='line'><span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">age</span><span class="o">,</span> <span class="s">&quot;18&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can extract constants for the <code>ColumnSpec</code> instances and collect them in a class per table to be shared and used by all your database tests:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">PersonTable</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kd">static</span> <span class="kd">final</span> <span class="n">ColumnSpec</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">NAME</span> <span class="o">=</span> <span class="n">newColumn</span><span class="o">(</span><span class="s">&quot;NAME&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="kd">static</span> <span class="kd">final</span> <span class="n">ColumnSpec</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">LAST_NAME</span> <span class="o">=</span> <span class="n">newColumn</span><span class="o">(</span><span class="s">&quot;LAST_NAME&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="kd">static</span> <span class="kd">final</span> <span class="n">ColumnSpec</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">AGE</span> <span class="o">=</span> <span class="n">newColumn</span><span class="o">(</span><span class="s">&quot;AGE&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After the refactoring, our <code>buildDataSet</code> method looks like this (using static imports for the constants):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">IDataSet</span> <span class="nf">buildDataSet</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">DataSetException</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">DataSetBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataSetBuilder</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="s">&quot;Bob&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">LAST_NAME</span><span class="o">,</span> <span class="s">&quot;Doe&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">AGE</span><span class="o">,</span> <span class="mi">18</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="s">&quot;Alice&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">LAST_NAME</span><span class="o">,</span> <span class="s">&quot;Foo&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">AGE</span><span class="o">,</span> <span class="mi">23</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">builder</span><span class="o">.</span><span class="na">newRow</span><span class="o">(</span><span class="s">&quot;PERSON&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">NAME</span><span class="o">,</span> <span class="s">&quot;Charlie&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">LAST_NAME</span><span class="o">,</span> <span class="s">&quot;Brown&quot;</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">AGE</span><span class="o">,</span> <span class="mi">42</span><span class="o">).</span><span class="na">add</span><span class="o">();</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files&#8230;</p>
+
+<p>To sum up, this post has shown how DbUnit can be used without maintaining XML files. Instead, the datasets are build directly in the test code.</p>
+
+<h2>What&#8217;s next?</h2>
+
+<p>In the next post of this series on database tests with DbUnit, we will explore how our database tests can be made even more robust against changes of the database schema such as adding or removing a column.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Marc Philipp</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-19T21:00:00+01:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dbunit/'>DbUnit</a>, <a class='category' href='/blog/categories/junit/'>JUnit</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/" data-via="marcphilipp" data-counturl="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/13/database-tests-with-dbunit-part-1/" title="Previous Post: Database Tests With DbUnit (Part 1)">&laquo; Database Tests With DbUnit (Part 1)</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("marcphilipp", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Marc Philipp -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'marcphilipp';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/';
+        var disqus_url = 'http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

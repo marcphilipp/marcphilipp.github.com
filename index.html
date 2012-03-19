@@ -9,7 +9,7 @@
   <meta name="author" content="Marc Philipp">
 
   
-  <meta name="description" content="Inspired by a recent blog post and presentation by Jens Schauder, this blog posts starts a series of posts about using DbUnit for database and &hellip;">
+  <meta name="description" content="In the previous post we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/19/using-dbunit-without-xml/">Using DbUnit Without XML</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-19T21:00:00+01:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
+
+<figure class='code'><figcaption><span>dataset.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dataset&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Bob&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Doe&quot;</span> <span class="na">AGE=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Alice&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Foo&quot;</span> <span class="na">AGE=</span><span class="s">&quot;23&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Charlie&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Brown&quot;</span> <span class="na">AGE=</span><span class="s">&quot;42&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dataset&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you can think about XML what you want but I (and hopefully most people) would rather not want to write such files but instead create the dataset directly in the code of the test class. As it turns out, this is very hard using plain DbUnit.</p>
+
+<h2>DataSetBuilder to the rescue</h2>
+
+<p>So, I thought, wouldn&#8217;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/19/using-dbunit-without-xml/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>

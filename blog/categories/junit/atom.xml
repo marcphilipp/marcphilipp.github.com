@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JUnit | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/junit/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2012-03-19T20:18:08+01:00</updated>
+  <updated>2012-03-19T21:58:03+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -12,6 +12,104 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using DbUnit Without XML]]></title>
+    <link href="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/"/>
+    <updated>2012-03-19T21:00:00+01:00</updated>
+    <id>http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml</id>
+    <content type="html"><![CDATA[<p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dataset.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;dataset&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Bob&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Doe&quot;</span> <span class="na">AGE=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Alice&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Foo&quot;</span> <span class="na">AGE=</span><span class="s">&quot;23&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PERSON</span> <span class="na">NAME=</span><span class="s">&quot;Charlie&quot;</span> <span class="na">LAST_NAME=</span><span class="s">&quot;Brown&quot;</span> <span class="na">AGE=</span><span class="s">&quot;42&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dataset&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, you can think about XML what you want but I (and hopefully most people) would rather not want to write such files but instead create the dataset directly in the code of the test class. As it turns out, this is very hard using plain DbUnit.</p>
+
+<h2>DataSetBuilder to the rescue</h2>
+
+<p>So, I thought, wouldn't it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+
+<!--more-->
+
+
+<p>Here's how it can be used to replace the <code>dataset.xml</code> file from above:</p>
+
+<p>```java
+IDataSet buildDataSet() throws DataSetException {</p>
+
+<pre><code>DataSetBuilder builder = new DataSetBuilder();
+builder.newRow("PERSON").with("NAME", "Bob").with("LAST_NAME", "Doe").with("AGE", 18).add();
+builder.newRow("PERSON").with("NAME", "Alice").with("LAST_NAME", "Foo").with("AGE", 23).add();
+builder.newRow("PERSON").with("NAME", "Charlie").with("LAST_NAME", "Brown").with("AGE", 42).add();
+return builder.build();
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Lots of strings you might say. That's what I thought as well. In addition, it's not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there's the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
+
+<p>Using a <code>ColumnSpec</code> the first row in the previous example can be written as:</p>
+
+<p><code>java
+ColumnSpec&lt;Integer&gt; age = ColumnSpec.newColumn("AGE");
+builder.newRow("PERSON").with("NAME", "Bob").with("LAST_NAME", "Doe").with(age, 18).add();
+</code></p>
+
+<p>Now, inserting a string into the age column would cause a compile error:</p>
+
+<p><code>java
+// compile error: method with(...) not applicable for the arguments (ColumnSpec&lt;Integer&gt;, String)
+builder.newRow("PERSON").with(age, "18");
+</code></p>
+
+<p>You can extract constants for the <code>ColumnSpec</code> instances and collect them in a class per table to be shared and used by all your database tests:</p>
+
+<p>```java
+class PersonTable {</p>
+
+<pre><code>static final ColumnSpec&lt;String&gt; NAME = newColumn("NAME");
+static final ColumnSpec&lt;String&gt; LAST_NAME = newColumn("LAST_NAME");
+static final ColumnSpec&lt;Integer&gt; AGE = newColumn("AGE");
+</code></pre>
+
+<p>}
+```</p>
+
+<p>After the refactoring, our <code>buildDataSet</code> method looks like this (using static imports for the constants):</p>
+
+<p>```java
+IDataSet buildDataSet() throws DataSetException {</p>
+
+<pre><code>DataSetBuilder builder = new DataSetBuilder();
+builder.newRow("PERSON").with(NAME, "Bob").with(LAST_NAME, "Doe").with(AGE, 18).add();
+builder.newRow("PERSON").with(NAME, "Alice").with(LAST_NAME, "Foo").with(AGE, 23).add();
+builder.newRow("PERSON").with(NAME, "Charlie").with(LAST_NAME, "Brown").with(AGE, 42).add();
+return builder.build();
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files...</p>
+
+<p>To sum up, this post has shown how DbUnit can be used without maintaining XML files. Instead, the datasets are build directly in the test code.</p>
+
+<h2>What's next?</h2>
+
+<p>In the next post of this series on database tests with DbUnit, we will explore how our database tests can be made even more robust against changes of the database schema such as adding or removing a column.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Database Tests With DbUnit (Part 1)]]></title>
@@ -977,88 +1075,6 @@ public CategoryFilter filter = CategoryFilter.include(Yes.class);
 <h3>Update</h3>
 
 <p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit... In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Applying DRY to JUnit Categories]]></title>
-    <link href="http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories/"/>
-    <updated>2010-03-13T22:08:00+01:00</updated>
-    <id>http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories</id>
-    <content type="html"><![CDATA[<p>Long awaited, <a href="http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html">JUnit 4.8</a> introduced support for categorizing test cases.</p>
-
-<p>A category marker is simply a class or interface, e.g.</p>
-
-<p><code>java
-public interface SlowTests {}
-</code></p>
-
-<p>Tests can be marked using the <code>@Category</code> annotation:</p>
-
-<p>```java
-public class A {</p>
-
-<pre><code>@Test
-public void a() {}
-
-@Category(SlowTests.class)
-@Test
-public void b() {}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>The annotation works both on methods and classes:</p>
-
-<p>```java
-@Category(SlowTests.class)
-public class B {</p>
-
-<pre><code>@Test
-public void c() {}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>Test suites that include or exclude the <code>SlowTests</code> category are defined by specifying the <code>Categories</code> runner and using the <code>@ExcludeCategory</code> or <code>@IncludeCategory</code> annotation, respectively:</p>
-
-<p>```java
-@RunWith(Categories.class)
-@SuiteClasses( { A.class, B.class })
-@ExcludeCategory(SlowTests.class)
-public class AllFastTests extends AllTests {}</p>
-
-<p>@RunWith(Categories.class)
-@SuiteClasses( { A.class, B.class })
-@IncludeCategory(SlowTests.class)
-public class AllSlowTests extends AllTests {}
-```</p>
-
-<p>In this example, <code>AllFastTests</code> would execute only <code>A.a</code> while <code>AllSlowTests</code> would ignore <code>A.a</code> but run <code>A.b</code> and <code>B.c</code>.</p>
-
-<p>However, there is a major issue in the above suite declarations: they violate the <a href="http://c2.com/cgi/wiki?DontRepeatYourself" title="Don't Repeat Yourself">DRY</a> principle. Both test suites list all test classes in the <code>@SuiteClasses</code> annotation. While it seems feasible to maintain the list of test classes at two locations for a small number of classes, it certainly is not a viable option in a real-world setting, especially when there are multiple categories.</p>
-
-<p>Fortunately, there is a simple solution: use inheritance. You can define the list of test classes once in a normal test suite …</p>
-
-<p><code>java
-@RunWith(Suite.class)
-@SuiteClasses( { A.class, B.class })
-public class AllTests {}
-</code></p>
-
-<p>… and declare subclasses that filter the list of classes by category:</p>
-
-<p>```java
-@RunWith(Categories.class)
-@ExcludeCategory(SlowTests.class)
-public class AllFastTests extends AllTests {}</p>
-
-<p>@RunWith(Categories.class)
-@IncludeCategory(SlowTests.class)
-public class AllSlowTests extends AllTests {}
-```</p>
 ]]></content>
   </entry>
   
