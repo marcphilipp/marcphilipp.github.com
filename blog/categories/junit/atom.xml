@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JUnit | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/junit/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2012-06-11T21:44:07-07:00</updated>
+  <updated>2012-06-23T12:59:32+02:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Using DbUnit Without XML]]></title>
     <link href="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/"/>
-    <updated>2012-03-19T21:00:00-07:00</updated>
+    <updated>2012-03-19T21:00:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml</id>
     <content type="html"><![CDATA[<p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
 
@@ -114,7 +114,7 @@ return builder.build();
   <entry>
     <title type="html"><![CDATA[Database Tests With DbUnit (Part 1)]]></title>
     <link href="http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1/"/>
-    <updated>2012-03-13T21:00:00-07:00</updated>
+    <updated>2012-03-13T21:00:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1</id>
     <content type="html"><![CDATA[<p>Inspired by a recent <a href="http://blog.schauderhaft.de/2012/01/15/tipps-for-testing-database-code/">blog post</a> and <a href="http://www.sigs-datacom.de/oop2012/konferenz/sessiondetails.html?tx_mwconferences_pi1%5BshowUid%5D=752&amp;tx_mwconferences_pi1%5Banchor%5D=%23Mi64&amp;tx_mwconferences_pi1%5Bs%5D=0">presentation</a> by <a href="http://blog.schauderhaft.de/uber-jens-schauder/">Jens Schauder</a>, this blog posts starts a series of posts about using <a href="http://www.dbunit.org/">DbUnit</a> for database and integration tests. In addition, I will talk about <a href="http://www.andrena.de/veranstaltungen/datenbanktests-mit-dbunit">Database Tests with DbUnit</a> at ObjektForum Karlsruhe in April. This first post introduces DbUnit and demonstrates how it can be used to write database tests.</p>
 
@@ -372,7 +372,7 @@ public static void createSchema() throws Exception {</p>
   <entry>
     <title type="html"><![CDATA[JUnit Rules]]></title>
     <link href="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/"/>
-    <updated>2011-12-22T14:24:00-08:00</updated>
+    <updated>2011-12-22T14:24:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2011/12/22/junit-rules</id>
     <content type="html"><![CDATA[<p>Marc Philipp, andrena objects ag<br/>
 Stefan Birkner, Immobilien Scout GmbH<br/>
@@ -798,7 +798,7 @@ finished outer rule
   <entry>
     <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/"/>
-    <updated>2010-11-16T20:34:00-08:00</updated>
+    <updated>2010-11-16T20:34:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers</id>
     <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
 
@@ -965,7 +965,7 @@ Matcher<Integer> zero(int value) {</p>
   <entry>
     <title type="html"><![CDATA[Combining SuiteBuilder and ClasspathSuite]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
-    <updated>2010-05-13T13:05:00-07:00</updated>
+    <updated>2010-05-13T13:05:00+02:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
     <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an "alpha-ready implementation of <code>SuiteBuilder</code>". As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
 

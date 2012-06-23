@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hamcrest | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/hamcrest/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2012-06-11T21:44:07-07:00</updated>
+  <updated>2012-06-23T12:59:32+02:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/"/>
-    <updated>2010-11-16T20:34:00-08:00</updated>
+    <updated>2010-11-16T20:34:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers</id>
     <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
 
@@ -183,7 +183,7 @@ Matcher<Integer> zero(int value) {</p>
   <entry>
     <title type="html"><![CDATA[Generic Matcher Pitfalls]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls/"/>
-    <updated>2010-02-16T22:45:00-08:00</updated>
+    <updated>2010-02-16T22:45:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls</id>
     <content type="html"><![CDATA[<p>Using <a href="http://code.google.com/p/hamcrest/">Hamcrest</a> matchers in combination with <code>assertThat</code> allows for more fluid specification of JUnit assertions.</p>
 

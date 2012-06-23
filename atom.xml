@@ -4,7 +4,7 @@
   <title><![CDATA[crafting code.]]></title>
   <link href="http://www.marcphilipp.de/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2012-06-11T21:44:07-07:00</updated>
+  <updated>2012-06-23T12:59:32+02:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Interview with Uncle Bob]]></title>
     <link href="http://www.marcphilipp.de/blog/2012/06/11/interview-with-uncle-bob/"/>
-    <updated>2012-06-11T21:25:00-07:00</updated>
+    <updated>2012-06-11T21:25:00+02:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/06/11/interview-with-uncle-bob</id>
     <content type="html"><![CDATA[<p>A couple of weeks ago I had the pleasure to participate in <a href="http://www.twitter.com/unclebobmartin">Uncle Bob</a>&#8217;s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with <a href="www.susann-mathis.de">Susann Mathis</a> on Software Craftsmanship and professionalism in software development.</p>
 
@@ -30,7 +30,7 @@
   <entry>
     <title type="html"><![CDATA[Using DbUnit Without XML]]></title>
     <link href="http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/"/>
-    <updated>2012-03-19T21:00:00-07:00</updated>
+    <updated>2012-03-19T21:00:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml</id>
     <content type="html"><![CDATA[<p>In the <a href="http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
 
@@ -143,7 +143,7 @@
   <entry>
     <title type="html"><![CDATA[Database Tests With DbUnit (Part 1)]]></title>
     <link href="http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1/"/>
-    <updated>2012-03-13T21:00:00-07:00</updated>
+    <updated>2012-03-13T21:00:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1</id>
     <content type="html"><![CDATA[<p>Inspired by a recent <a href="http://blog.schauderhaft.de/2012/01/15/tipps-for-testing-database-code/">blog post</a> and <a href="http://www.sigs-datacom.de/oop2012/konferenz/sessiondetails.html?tx_mwconferences_pi1%5BshowUid%5D=752&amp;tx_mwconferences_pi1%5Banchor%5D=%23Mi64&amp;tx_mwconferences_pi1%5Bs%5D=0">presentation</a> by <a href="http://blog.schauderhaft.de/uber-jens-schauder/">Jens Schauder</a>, this blog posts starts a series of posts about using <a href="http://www.dbunit.org/">DbUnit</a> for database and integration tests. In addition, I will talk about <a href="http://www.andrena.de/veranstaltungen/datenbanktests-mit-dbunit">Database Tests with DbUnit</a> at ObjektForum Karlsruhe in April. This first post introduces DbUnit and demonstrates how it can be used to write database tests.</p>
 
@@ -408,7 +408,7 @@
   <entry>
     <title type="html"><![CDATA[JUnit Rules]]></title>
     <link href="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/"/>
-    <updated>2011-12-22T14:24:00-08:00</updated>
+    <updated>2011-12-22T14:24:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2011/12/22/junit-rules</id>
     <content type="html"><![CDATA[<p>Marc Philipp, andrena objects ag<br/>
 Stefan Birkner, Immobilien Scout GmbH<br/>
@@ -1007,7 +1007,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
   <entry>
     <title type="html"><![CDATA[Primitive Matt(ch)ers?]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/"/>
-    <updated>2010-11-16T20:34:00-08:00</updated>
+    <updated>2010-11-16T20:34:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers</id>
     <content type="html"><![CDATA[<p>The <a href="http://code.google.com/p/hamcrest/">Hamcrest project</a> provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.</p>
 
@@ -1179,7 +1179,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   <entry>
     <title type="html"><![CDATA[Combining SuiteBuilder and ClasspathSuite]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
-    <updated>2010-05-13T13:05:00-07:00</updated>
+    <updated>2010-05-13T13:05:00+02:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
     <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &#8220;alpha-ready implementation of <code>SuiteBuilder</code>&#8221;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
 
@@ -1324,7 +1324,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   <entry>
     <title type="html"><![CDATA[Applying DRY to JUnit Categories]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories/"/>
-    <updated>2010-03-13T22:08:00-08:00</updated>
+    <updated>2010-03-13T22:08:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories</id>
     <content type="html"><![CDATA[<p>Long awaited, <a href="http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html">JUnit 4.8</a> introduced support for categorizing test cases.</p>
 
@@ -1433,7 +1433,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   <entry>
     <title type="html"><![CDATA[Generic Matcher Pitfalls]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls/"/>
-    <updated>2010-02-16T22:45:00-08:00</updated>
+    <updated>2010-02-16T22:45:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls</id>
     <content type="html"><![CDATA[<p>Using <a href="http://code.google.com/p/hamcrest/">Hamcrest</a> matchers in combination with <code>assertThat</code> allows for more fluid specification of JUnit assertions.</p>
 
@@ -1530,7 +1530,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   <entry>
     <title type="html"><![CDATA[Experimenting with Theories]]></title>
     <link href="http://www.marcphilipp.de/blog/2010/02/13/experimenting-with-theories/"/>
-    <updated>2010-02-13T14:04:00-08:00</updated>
+    <updated>2010-02-13T14:04:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/02/13/experimenting-with-theories</id>
     <content type="html"><![CDATA[<p>The very first 4.x release of JUnit contained support for custom test runners. Moreover, it came with the <code>Parameterized</code> test runner that allows to execute the test cases in a test class against a collection of values, i.e. parameters.</p>
 
