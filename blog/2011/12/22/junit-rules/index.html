@@ -20,13 +20,14 @@ Erschienen in Java aktuell, 1/2012, dem Magazin der iJUG. Automatisierte Tests &
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/">
+  <link rel="canonical" href="http://www.marcphilipp.de/blog/2011/12/22/junit-rules">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="http://feeds.feedburner.com/marcphilipp" rel="alternate" title="crafting code." type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -61,6 +62,7 @@ Erschienen in Java aktuell, 1/2012, dem Magazin der iJUG. Automatisierte Tests &
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About Me</a></li>
 </ul>
 
 </nav>
@@ -109,7 +111,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
 
 <p>Die Wahrnehmung in der Java-Entwicklergemeinde ist dementsprechend: Da JUnit so einfach ist, meint jeder, der es schon einmal benutzt hat, es gut zu kennen. Das ist einerseits gut, denn die Hürde Unittests zu schreiben ist so sehr niedrig. Andererseits führt es dazu, dass Neuerungen von vielen Entwicklern gar nicht oder erst verzögert wahrgenommen werden. Fragt man Entwicklerkollegen nach Neuerungen in JUnit, wird häufig die Umstellung von Vererbung auf Annotations-basierte Testschreibweise in Version 4.0 erwähnt.</p>
 
-<p>Seitdem hat sich allerdings einiges getan. Die neueste Innovation, die mit Version 4.7 eingeführt wurde, heißt Rules. Zugegeben, unter dem Begriff kann man sich erst einmal nichts vorstellen. Hat man sich diese „Regeln” für Tests aber einmal eingehend angesehen &#8211; und genau das werden wir in diesem Artikel tun &#8211; stellt man fest: Rules werden die Art, wie wir JUnit-Tests schreiben, nachhaltig verändern.</p>
+<p>Seitdem hat sich allerdings einiges getan. Die neueste Innovation, die mit Version 4.7 eingeführt wurde, heißt Rules. Zugegeben, unter dem Begriff kann man sich erst einmal nichts vorstellen. Hat man sich diese „Regeln” für Tests aber einmal eingehend angesehen &mdash; und genau das werden wir in diesem Artikel tun &mdash; stellt man fest: Rules werden die Art, wie wir JUnit-Tests schreiben, nachhaltig verändern.</p>
 
 <h2>Was sind Rules?</h2>
 
@@ -551,7 +553,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
 
 <p>Alle Rules, die wir bisher gesehen haben, wurden für jede Methode einzeln angewandt, genauso wie Methoden, die mit <code>@Before</code> und <code>@After</code> annotiert sind, vor bzw. nach jedem Test ausgeführt werden. Manchmal möchte man allerdings die Möglichkeit haben, Code nur einmal vor der ersten bzw. nach der letzten Testmethode in einer Klasse auszuführen. Ein häufiger Anwendungsfall sind Integrationstests, die eine Verbindung zu einem Server aufbauen und wieder schließen müssen. Das war bisher nur mit den Annotations <code>@BeforeClass</code> bzw. <code>@AfterClass</code> möglich, Rules konnte man dazu nicht verwenden. Um dieses Problem zu lösen, wurde in JUnit 4.9 die <code>@ClassRule</code>-Annotation eingeführt.</p>
 
-<p>Um eine <code>ClassRule</code> zu verwenden, annotiert man ein Feld in der Testklasse, das analog zu <code>@BeforeClass</code>-/<code>@AfterClass</code>-Methoden <code>public</code> und <code>static</code> sein muss. Der Typ des Feldes muss wie bei der <code>@Rule</code>-Annotation das <code>TestRule</code>-Interface implementieren. Eine solche Rule lässt sich nicht nur in einer normalen Testklasse verwenden, sondern auch in einer Test-Suite, wie das folgende Beispiel [<a href="http://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.9.txt" title="JUnit 4.9 Release Notes">4</a>] illustriert:</p>
+<p>Um eine <code>ClassRule</code> zu verwenden, annotiert man ein Feld in der Testklasse, das analog zu <code>@BeforeClass</code>&ndash;/<code>@AfterClass</code>-Methoden <code>public</code> und <code>static</code> sein muss. Der Typ des Feldes muss wie bei der <code>@Rule</code>-Annotation das <code>TestRule</code>-Interface implementieren. Eine solche Rule lässt sich nicht nur in einer normalen Testklasse verwenden, sondern auch in einer Test-Suite, wie das folgende Beispiel [<a href="http://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.9.txt" title="JUnit 4.9 Release Notes">4</a>] illustriert:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -721,7 +723,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/" data-via="marcphilipp" data-counturl="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/" data-via="marcphilipp" data-counturl="http://www.marcphilipp.de/blog/2011/12/22/junit-rules/" >Tweet</a>
   
   
   
@@ -751,26 +753,68 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
   
     <section>
   <h1>About Me</h1>
-  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer, father and family man. <a href="/about-me">Read more…</a></p>
+  <p></p>
   <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
 </section>
-
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/02/hamcrest-quick-reference/">Hamcrest Quick Reference</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/23/pecha-kucha-software-craftsmanship/">Pecha Kucha: Software Craftsmanship</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/11/interview-with-uncle-bob/">Interview with Uncle Bob</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/19/using-dbunit-without-xml/">Using DbUnit Without XML</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">Database Tests With DbUnit (Part 1)</a>
+      </li>
+    
+  </ul>
+</section>
 
 <section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on GitHub
+  
   <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("marcphilipp", 4, false);
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
     });
   </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
-  
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
+
+
+
 
 
   
@@ -780,7 +824,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Marc Philipp -
+  Copyright &copy; 2014 - Marc Philipp -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -798,7 +842,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -814,7 +858,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

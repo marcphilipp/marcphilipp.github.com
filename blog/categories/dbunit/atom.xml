@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DbUnit | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/dbunit/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2013-01-04T20:59:01+01:00</updated>
+  <updated>2014-01-06T23:05:51+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dataset.xml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -37,12 +37,12 @@
 
 <h2>DataSetBuilder to the rescue</h2>
 
-<p>So, I thought, wouldn't it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+<p>So, I thought, wouldn&rsquo;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
 
 <!--more-->
 
 
-<p>Here's how it can be used to replace the <code>dataset.xml</code> file from above:</p>
+<p>Here&rsquo;s how it can be used to replace the <code>dataset.xml</code> file from above:</p>
 
 <p>```java
 IDataSet buildDataSet() throws DataSetException {</p>
@@ -57,7 +57,7 @@ return builder.build();
 <p>}
 ```</p>
 
-<p>Lots of strings you might say. That's what I thought as well. In addition, it's not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there's the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
+<p>Lots of strings you might say. That&rsquo;s what I thought as well. In addition, it&rsquo;s not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there&rsquo;s the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
 
 <p>Using a <code>ColumnSpec</code> the first row in the previous example can be written as:</p>
 
@@ -101,11 +101,11 @@ return builder.build();
 <p>}
 ```</p>
 
-<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files...</p>
+<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files&hellip;</p>
 
 <p>To sum up, this post has shown how DbUnit can be used without maintaining XML files. Instead, the datasets are build directly in the test code.</p>
 
-<h2>What's next?</h2>
+<h2>What&rsquo;s next?</h2>
 
 <p>In the next post of this series on database tests with DbUnit, we will explore how our database tests can be made even more robust against changes of the database schema such as adding or removing a column.</p>
 ]]></content>
@@ -140,14 +140,14 @@ assertThat(charlie.getAge(), is(42));
 <p>}
 ```</p>
 
-<p>A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called "Charlie" before we can call  <code>findPersonByFirstName</code> and check the result.</p>
+<p>A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called &ldquo;Charlie&rdquo; before we can call  <code>findPersonByFirstName</code> and check the result.</p>
 
 <h2>Importing a dataset into the database</h2>
 
 <p>DbUnit offers a useful approach to solving this problem, e.g. it allows to cleanly insert a data set required by a test into the database. Usually, such a data set is specified in a separate XML file, like this:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dataset.xml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -218,7 +218,7 @@ public static void createSchema() throws Exception {</p>
 <p><code>RunScript</code> is an utility class provided by H2 that executes the specified SQL file against the specified database. Other databases provide similiar mechanisms to execute SQL files. In our case, the <code>schema.sql</code> file looks like this:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>schema.sql </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -245,7 +245,7 @@ public static void createSchema() throws Exception {</p>
 <p>Here are all the bits and pieces put together:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>XmlDatabaseTest.java </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -361,9 +361,9 @@ public static void createSchema() throws Exception {</p>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Of course, there's still some room for improvement. For example, <code>createSchema()</code>, <code>cleanlyInsert()</code>, and <code>dataSource()</code> have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;-)</p>
+<p>Of course, there&rsquo;s still some room for improvement. For example, <code>createSchema()</code>, <code>cleanlyInsert()</code>, and <code>dataSource()</code> have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;&ndash;)</p>
 
-<h2>What's next?</h2>
+<h2>What&rsquo;s next?</h2>
 
 <p>In the next post, we will see how the test data (now hidden away in <code>dataset.xml</code>) can be moved into the test code. Stay tuned!</p>
 ]]></content>

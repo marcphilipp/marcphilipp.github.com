@@ -18,13 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/">
+  <link rel="canonical" href="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="http://feeds.feedburner.com/marcphilipp" rel="alternate" title="crafting code." type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -59,6 +60,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About Me</a></li>
 </ul>
 
 </nav>
@@ -92,12 +94,12 @@
   </header>
 
 
-<div class="entry-content"><p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn&#8217;t able to find any, I have decided to create my own.</p>
+<div class="entry-content"><p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn&rsquo;t able to find any, I have decided to create my own.</p>
 
 <!--more-->
 
 
-<p>I hope it can be of some use for others. Thus, I&#8217;m posting it <a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf">here</a>. Please let me know whether you find it useful or if you have any suggestions for improvements! Ping me if you want to modify it yourself.</p>
+<p>I hope it can be of some use for others. Thus, I&rsquo;m posting it <a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf">here</a>. Please let me know whether you find it useful or if you have any suggestions for improvements! Ping me if you want to modify it yourself.</p>
 
 <p><a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf"><img src="/images/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.png"></a></p>
 </div>
@@ -136,7 +138,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/" data-via="marcphilipp" data-counturl="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/" data-via="marcphilipp" data-counturl="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/" >Tweet</a>
   
   
   
@@ -164,26 +166,68 @@
   
     <section>
   <h1>About Me</h1>
-  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I'm a software developer and aspiring software craftsman, community organizer, father and family man. <a href="/about-me">Read more…</a></p>
+  <p></p>
   <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
 </section>
-
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/02/hamcrest-quick-reference/">Hamcrest Quick Reference</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/23/pecha-kucha-software-craftsmanship/">Pecha Kucha: Software Craftsmanship</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/11/interview-with-uncle-bob/">Interview with Uncle Bob</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/19/using-dbunit-without-xml/">Using DbUnit Without XML</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">Database Tests With DbUnit (Part 1)</a>
+      </li>
+    
+  </ul>
+</section>
 
 <section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on GitHub
+  
   <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("marcphilipp", 4, false);
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
     });
   </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
-  
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
+
+
+
 
 
   
@@ -193,7 +237,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Marc Philipp -
+  Copyright &copy; 2014 - Marc Philipp -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -211,7 +255,7 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -227,7 +271,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

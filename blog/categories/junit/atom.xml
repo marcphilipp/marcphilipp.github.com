@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JUnit | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/junit/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2013-01-04T20:59:01+01:00</updated>
+  <updated>2014-01-06T23:05:51+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dataset.xml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -37,12 +37,12 @@
 
 <h2>DataSetBuilder to the rescue</h2>
 
-<p>So, I thought, wouldn't it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+<p>So, I thought, wouldn&rsquo;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
 
 <!--more-->
 
 
-<p>Here's how it can be used to replace the <code>dataset.xml</code> file from above:</p>
+<p>Here&rsquo;s how it can be used to replace the <code>dataset.xml</code> file from above:</p>
 
 <p>```java
 IDataSet buildDataSet() throws DataSetException {</p>
@@ -57,7 +57,7 @@ return builder.build();
 <p>}
 ```</p>
 
-<p>Lots of strings you might say. That's what I thought as well. In addition, it's not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there's the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
+<p>Lots of strings you might say. That&rsquo;s what I thought as well. In addition, it&rsquo;s not typesafe at all. You could insert a string into the <code>AGE</code> column for example. To circumvent this problem there&rsquo;s the <code>ColumnSpec&lt;T&gt;</code> class which represents a column of a certain type <code>T</code>.</p>
 
 <p>Using a <code>ColumnSpec</code> the first row in the previous example can be written as:</p>
 
@@ -101,11 +101,11 @@ return builder.build();
 <p>}
 ```</p>
 
-<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files...</p>
+<p>This approach has another advantage: The tests can easily be adapted when a column is renamed. All it takes is changing the string parameter of the <code>newColumn</code> method. Now, try to do that with numerous XML files&hellip;</p>
 
 <p>To sum up, this post has shown how DbUnit can be used without maintaining XML files. Instead, the datasets are build directly in the test code.</p>
 
-<h2>What's next?</h2>
+<h2>What&rsquo;s next?</h2>
 
 <p>In the next post of this series on database tests with DbUnit, we will explore how our database tests can be made even more robust against changes of the database schema such as adding or removing a column.</p>
 ]]></content>
@@ -140,14 +140,14 @@ assertThat(charlie.getAge(), is(42));
 <p>}
 ```</p>
 
-<p>A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called "Charlie" before we can call  <code>findPersonByFirstName</code> and check the result.</p>
+<p>A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called &ldquo;Charlie&rdquo; before we can call  <code>findPersonByFirstName</code> and check the result.</p>
 
 <h2>Importing a dataset into the database</h2>
 
 <p>DbUnit offers a useful approach to solving this problem, e.g. it allows to cleanly insert a data set required by a test into the database. Usually, such a data set is specified in a separate XML file, like this:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>dataset.xml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -218,7 +218,7 @@ public static void createSchema() throws Exception {</p>
 <p><code>RunScript</code> is an utility class provided by H2 that executes the specified SQL file against the specified database. Other databases provide similiar mechanisms to execute SQL files. In our case, the <code>schema.sql</code> file looks like this:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>schema.sql </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -245,7 +245,7 @@ public static void createSchema() throws Exception {</p>
 <p>Here are all the bits and pieces put together:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>XmlDatabaseTest.java </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -361,9 +361,9 @@ public static void createSchema() throws Exception {</p>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Of course, there's still some room for improvement. For example, <code>createSchema()</code>, <code>cleanlyInsert()</code>, and <code>dataSource()</code> have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;-)</p>
+<p>Of course, there&rsquo;s still some room for improvement. For example, <code>createSchema()</code>, <code>cleanlyInsert()</code>, and <code>dataSource()</code> have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;&ndash;)</p>
 
-<h2>What's next?</h2>
+<h2>What&rsquo;s next?</h2>
 
 <p>In the next post, we will see how the test data (now hidden away in <code>dataset.xml</code>) can be moved into the test code. Stay tuned!</p>
 ]]></content>
@@ -389,7 +389,7 @@ Stefan Birkner, Immobilien Scout GmbH<br/>
 
 <p>Die Wahrnehmung in der Java-Entwicklergemeinde ist dementsprechend: Da JUnit so einfach ist, meint jeder, der es schon einmal benutzt hat, es gut zu kennen. Das ist einerseits gut, denn die Hürde Unittests zu schreiben ist so sehr niedrig. Andererseits führt es dazu, dass Neuerungen von vielen Entwicklern gar nicht oder erst verzögert wahrgenommen werden. Fragt man Entwicklerkollegen nach Neuerungen in JUnit, wird häufig die Umstellung von Vererbung auf Annotations-basierte Testschreibweise in Version 4.0 erwähnt.</p>
 
-<p>Seitdem hat sich allerdings einiges getan. Die neueste Innovation, die mit Version 4.7 eingeführt wurde, heißt Rules. Zugegeben, unter dem Begriff kann man sich erst einmal nichts vorstellen. Hat man sich diese „Regeln” für Tests aber einmal eingehend angesehen -- und genau das werden wir in diesem Artikel tun -- stellt man fest: Rules werden die Art, wie wir JUnit-Tests schreiben, nachhaltig verändern.</p>
+<p>Seitdem hat sich allerdings einiges getan. Die neueste Innovation, die mit Version 4.7 eingeführt wurde, heißt Rules. Zugegeben, unter dem Begriff kann man sich erst einmal nichts vorstellen. Hat man sich diese „Regeln” für Tests aber einmal eingehend angesehen &mdash; und genau das werden wir in diesem Artikel tun &mdash; stellt man fest: Rules werden die Art, wie wir JUnit-Tests schreiben, nachhaltig verändern.</p>
 
 <h2>Was sind Rules?</h2>
 
@@ -693,7 +693,7 @@ public Statement apply(Statement base, Description description) {</p>
 
 <p>Alle Rules, die wir bisher gesehen haben, wurden für jede Methode einzeln angewandt, genauso wie Methoden, die mit <code>@Before</code> und <code>@After</code> annotiert sind, vor bzw. nach jedem Test ausgeführt werden. Manchmal möchte man allerdings die Möglichkeit haben, Code nur einmal vor der ersten bzw. nach der letzten Testmethode in einer Klasse auszuführen. Ein häufiger Anwendungsfall sind Integrationstests, die eine Verbindung zu einem Server aufbauen und wieder schließen müssen. Das war bisher nur mit den Annotations <code>@BeforeClass</code> bzw. <code>@AfterClass</code> möglich, Rules konnte man dazu nicht verwenden. Um dieses Problem zu lösen, wurde in JUnit 4.9 die <code>@ClassRule</code>-Annotation eingeführt.</p>
 
-<p>Um eine <code>ClassRule</code> zu verwenden, annotiert man ein Feld in der Testklasse, das analog zu <code>@BeforeClass</code>-/<code>@AfterClass</code>-Methoden <code>public</code> und <code>static</code> sein muss. Der Typ des Feldes muss wie bei der <code>@Rule</code>-Annotation das <code>TestRule</code>-Interface implementieren. Eine solche Rule lässt sich nicht nur in einer normalen Testklasse verwenden, sondern auch in einer Test-Suite, wie das folgende Beispiel [<a href="http://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.9.txt" title="JUnit 4.9 Release Notes">4</a>] illustriert:</p>
+<p>Um eine <code>ClassRule</code> zu verwenden, annotiert man ein Feld in der Testklasse, das analog zu <code>@BeforeClass</code>&ndash;/<code>@AfterClass</code>-Methoden <code>public</code> und <code>static</code> sein muss. Der Typ des Feldes muss wie bei der <code>@Rule</code>-Annotation das <code>TestRule</code>-Interface implementieren. Eine solche Rule lässt sich nicht nur in einer normalen Testklasse verwenden, sondern auch in einer Test-Suite, wie das folgende Beispiel [<a href="http://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.9.txt" title="JUnit 4.9 Release Notes">4</a>] illustriert:</p>
 
 <p>```java
 @RunWith(Suite.class)
@@ -841,13 +841,13 @@ public void onePlusOneIsTwo() {</p>
 &lt;T&gt; void assertThat(T actual, Matcher&lt;T&gt; matcher)
 </code></p>
 
-<p>Well, why don't we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
+<p>Well, why don&rsquo;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
 
 <p><code>java
 void assertThat(int actual, Matcher&lt;int&gt; matcher)
 </code></p>
 
-<p>Java's generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
+<p>Java&rsquo;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
 
 <h3>Hmm, anything we <em>can</em> do?</h3>
 
@@ -967,7 +967,7 @@ Matcher<Integer> zero(int value) {</p>
     <link href="http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/"/>
     <updated>2010-05-13T13:05:00+02:00</updated>
     <id>http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite</id>
-    <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an "alpha-ready implementation of <code>SuiteBuilder</code>". As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
+    <content type="html"><![CDATA[<p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &ldquo;alpha-ready implementation of <code>SuiteBuilder</code>&rdquo;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
 
 <h3>Limitations of regular test suites</h3>
 
@@ -999,7 +999,7 @@ public class AllTests {}
 public class AllTests {}
 </code></p>
 
-<p>However, the <code>ClasspathSuite</code> does not support JUnit's categories as mentioned in an <a href="/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
+<p>However, the <code>ClasspathSuite</code> does not support JUnit&rsquo;s categories as mentioned in an <a href="/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
 
 <h3>Introducing SuiteBuilder</h3>
 
@@ -1074,7 +1074,7 @@ public CategoryFilter filter = CategoryFilter.include(Yes.class);
 
 <h3>Update</h3>
 
-<p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit... In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
+<p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit&hellip; In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
 ]]></content>
   </entry>
   

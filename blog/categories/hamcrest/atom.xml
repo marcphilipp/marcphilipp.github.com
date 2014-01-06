@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hamcrest | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/hamcrest/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2013-01-04T20:59:01+01:00</updated>
+  <updated>2014-01-06T23:05:51+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -18,12 +18,12 @@
     <link href="http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/"/>
     <updated>2013-01-02T22:05:00+01:00</updated>
     <id>http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference</id>
-    <content type="html"><![CDATA[<p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn't able to find any, I have decided to create my own.</p>
+    <content type="html"><![CDATA[<p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn&rsquo;t able to find any, I have decided to create my own.</p>
 
 <!--more-->
 
 
-<p>I hope it can be of some use for others. Thus, I'm posting it <a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf">here</a>. Please let me know whether you find it useful or if you have any suggestions for improvements! Ping me if you want to modify it yourself.</p>
+<p>I hope it can be of some use for others. Thus, I&rsquo;m posting it <a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf">here</a>. Please let me know whether you find it useful or if you have any suggestions for improvements! Ping me if you want to modify it yourself.</p>
 
 <p><a href="/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf"><img src="/images/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.png"></a></p>
 ]]></content>
@@ -75,13 +75,13 @@ public void onePlusOneIsTwo() {</p>
 &lt;T&gt; void assertThat(T actual, Matcher&lt;T&gt; matcher)
 </code></p>
 
-<p>Well, why don't we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
+<p>Well, why don&rsquo;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
 
 <p><code>java
 void assertThat(int actual, Matcher&lt;int&gt; matcher)
 </code></p>
 
-<p>Java's generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
+<p>Java&rsquo;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
 
 <h3>Hmm, anything we <em>can</em> do?</h3>
 
@@ -205,7 +205,7 @@ Matcher<Integer> zero(int value) {</p>
 
 <p>Recently, while working on the backend of <a href="http://projectusus.org/">Project Usus</a>, we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.</p>
 
-<p>Today, I had another look at the pre-defined matchers that come with Hamcrest and found the <code>empty()</code> matcher in <code>org.hamcrest.Matchers</code>. Since I'm not concerned with the actual implementation (at least for now), I'll just give you the factory method:</p>
+<p>Today, I had another look at the pre-defined matchers that come with Hamcrest and found the <code>empty()</code> matcher in <code>org.hamcrest.Matchers</code>. Since I&rsquo;m not concerned with the actual implementation (at least for now), I&rsquo;ll just give you the factory method:</p>
 
 <p>```java
 @Factory
@@ -270,7 +270,7 @@ public static Matcher&lt;Collection&lt;?&gt;&gt; empty() {
 <p>}
 ```</p>
 
-<p>In conclusion, I think it is not trivial to write usable generic matchers. Therefore, avoid generics when you don't need them!</p>
+<p>In conclusion, I think it is not trivial to write usable generic matchers. Therefore, avoid generics when you don&rsquo;t need them!</p>
 ]]></content>
   </entry>
   

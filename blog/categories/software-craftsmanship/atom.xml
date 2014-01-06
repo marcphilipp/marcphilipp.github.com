@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Software Craftsmanship | crafting code.]]></title>
   <link href="http://www.marcphilipp.de/blog/categories/software-craftsmanship/atom.xml" rel="self"/>
   <link href="http://www.marcphilipp.de/"/>
-  <updated>2013-01-04T20:59:01+01:00</updated>
+  <updated>2014-01-06T23:05:51+01:00</updated>
   <id>http://www.marcphilipp.de/</id>
   <author>
     <name><![CDATA[Marc Philipp]]></name>
@@ -35,7 +35,7 @@
     <link href="http://www.marcphilipp.de/blog/2012/06/11/interview-with-uncle-bob/"/>
     <updated>2012-06-11T21:25:00+02:00</updated>
     <id>http://www.marcphilipp.de/blog/2012/06/11/interview-with-uncle-bob</id>
-    <content type="html"><![CDATA[<p>A couple of weeks ago I had the pleasure to participate in <a href="http://www.twitter.com/unclebobmartin">Uncle Bob</a>'s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with <a href="www.susann-mathis.de">Susann Mathis</a> on Software Craftsmanship and professionalism in software development.</p>
+    <content type="html"><![CDATA[<p>A couple of weeks ago I had the pleasure to participate in <a href="http://www.twitter.com/unclebobmartin">Uncle Bob</a>&rsquo;s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with <a href="www.susann-mathis.de">Susann Mathis</a> on Software Craftsmanship and professionalism in software development.</p>
 
 <p>In the meantime, the interview has been published in print in the <a href="http://www.vksi.de/fileadmin/downloads/magazin/VKSIMagazin_6.pdf">VKSI Magazine</a> (PDF, German) and as a video on <a href="http://www.youtube.com/watch?v=OIHvp7WzuH0">YouTube</a>.</p>
 

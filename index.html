@@ -18,13 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.marcphilipp.de/">
+  <link rel="canonical" href="http://www.marcphilipp.de">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="http://feeds.feedburner.com/marcphilipp" rel="alternate" title="crafting code." type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -59,6 +60,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About Me</a></li>
 </ul>
 
 </nav>
@@ -95,7 +97,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn&#8217;t able to find any, I have decided to create my own.</p>
+  <div class="entry-content"><p>Recently, we have <a href="https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md">released JUnit 4.11</a> which now uses the latest version of <a href="http://hamcrest.org/">Hamcrest</a> (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn&rsquo;t able to find any, I have decided to create my own.</p>
 
 </div>
   
@@ -157,7 +159,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/06/11/interview-with-uncle-bob/">Interview With Uncle Bob</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/06/11/interview-with-uncle-bob/">Interview with Uncle Bob</a></h1>
     
     
       <p class="meta">
@@ -180,7 +182,7 @@
   </header>
 
 
-  <div class="entry-content"><p>A couple of weeks ago I had the pleasure to participate in <a href="http://www.twitter.com/unclebobmartin">Uncle Bob</a>&#8217;s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with <a href="www.susann-mathis.de">Susann Mathis</a> on Software Craftsmanship and professionalism in software development.</p>
+  <div class="entry-content"><p>A couple of weeks ago I had the pleasure to participate in <a href="http://www.twitter.com/unclebobmartin">Uncle Bob</a>&rsquo;s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with <a href="www.susann-mathis.de">Susann Mathis</a> on Software Craftsmanship and professionalism in software development.</p>
 
 <p>In the meantime, the interview has been published in print in the <a href="http://www.vksi.de/fileadmin/downloads/magazin/VKSIMagazin_6.pdf">VKSI Magazine</a> (PDF, German) and as a video on <a href="http://www.youtube.com/watch?v=OIHvp7WzuH0">YouTube</a>.</p>
 
@@ -224,7 +226,7 @@
   <div class="entry-content"><p>In the <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">previous post</a> we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:</p>
 
 <figure class='code'><figcaption><span>dataset.xml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -241,7 +243,7 @@
 
 <h2>DataSetBuilder to the rescue</h2>
 
-<p>So, I thought, wouldn&#8217;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
+<p>So, I thought, wouldn&rsquo;t it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote <a href="https://github.com/marcphilipp/dbunit-datasetbuilder">DataSetBuilder</a> for DbUnit.</p>
 
 </div>
   
@@ -412,14 +414,14 @@ primitive literals explicitly:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Well, why don&#8217;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
+<p>Well, why don&rsquo;t we overload <code>assertThat()</code> with separate method definitions for each primitive type, you might say.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">assertThat</span><span class="o">(</span><span class="kt">int</span> <span class="n">actual</span><span class="o">,</span> <span class="n">Matcher</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">matcher</span><span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Java&#8217;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
+<p>Java&rsquo;s generics do not allow primitive types like <code>int</code> as type arguments, only reference types are allowed.</p>
 
 <h3>Hmm, anything we <em>can</em> do?</h3>
 
@@ -567,7 +569,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   </header>
 
 
-  <div class="entry-content"><p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &#8220;alpha-ready implementation of <code>SuiteBuilder</code>&#8221;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
+  <div class="entry-content"><p>In a recent <a href="http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36">commit</a> to JUnit Kent Beck and David Saff have added an &ldquo;alpha-ready implementation of <code>SuiteBuilder</code>&rdquo;. As Kent Beck previously described in a <a href="http://www.threeriversinstitute.org/blog/?p=456">blog post</a>, the idea behind the <code>SuiteBuilder</code> runner is to use annotations on fields instead of annotations on classes.</p>
 
 <h3>Limitations of regular test suites</h3>
 
@@ -607,7 +609,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>However, the <code>ClasspathSuite</code> does not support JUnit&#8217;s categories as mentioned in an <a href="/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
+<p>However, the <code>ClasspathSuite</code> does not support JUnit&rsquo;s categories as mentioned in an <a href="/blog/2010/03/13/applying-dry-to-junit-categories/">earlier blog post</a>. While it could certainly be extended to support the Category-related annotations <code>@IncludeCategory</code> and <code>@ExcludeCategory</code>, the <code>SuiteBuilder</code> offers a more flexible alternative.</p>
 
 <h3>Introducing SuiteBuilder</h3>
 
@@ -703,7 +705,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
 
 <h3>Update</h3>
 
-<p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit&#8230; In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
+<p>I am currently working on integrating ClasspathSuite and InClasspath into core JUnit&hellip; In the meantime, you can <a href="http://github.com/marcphilipp/junit/tree/master/src/main/java/org/junit/experimental/cpsuite/">take a look at the code on GitHub</a>.</p>
 </div>
   
   
@@ -879,7 +881,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
 
 <p>Recently, while working on the backend of <a href="http://projectusus.org/">Project Usus</a>, we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.</p>
 
-<p>Today, I had another look at the pre-defined matchers that come with Hamcrest and found the <code>empty()</code> matcher in <code>org.hamcrest.Matchers</code>. Since I&#8217;m not concerned with the actual implementation (at least for now), I&#8217;ll just give you the factory method:</p>
+<p>Today, I had another look at the pre-defined matchers that come with Hamcrest and found the <code>empty()</code> matcher in <code>org.hamcrest.Matchers</code>. Since I&rsquo;m not concerned with the actual implementation (at least for now), I&rsquo;ll just give you the factory method:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -963,7 +965,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In conclusion, I think it is not trivial to write usable generic matchers. Therefore, avoid generics when you don&#8217;t need them!</p>
+<p>In conclusion, I think it is not trivial to write usable generic matchers. Therefore, avoid generics when you don&rsquo;t need them!</p>
 </div>
   
   
@@ -983,26 +985,68 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
   
     <section>
   <h1>About Me</h1>
-  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I&#8217;m a software developer and aspiring software craftsman, community organizer (<a href="http://www.xpdays.de/">XP Days Germany</a>, <a href="http://www.softwerkskammer.de">Softwerkskammer</a>, <a href="http://www.socrates-conference.de">SoCraTes</a>), father and family man.</p>
+  <p><img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=48" alt="Marc Philipp" class="right" />I&#8217;m a software developer and aspiring software craftsman, community organizer, father and family man. <a href="/about-me">Read more…</a></p>
+  <p></p>
   <p><a href="http://www.softwerkskammer.de"><img src="/images/Softwerkskammer_Banner.png" alt="Softwerkskammer - Software Craftsmanship Communities in Deutschland" /></a></p>
 </section>
-
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/02/hamcrest-quick-reference/">Hamcrest Quick Reference</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/23/pecha-kucha-software-craftsmanship/">Pecha Kucha: Software Craftsmanship</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/11/interview-with-uncle-bob/">Interview with Uncle Bob</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/19/using-dbunit-without-xml/">Using DbUnit Without XML</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/13/database-tests-with-dbunit-part-1/">Database Tests With DbUnit (Part 1)</a>
+      </li>
+    
+  </ul>
+</section>
 
 <section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
+  
+  <a href="https://github.com/marcphilipp">@marcphilipp</a> on GitHub
+  
   <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("marcphilipp", 4, false);
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcphilipp',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
     });
   </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/marcphilipp" class="twitter-follow-button" data-show-count="false">Follow @marcphilipp</a>
-  
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
+
+
+
 
 
   
@@ -1011,7 +1055,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Marc Philipp -
+  Copyright &copy; 2014 - Marc Philipp -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -1026,7 +1070,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -1042,7 +1086,7 @@ unrestricted <code>Matcher&lt;T&gt;</code>, we would generate the following eigh
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

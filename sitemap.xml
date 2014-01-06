@@ -2,56 +2,64 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://www.marcphilipp.de/blog/2010/02/13/experimenting-with-theories/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2010/02/16/generic-matcher-pitfalls/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2010/03/13/applying-dry-to-junit-categories/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://www.marcphilipp.de/blog/2010/05/13/combining-suitebuilder-and-classpathsuite/
         </loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2010/11/16/primitive-matt-ch-ers/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2011/12/22/junit-rules/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2012/03/13/database-tests-with-dbunit-part-1/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2012/03/19/using-dbunit-without-xml/</loc>
-        <lastmod>2012-06-23T12:40:56+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2012/06/11/interview-with-uncle-bob/</loc>
-        <lastmod>2012-06-23T13:50:30+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2012/06/23/pecha-kucha-software-craftsmanship/</loc>
-        <lastmod>2012-06-23T13:50:15+02:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/2013/01/02/hamcrest-quick-reference/</loc>
-        <lastmod>2013-01-02T22:38:57+01:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.marcphilipp.de/about-me/</loc>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/blog/archives/</loc>
-        <lastmod>2013-01-02T22:38:57+01:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
     <url>
         <loc>http://www.marcphilipp.de/</loc>
-        <lastmod>2013-01-02T22:38:57+01:00</lastmod>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.marcphilipp.de/robots.txt</loc>
+        <lastmod>2014-01-06T23:05:07+01:00</lastmod>
     </url>
 </urlset>
