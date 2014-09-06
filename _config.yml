@@ -12,3 +12,4 @@ github_username:  marcphilipp
 
 # Build settings
 markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
