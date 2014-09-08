@@ -50,6 +50,10 @@ $headings-font-family: $font-family-serif;
         "syntax-highlighting"
 ;
 
+.navbar-brand {
+  font-family: $headings-font-family;
+}
+
 body {
   padding-top: 50px;
 }
