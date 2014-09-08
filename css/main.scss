@@ -39,7 +39,10 @@ $on-laptop:        800px;
     }
 }
 
-
+// Override Bootstrap variables
+$font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: 'Arvo', "Times New Roman", Times, serif !default;
+$headings-font-family: $font-family-serif;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
