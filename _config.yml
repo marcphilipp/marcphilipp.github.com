@@ -9,3 +9,5 @@ github_username:  marcphilipp
 
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
+
+exclude: [ Gemfile ]

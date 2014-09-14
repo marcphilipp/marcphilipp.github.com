@@ -40,9 +40,25 @@ $on-laptop:        800px;
 }
 
 // Override Bootstrap variables
+$brand-primary:         #3fbad8;
+$brand-success:         #47d973;
+$brand-info:            #5bc0de;
+$brand-warning:         #f0ad4e;
+$brand-danger:          #d9534f;
+
+$jumbotron-padding:   15px;
+$jumbotron-color:     #fff;
+$jumbotron-bg:        #3fbad8;
+$jumbotron-font-size: 14px;
+
 $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif: 'Arvo', "Times New Roman", Times, serif !default;
 $headings-font-family: $font-family-serif;
+
+$navbar-inverse-bg: #47d973;
+$navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
+$navbar-inverse-link-color: $navbar-inverse-color;
+$navbar-inverse-link-active-bg: $navbar-inverse-bg;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
@@ -50,8 +66,44 @@ $headings-font-family: $font-family-serif;
         "syntax-highlighting"
 ;
 
+.navbar {
+  border: 0;
+}
 .navbar-brand {
   font-family: $headings-font-family;
+}
+.navbar-nav li.active:after, .navbar-nav li.active:before {
+	bottom: 0%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.navbar-nav li.active:after {
+	border-bottom-color: $jumbotron-bg;
+	border-width: 8px;
+	margin-left: -8px;
+    z-index: 1;
+}
+
+.jumbotron {
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    small,
+    .small {
+      color: darken($jumbotron-bg, 15%);
+    }
+  }
+  @media screen and (min-width: $screen-sm-min) {
+    h1,
+    .h1 {
+      font-size: $font-size-h1;
+    }
+  }
 }
 
 body {
