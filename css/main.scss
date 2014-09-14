@@ -63,6 +63,7 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "bootstrap",
+        "font-awesome",
         "syntax-highlighting"
 ;
 
