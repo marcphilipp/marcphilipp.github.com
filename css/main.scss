@@ -59,6 +59,7 @@ $navbar-inverse-bg: #47d973;
 $navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
 $navbar-inverse-link-color: $navbar-inverse-color;
 $navbar-inverse-link-active-bg: $navbar-inverse-bg;
+$navbar-margin-bottom: 0;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
@@ -73,6 +74,10 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
 .navbar-brand {
   font-family: $headings-font-family;
 }
+
+
+/* Navbar Triangle
+-------------------------------------------------- */
 .navbar-nav li.active:after, .navbar-nav li.active:before {
 	bottom: 0%;
 	left: 50%;
@@ -91,6 +96,8 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
     z-index: 1;
 }
 
+/* Social Links
+-------------------------------------------------- */
 .navbar-inverse {
 	.navbar-social-links {
 		> li > a {
@@ -144,6 +151,9 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
 }
 
 .jumbotron {
+	h1, .h1 {
+		margin-top: 10px;
+	}
   h1, h2, h3, h4, h5, h6,
   .h1, .h2, .h3, .h4, .h5, .h6 {
     small,
@@ -159,6 +169,22 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
   }
 }
 
+/* Sticky footer styles
+-------------------------------------------------- */
+$footer_height: 60px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
-  padding-top: 50px;
+  margin-bottom: $footer_height;
+}
+footer {
+	padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer_height;
+  background-color: #f5f5f5;
 }
