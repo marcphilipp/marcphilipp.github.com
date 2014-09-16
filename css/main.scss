@@ -91,6 +91,58 @@ $navbar-inverse-link-active-bg: $navbar-inverse-bg;
     z-index: 1;
 }
 
+.navbar-inverse {
+	.navbar-social-links {
+		> li > a {
+			color: $navbar-inverse-bg;
+			padding: 7px 4px 0 4px;
+		}
+		> li > a .background {
+			color: $navbar-inverse-color;
+		}
+		> li > a:hover .foreground {
+			color: #fff;
+		}
+		> li.email {
+			.foreground {
+				margin-top: -1px;
+			}
+			.foreground, :hover .background {
+				color: $brand-warning;
+			}
+		}
+		> li.twitter {
+			.foreground, :hover .background {
+				color: #55ACEE;
+			}
+		}
+		> li.github {
+			.foreground, :hover .background {
+				color: #000;
+			}
+		}
+		> li.xing {
+			.foreground {
+				margin-top: 1px;
+			}
+			.foreground, :hover .background {
+				color: #006567;
+			}
+		}
+		> li.linkedin {
+			.foreground {
+				font-size: 1.2em;
+			}
+			.foreground, :hover .background {
+				color: #007BB6;
+			}
+		}
+	}
+	.tooltip-inner {
+	  min-width: 90px;
+	}
+}
+
 .jumbotron {
   h1, h2, h3, h4, h5, h6,
   .h1, .h2, .h3, .h4, .h5, .h6 {
