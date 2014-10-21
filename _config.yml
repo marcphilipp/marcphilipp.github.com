@@ -12,4 +12,4 @@ markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
 excerpt_separator: "<!--more-->"
 
-exclude: [ Gemfile ]
+exclude: [ Gemfile, contact.html, portfolio.html, index.html ]

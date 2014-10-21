@@ -23,6 +23,7 @@
           {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-social-links hidden-xs">
+          {% comment %}
           <li class="email">
             <a href="{{ "/contact/" | prepend: site.baseurl }}"  data-toggle="tooltip" data-placement="bottom" title="Email me">
               <span class="fa-stack fa-lg">
@@ -31,6 +32,7 @@
               </span>
             </a>
           </li>
+          {% endcomment %}
           <li class="twitter">
             <a href="http://twitter.com/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="@marcphilipp on Twitter">
               <span class="fa-stack fa-lg">
