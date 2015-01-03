@@ -9,5 +9,14 @@ layout: default
 </div>
 
 <div class="container">
+  <article role="article">
   {{ content }}
+  </article>
+
+{% if site.disqus_short_name and page.comments == true %}
+  <section>
+    <h1>Comments</h1>
+    {% include disqus_thread.html %}
+  </section>
+{% endif %}
 </div>
