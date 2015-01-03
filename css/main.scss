@@ -1,0 +1,202 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+
+
+// Our variables
+$base-font-family: Helvetica, Arial, sans-serif;
+$base-font-size:   16px;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.5;
+
+$spacing-unit:     30px;
+
+$text-color:       #111;
+$background-color: #fdfdfd;
+$brand-color:      #2a7ae2;
+
+$grey-color:       #828282;
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark:  darken($grey-color, 25%);
+
+$on-palm:          600px;
+$on-laptop:        800px;
+
+
+
+// Using media queries with like this:
+// @include media-query($palm) {
+//     .wrapper {
+//         padding-right: $spacing-unit / 2;
+//         padding-left: $spacing-unit / 2;
+//     }
+// }
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+// Override Bootstrap variables
+$brand-primary:         #3fbad8;
+$brand-success:         #47d973;
+$brand-info:            #5bc0de;
+$brand-warning:         #f0ad4e;
+$brand-danger:          #d9534f;
+
+$jumbotron-padding:   15px;
+$jumbotron-color:     #fff;
+$jumbotron-bg:        #3fbad8;
+$jumbotron-font-size: 14px;
+
+$font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: 'Arvo', "Times New Roman", Times, serif !default;
+$headings-font-family: $font-family-serif;
+
+$navbar-inverse-bg: #47d973;
+$navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
+$navbar-inverse-link-color: $navbar-inverse-color;
+$navbar-inverse-link-active-bg: $navbar-inverse-bg;
+$navbar-margin-bottom: 0;
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+        "bootstrap",
+        "font-awesome",
+        "syntax-highlighting"
+;
+
+.navbar {
+  border: 0;
+}
+.navbar-brand {
+  font-family: $headings-font-family;
+}
+
+
+/* Navbar Triangle
+-------------------------------------------------- */
+@media screen and (min-width: $screen-sm-min) {
+	.navbar-nav li.active:after, .navbar-nav li.active:before {
+		bottom: 0%;
+		left: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.navbar-nav li.active:after {
+		border-bottom-color: $jumbotron-bg;
+		border-width: 8px;
+		margin-left: -8px;
+	    z-index: 1;
+	}
+}
+
+/* Social Links
+-------------------------------------------------- */
+.navbar-inverse {
+	.navbar-social-links {
+		> li > a {
+			color: $navbar-inverse-bg;
+			padding: 7px 4px 0 4px;
+		}
+		> li > a .background {
+			color: $navbar-inverse-color;
+		}
+		> li > a:hover .foreground {
+			color: #fff;
+		}
+		> li.email {
+			.foreground {
+				margin-top: -1px;
+			}
+			.foreground, :hover .background {
+				color: $brand-warning;
+			}
+		}
+		> li.twitter {
+			.foreground, :hover .background {
+				color: #55ACEE;
+			}
+		}
+		> li.github {
+			.foreground, :hover .background {
+				color: #000;
+			}
+		}
+		> li.xing {
+			.foreground {
+				margin-top: 1px;
+			}
+			.foreground, :hover .background {
+				color: #006567;
+			}
+		}
+		> li.linkedin {
+			.foreground {
+				font-size: 1.2em;
+			}
+			.foreground, :hover .background {
+				color: #007BB6;
+			}
+		}
+	}
+	.tooltip-inner {
+	  min-width: 90px;
+	}
+}
+
+.jumbotron {
+	margin-bottom: 30px;
+	h1, .h1 {
+		margin-top: 10px;
+	}
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    small,
+    .small {
+      color: darken($jumbotron-bg, 15%);
+    }
+  }
+  @media screen and (min-width: $screen-sm-min) {
+    h1,
+    .h1 {
+      font-size: $font-size-h1;
+    }
+  }
+  @media (max-width: $grid-float-breakpoint) {
+    padding-left: 0;
+  }
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+$footer_height: 60px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: $footer_height + 30px;
+}
+footer {
+  padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer_height;
+  background-color: #f5f5f5;
+}
+
+/* Blog
+-------------------------------------------------- */
+.post-date {
+	white-space: nowrap;
+}

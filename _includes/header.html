@@ -1,0 +1,72 @@
+<header class="site-header">
+  <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          {% assign sorted_pages = (site.pages | where: 'group', 'navigation' | sort: 'weight') %}
+          {% for node in sorted_pages %}
+            {% if node.url == page.url or node.url == page.nav_url %}
+              <li class="active">
+            {% else %}
+              <li>
+            {% endif %}
+            <a href="{{ node.url | prepend: site.baseurl | replace:'index.html','' }}">{{ node.title }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right navbar-social-links hidden-xs">
+          {% comment %}
+          <li class="email">
+            <a href="{{ "/contact/" | prepend: site.baseurl }}"  data-toggle="tooltip" data-placement="bottom" title="Email me">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x background"></i>
+                <i class="fa fa-envelope fa-stack-1x foreground"></i>
+              </span>
+            </a>
+          </li>
+          {% endcomment %}
+          <li class="twitter">
+            <a href="http://twitter.com/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="@marcphilipp on Twitter">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x background"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-lg foreground"></i>
+              </span>
+            </a>
+          </li>
+          <li class="github">
+            <a href="http://github.com/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="marcphilipp on GitHub">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x background"></i>
+                <i class="fa fa-github fa-stack-1x fa-lg foreground"></i>
+              </span>
+            </a>
+          </li>
+          <li class="xing">
+            <a href="https://www.xing.com/profile/Marc_Philipp9"  data-toggle="tooltip" data-placement="bottom" title="Marc Philipp on Xing">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x background"></i>
+                <i class="fa fa-xing fa-stack-1x fa-lg foreground"></i>
+              </span>
+            </a>
+          </li>
+          <li class="linkedin">
+            <a href="http://www.linkedin.com/in/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="Marc Philipp on LinkedIn">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x background"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-lg foreground"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

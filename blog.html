@@ -1,0 +1,17 @@
+---
+layout: page
+title: Blog
+permalink: /index.html
+
+group: navigation
+weight: 5
+---
+
+{% for post in site.posts %}
+<h2 class="post-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a> <small class="post-date">{{ post.date | date: "%b %-d, %Y" }}</small></h2>
+{{ post.excerpt }}
+<p><a href="{{ post.url | prepend: site.baseurl }}" class="btn btn-success">Read on <i class="fa fa-chevron-right"></i></a></p>
+<hr>
+{% endfor %}
+
+<p>Subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>

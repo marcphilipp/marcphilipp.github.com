@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{ page.title }} <small>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</small></h1>
+  </div>
+</div>
+
+<div class="container">
+  <article role="article">
+  {{ content }}
+  </article>
+
+{% if site.disqus_short_name and page.comments == true %}
+  <section>
+    <h1>Comments</h1>
+    {% include disqus_thread.html %}
+  </section>
+{% endif %}
+</div>

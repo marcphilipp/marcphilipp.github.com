@@ -1,0 +1,22 @@
+<footer>
+  <div class="container">
+    <ul class="list-inline pull-right">
+      {% assign sorted_pages = (site.pages | where: 'group', 'footer' | sort: 'weight') %}
+      {% for node in sorted_pages %}
+        {% if node.url == page.url or node.url == page.nav_url %}
+          <li class="active">
+        {% else %}
+          <li>
+        {% endif %}
+        <a href="{{ node.url | prepend: site.baseurl | replace:'index.html','' }}">{{ node.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <p class="text-muted">&copy; {{ site.time | date: '%Y' }} {{ site.owner }}</p>
+  </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{{ "/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
+<script>
+  $('.navbar-social-links a').tooltip();
+</script>
