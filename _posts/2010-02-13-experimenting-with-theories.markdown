@@ -8,6 +8,8 @@ categories: [JUnit]
 
 The very first 4.x release of JUnit contained support for custom test runners. Moreover, it came with the `Parameterized` test runner that allows to execute the test cases in a test class against a collection of values, i.e. parameters.
 
+<!--more-->
+
 The example that comes with the Javadoc of the `Parameterized` class tests an imaginary Fibonacci calculator for a number of data points:
 
 {% highlight java %}

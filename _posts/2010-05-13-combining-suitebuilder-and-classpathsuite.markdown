@@ -8,6 +8,8 @@ categories: [JUnit]
 
 In a recent [commit](http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36) to JUnit Kent Beck and David Saff have added an "alpha-ready implementation of `SuiteBuilder`". As Kent Beck previously described in a [blog post](http://www.threeriversinstitute.org/blog/?p=456), the idea behind the `SuiteBuilder` runner is to use annotations on fields instead of annotations on classes.
 
+<!--more-->
+
 ### Limitations of regular test suites
 
 While an annotation can take parameters the arguments must be literals, e.g. constant String values or class literals. For example, the classic `Suite` runner is configured using the `@SuiteClasses` annotation that takes an array of class literals, i.e. the test classes to be run:

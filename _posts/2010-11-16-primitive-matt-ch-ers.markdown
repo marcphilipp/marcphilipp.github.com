@@ -8,7 +8,13 @@ categories: [JUnit, Hamcrest]
 
 The [Hamcrest project](http://code.google.com/p/hamcrest/) provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.
 
-### How to use them?
+One of the benefits of using `assertThat()` and Hamcrest matchers is that assertions become very readable. Unfortunately, you often have to rely on a questionable Java mechanism: auto boxing/unboxing.
+
+<!--more-->
+
+### How to use matchers?
+
+So, here is a very simple example of how to use a matcher:
 
 {% highlight java %}
 @Test
@@ -16,8 +22,6 @@ public void onePlusOneIsTwo() {
     assertThat(1 + 1, is(2));
 }
 {% endhighlight %}
-
-While the above example is simple, it demonstrates one of the benefits of using `assertThat()` and Hamcrest matchers: assertions become very readable. Unfortunately, you often have to rely on a questionable Java mechanism: auto boxing/unboxing.
 
 Auto boxing and unboxing have been introduced in Java 5 to ease the use of primitive types and their counterparts: *real* objects (a.k.a. reference types). However, especially unboxing can lead to hidden NullPointerExceptions and thus is discouraged by many developers. For details see [Autoboxing is Evil](http://pboop.wordpress.com/2010/09/22/autoboxing-is-evil/) by Nicole Rauch and Andreas Leidig.
 

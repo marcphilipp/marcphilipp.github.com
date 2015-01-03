@@ -10,6 +10,8 @@ Using [Hamcrest](http://code.google.com/p/hamcrest/) matchers in combination wit
 
 Recently, while working on the backend of [Project Usus](http://projectusus.org/), we needed a simple matcher, that would test whether a given set is empty. At the time, we reused a set matcher we had already written a few minutes earlier.
 
+<!--more-->
+
 Today, I had another look at the pre-defined matchers that come with Hamcrest and found the `empty()` matcher in `org.hamcrest.Matchers`. Since I'm not concerned with the actual implementation (at least for now), I'll just give you the factory method:
 
 {% highlight java %}

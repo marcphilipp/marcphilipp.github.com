@@ -14,6 +14,8 @@ A category marker is simply a class or interface, e.g.
 public interface SlowTests {}
 {% endhighlight %}
 
+<!--more-->
+
 Tests can be marked using the `@Category` annotation:
 
 {% highlight java %}

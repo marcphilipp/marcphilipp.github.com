@@ -18,11 +18,11 @@ In the [previous post](/blog/2012/03/13/database-tests-with-dbunit-part-1/) we h
 
 Now, you can think about XML what you want but I (and hopefully most people) would rather not want to write such files but instead create the dataset directly in the code of the test class. As it turns out, this is very hard using plain DbUnit.
 
+<!--more-->
+
 ## DataSetBuilder to the rescue
 
 So, I thought, wouldn't it be nice to have a builder for datasets with an easy-to-use API? Thus, I sat down and wrote [DataSetBuilder](https://github.com/marcphilipp/dbunit-datasetbuilder) for DbUnit.
-
-<!--more-->
 
 Here's how it can be used to replace the `dataset.xml` file from above:
 
