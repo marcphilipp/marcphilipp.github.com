@@ -170,6 +170,9 @@ $navbar-margin-bottom: 0;
       font-size: $font-size-h1;
     }
   }
+  @media (max-width: $grid-float-breakpoint) {
+    padding-left: 0;
+  }
 }
 
 /* Sticky footer styles
@@ -181,7 +184,7 @@ html {
   min-height: 100%;
 }
 body {
-  margin-bottom: $footer_height;
+  margin-bottom: $footer_height + 30px;
 }
 footer {
   padding-top: 20px;
