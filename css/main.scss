@@ -78,22 +78,24 @@ $navbar-margin-bottom: 0;
 
 /* Navbar Triangle
 -------------------------------------------------- */
-.navbar-nav li.active:after, .navbar-nav li.active:before {
-	bottom: 0%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
+@media screen and (min-width: $screen-sm-min) {
+	.navbar-nav li.active:after, .navbar-nav li.active:before {
+		bottom: 0%;
+		left: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
 
-.navbar-nav li.active:after {
-	border-bottom-color: $jumbotron-bg;
-	border-width: 8px;
-	margin-left: -8px;
-    z-index: 1;
+	.navbar-nav li.active:after {
+		border-bottom-color: $jumbotron-bg;
+		border-width: 8px;
+		margin-left: -8px;
+	    z-index: 1;
+	}
 }
 
 /* Social Links
