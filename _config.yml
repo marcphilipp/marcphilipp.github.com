@@ -14,3 +14,7 @@ permalink: /blog/:year/:month/:day/:title/
 excerpt_separator: "<!--more-->"
 
 exclude: [ Gemfile, contact.html, portfolio.html, index.html ]
+
+# Piwik
+piwik_url: web864.we20e.netcup.net/piwik
+piwik_siteid: 3
