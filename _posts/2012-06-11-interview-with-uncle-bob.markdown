@@ -11,4 +11,6 @@ In the meantime, the interview has been published in print in the [VKSI Magazine
 
 <!--more-->
 
-<iframe width="560" height="315" src="http://www.youtube.com/embed/OIHvp7WzuH0?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe src="http://www.youtube.com/embed/OIHvp7WzuH0?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>

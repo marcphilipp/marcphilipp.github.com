@@ -12,4 +12,4 @@ Recently, we have [released JUnit 4.11](https://github.com/KentBeck/junit/blob/m
 
 I hope it can be of some use for others. Thus, I'm posting it [here](/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf). Please let me know whether you find it useful or if you have any suggestions for improvements! Ping me if you want to modify it yourself.
 
-[![PDF preview]({{ "/img/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.png" | prepend: site.baseurl }})](/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf)
+[![PDF preview]({{ "/img/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.png" | prepend: site.baseurl }}){: .img-responsive .img-thumbnail }](/downloads/posts/2013-01-02-hamcrest-quick-reference/Hamcrest-1.3.pdf)
