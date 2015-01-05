@@ -14,8 +14,7 @@ layout: default
   </article>
 
 {% if site.disqus_short_name and page.comments == true %}
-  <section>
-    <h1>Comments</h1>
+  <section class="comments">
     {% include disqus_thread.html %}
   </section>
 {% endif %}
