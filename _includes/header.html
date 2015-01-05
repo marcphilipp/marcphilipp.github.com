@@ -14,12 +14,14 @@
         <ul class="nav navbar-nav">
           {% assign sorted_pages = (site.pages | where: 'group', 'navigation' | sort: 'weight') %}
           {% for node in sorted_pages %}
+            {% unless node.url contains 'page' %}
             {% if node.url == page.url or node.url == page.nav_url %}
               <li class="active">
             {% else %}
               <li>
             {% endif %}
             <a href="{{ node.url | prepend: site.baseurl | replace:'index.html','' }}">{{ node.title }}</a></li>
+            {% endunless %}
           {% endfor %}
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-social-links hidden-xs">

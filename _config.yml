@@ -13,7 +13,10 @@ markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
 excerpt_separator: "<!--more-->"
 
-exclude: [ Gemfile, contact.html, portfolio.html, index.html ]
+paginate: 8
+paginate_path: "/blog/page:num/"
+
+exclude: [ Gemfile, contact.html, portfolio.html ]
 
 # Piwik
 piwik_url: web864.we20e.netcup.net/piwik
