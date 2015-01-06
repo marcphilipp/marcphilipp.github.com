@@ -13,6 +13,19 @@ layout: default
   {{ content }}
   </article>
 
+{% if page.previous or page.next %}
+  <nav class="text-center">
+    <ul class="pagination">
+    {% if page.previous %}
+      <li><a href="{{ page.previous.url | prepend: site.baseurl }}"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span> {{ page.previous.title }}</a></li>
+    {% endif %}
+    {% if page.next %}
+      <li><a href="{{ page.next.url | prepend: site.baseurl }}">{{ page.next.title }} <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a></li>
+    {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
 {% if site.disqus_short_name and page.comments == true %}
   <section class="comments">
     {% include disqus_thread.html %}
