@@ -7,7 +7,7 @@ group: navigation
 weight: 10
 ---
 
-<img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=128" alt="Marc Philipp" class="pull-right img-circle" style="margin-left: 15px" />
+<img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=256" alt="Marc Philipp" class="pull-right img-circle" style="margin-left: 15px; width:128px; height:128px;" />
 
 I am passionate about developing software striving for both technical exellence and delighted end-users. To me, software craftsmanship is the journey towards this goal. Thus, I strive to be a good software craftsman every day when I work as a software developer in a small team. In addition, I train and coach other developers from time to time.
 
