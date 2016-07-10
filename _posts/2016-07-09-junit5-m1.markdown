@@ -6,12 +6,12 @@ comments: true
 categories: [Java, JUnit]
 ---
 
-I am resurrecting this blog for a very special occasion: we, the JUnit 5 team, have released the first milestone of [JUnit 5](http://junit.org/junit5/) this Thursday. A tremendous amount of work has been completed since we've shipped the alpha version in February: 138 issues have been resolved, 766 commits have been pushed to master. We had fruitful discussions with many contributors and early
+I am resurrecting this blog for a very special occasion: we, the JUnit 5 team, have released the first milestone of [JUnit 5](http://junit.org/junit5/) this Thursday. A tremendous amount of work has been completed since we shipped the alpha version in February: 138 issues have been resolved, 766 commits have been pushed to master. We had fruitful discussions with many contributors and early
 adopters. Thanks to everyone who participated and helped to make it happen!
 
 <!--more-->
 
-![JUnit 5]({{ "/img/junit5-logo.png" | prepend: site.baseurl }}){: .img-responsive .pull-right height="128px" width="128px" }This released focussed on providing stable APIs for IDEs and build tools. For that, we had to get the naming right. We've split the modules into three groups: Platform, Jupiter, and Vintage. Combined they comprise JUnit 5. In fact, I talked to Anna from JetBrains after the [talk of Matthias Merdes and me at Java Forum Stuttgart](http://2016.java-forum-stuttgart.de/de/Abstracts+Slot+1.html#art476) this week. She really appreciated the way we've structured and documented things. Therefore, I am really confident that at least IntelliJ IDEA will provide native support for JUnit 5 very soon.
+![JUnit 5]({{ "/img/junit5-logo.png" | prepend: site.baseurl }}){: .img-responsive .pull-right height="128px" width="128px" }This release focussed on providing stable APIs for IDEs and build tools. For that, we had to get the naming right. We've split the modules into three groups: Platform, Jupiter, and Vintage. Combined they comprise JUnit 5. In fact, I talked to Anna from JetBrains after the [talk of Matthias Merdes and me at Java Forum Stuttgart](http://2016.java-forum-stuttgart.de/de/Abstracts+Slot+1.html#art476) this week. She really appreciated the way we've structured and documented things. Therefore, I am really confident that at least IntelliJ IDEA will provide native support for JUnit 5 very soon.
 
 In addition, this release introduces a new concept I am really excited about: _dynamic tests_. They make it possible to use arbitrary logic to create tests at runtime. You simply write a method that returns a `Collection` or `Stream` of `DynamicTests`. Here's an example of how to use them with the current Jupiter API:
 
