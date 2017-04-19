@@ -14,7 +14,7 @@ For tests that use a database it is crucial to be able to set up the database to
 
 Suppose we want to test a class called `PersonRepository` that loads instances of `Person` from the database. For example, the method `findPersonByFirstName` should load the (first) person with a specified first name. How can we test this method? Our first test might look like this:
 
-{% highlight java %}
+```java
 @Test
 public void findsAndReadsExistingPersonByFirstName() throws Exception {
 	PersonRepository repository = new PersonRepository(dataSource());
@@ -24,7 +24,7 @@ public void findsAndReadsExistingPersonByFirstName() throws Exception {
 	assertThat(charlie.getLastName(), is("Brown"));
 	assertThat(charlie.getAge(), is(42));
 }
-{% endhighlight %}
+```
 
 A crucial part is missing though: the setup. We need to prepare the database before we can run the test, i.e. we need to make sure the database contains a person called "Charlie" before we can call  `findPersonByFirstName` and check the result.
 
@@ -32,27 +32,27 @@ A crucial part is missing though: the setup. We need to prepare the database bef
 
 DbUnit offers a useful approach to solving this problem, e.g. it allows to cleanly insert a data set required by a test into the database. Usually, such a data set is specified in a separate XML file, like this:
 
-{% highlight xml %}
+```xml
 <dataset>
   <PERSON NAME="Bob" LAST_NAME="Doe" AGE="18"/>
   <PERSON NAME="Alice" LAST_NAME="Foo" AGE="23"/>
   <PERSON NAME="Charlie" LAST_NAME="Brown" AGE="42"/>
 </dataset>
-{% endhighlight %}
+```
 
 This simple dataset contains three rows of the `PERSON` table which has three columns, namely `NAME`, `LAST_NAME`, and `AGE`.
 
 DbUnit can then read the file into an `IDataSet` like this:
 
-{% highlight java %}
+```java
 private IDataSet readDataSet() throws Exception {
 	return new FlatXmlDataSetBuilder().build(new File("dataset.xml"));
 }
-{% endhighlight %}
+```
 
 Next, we tell DbUnit to load our `IDataSet` into the database. In this example, we use an in-memory instance of [H2](http://www.h2database.com/).
 
-{% highlight java %}
+```java
 private void cleanlyInsertDataset(IDataSet dataSet) throws Exception {
 	IDatabaseTester databaseTester = new JdbcDatabaseTester(
 		"org.h2.Driver", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "");
@@ -60,40 +60,40 @@ private void cleanlyInsertDataset(IDataSet dataSet) throws Exception {
 	databaseTester.setDataSet(dataSet);
 	databaseTester.onSetup();
 }
-{% endhighlight %}
+```
 
 The `CLEAN_INSERT` operation instructs DbUnit to delete all rows from the `PERSON` table and then insert the rows from our dataset into the database. In our test class, we will import the dataset before each test case using the `@Before` annotation of JUnit:
 
-{% highlight java %}
+```java
 @Before
 public void importDataSet() throws Exception {
 	IDataSet dataSet = readDataSet();
 	cleanlyInsertDataset(dataSet);
 }
-{% endhighlight %}
+```
 
 ## Creating the database schema
 
 However, before we can load the dataset into the database, we have to ensure that the database schema has been created. Since we are using a non-persistent H2 instance we can simply create the schema before running our first test case. In JUnit, this can be achieved using the `@BeforeClass` annotation like this:
 
-{% highlight java %}
+```java
 @BeforeClass
 public static void createSchema() throws Exception {
 	RunScript.execute("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
 	                  "sa", "", "schema.sql", UTF8, false);
 }
-{% endhighlight %}
+```
 
 `RunScript` is an utility class provided by H2 that executes the specified SQL file against the specified database. Other databases provide similiar mechanisms to execute SQL files. In our case, the `schema.sql` file looks like this:
 
-{% highlight sql %}
+```sql
 create table if not exists PERSON (
 	ID int identity primary key,
 	NAME varchar,
 	LAST_NAME varchar,
 	AGE  smallint,
 )
-{% endhighlight %}
+```
 
 ## Putting the pieces together
 
@@ -101,7 +101,7 @@ Our test setup is complete. First, we create the database schema. Second, we imp
 
 Here are all the bits and pieces put together:
 
-{% highlight java %}
+```java
 public class XmlDatabaseTest {
 
 	private static final String JDBC_DRIVER = org.h2.Driver.class.getName();
@@ -157,10 +157,10 @@ public class XmlDatabaseTest {
 		return dataSource;
 	}
 }
-{% endhighlight %}
+```
 
 Of course, there's still some room for improvement. For example, `createSchema()`, `cleanlyInsert()`, and `dataSource()` have yet to be made reusable by other test classes. However, this would destroy the self-containedness of the test which is important for this blog post. ;-)
 
-## What's next? 
+## What's next?
 
 In the next post, we will see how the test data (now hidden away in `dataset.xml`) can be moved into the test code. Stay tuned!

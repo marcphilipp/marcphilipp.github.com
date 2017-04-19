@@ -61,6 +61,8 @@ $navbar-inverse-link-color: $navbar-inverse-color;
 $navbar-inverse-link-active-bg: $navbar-inverse-bg;
 $navbar-margin-bottom: 0;
 
+$pre-border-color: $brand-primary;
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "bootstrap",

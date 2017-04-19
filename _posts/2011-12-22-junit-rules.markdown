@@ -36,7 +36,7 @@ JUnit selbst liefert fünf Rules mit, an denen wir den praktischen Einsatz zeige
 
 Beim Testen von Code, der Dateioperationen ausführt, steht man häufig vor dem Problem, dass der Test temporär eine Datei benötigt, die nach dem Test wieder gelöscht werden soll. Bisher brachte man den entsprechenden Code in @Before- und @After-Methoden unter, wie das folgende Beispiel zeigt.
 
-{% highlight java %}
+```java
 public class TemporaryFolderWithoutRule {
 	private File folder;
 
@@ -69,13 +69,13 @@ public class TemporaryFolderWithoutRule {
 		file.delete();
 	}
 }
-{% endhighlight %}
+```
 
 Dieser Test kann mit der `TemporaryFolder`-Rule wesentlich kürzer und prägnanter formuliert werden, da die Rule den Framework-Code kapselt. 
 
 Um die Rule zu verwenden, muss innerhalb des Tests ein Feld vom Typ `TemporaryFolder` angelegt werden. Dieses Feld muss `public` sein und mit der Annotation `@Rule` markiert werden, sodass JUnit die Rule erkennt. So markierte Rules wirken sich auf die Ausführung aller Testmethoden einer Testklasse aus.
 
-{% highlight java %}
+```java
 public class TemporaryFolderWithRule {
 
 	@Rule
@@ -87,7 +87,7 @@ public class TemporaryFolderWithRule {
 		assertTrue(file.exists());
 	}
 }
-{% endhighlight %}
+```
 
 Die Testmethode `test()` legt mithilfe der `TemporaryFolder`-Rule die Datei `test.txt` an und überprüft danach, dass die Datei erzeugt wurde. Doch wo wurde die Datei erzeugt? Der Name `TemporaryFolder` suggeriert es bereits: in einem temporären Ordner. Doch die Rule legt die Datei nicht nur an, sondern löscht sie nach dem Test auch wieder, inklusive des temporären Ordners.
 
@@ -95,7 +95,7 @@ Die Testmethode `test()` legt mithilfe der `TemporaryFolder`-Rule die Datei `tes
 
 Es kommt gelegentlich vor, dass man Code schreibt, der versehentlich Endlosschleifen enthält. Ein JUnit-Test, der diese Codestellen testet, läuft in diese Endlosschleifen. Bei Verwendung der `Timeout`-Rule schlagen solche Tests fehl, da sie nicht innerhalb der vorgegebenen Zeit beendet werden.
 
-{% highlight java %}
+```java
 public class GlobalTimeout {
 
 	@Rule
@@ -111,7 +111,7 @@ public class GlobalTimeout {
 		for (;;) {}
 	}
 }
-{% endhighlight %}
+```
 
 Führt man diesen Test aus, schlagen beide Testmethoden fehl. Würde man die Rule nicht verwenden, liefe dieser Test endlos.
 
@@ -121,7 +121,7 @@ Wer bisher den `timeout`-Parameter der `@Test`-Annotation verwendet hat, kann di
 
 Schon bisher kann das Auftreten von Exceptions mit dem `expected`-Parameter der `@Test`-Annotation getestet werden. Die `ExpectedException`-Rule erweitert die Test-Möglichkeiten für Exceptions. Damit lassen sich neben der Klasse auch die Message und mittels Hamcrest-Matchern sogar beliebige Details der geworfenen Exception testen.
 
-{% highlight java %}
+```java
 public class ExpectedExceptionWithRule {
 
 	int[] threeNumbers = { 1, 2, 3 };
@@ -141,13 +141,13 @@ public class ExpectedExceptionWithRule {
 		threeNumbers[3] = 4;
 	}
 }
-{% endhighlight %}
+```
 
 ### Fehler sammeln
 
 Üblicherweise bricht ein Test nach der ersten fehlgeschlagenen Assertion ab. Will man in einem Test trotzdem alle Assertions abarbeiten, kann man den `ErrorCollector` verwenden. Er sammelt fehlgeschlagene Assertions innerhalb einer Testmethode und gibt am Ende eine Liste der Fehlschläge aus. So kann man etwa alle Elemente in einer Liste überprüfen und den Test erst am Ende fehlschlagen lassen, wenn die Überprüfung eines oder mehrerer Elemente fehlgeschlagen ist.
 
-{% highlight java %}
+```java
 public class ErrorCollectingTest {
 
 	@Rule
@@ -159,7 +159,7 @@ public class ErrorCollectingTest {
 		collector.addError(new Exception("something went wrong"));
 	}
 }
-{% endhighlight %}
+```
 
 Wenn man diesen Test ausführt, erhält man zwei Fehlernachrichten mit jeweils einem Stacktrace, der einen zu der Zeile im Programmcode führt, wo die Überprüfung fehlgeschlagen ist.
 
@@ -167,7 +167,7 @@ Wenn man diesen Test ausführt, erhält man zwei Fehlernachrichten mit jeweils e
 
 Um innerhalb einer Testmethode auf deren Namen zuzugreifen, kann man die `TestName`-Rule verwendet.
 
-{% highlight java %}
+```java
 public class NameRuleTest {
 	@Rule
 	public TestName test = new TestName();
@@ -177,7 +177,7 @@ public class NameRuleTest {
 		assertThat(test.getMethodName(), is("test"));
 	}
 }
-{% endhighlight %}
+```
 
 
 ## Rules selber schreiben
@@ -192,7 +192,7 @@ Dieses Ressourcenhandling lässt sich recht einfach mit einer Rule abbilden, ind
 
 Wie einfach sich eine solche Rule schreiben lässt, demonstriert das folgende Beispiel. Möchte man für einen Test sicherstellen, dass eine System Property einen bestimmten Wert hat und nach dem Test der alte Wert wiederhergestellt wird, könnte man die Methoden `before()` und `after()` wie folgt implementieren:
 
-{% highlight java %}
+```java
 public class ProvideSystemProperty extends ExternalResource {
 
 	private final String key, value;
@@ -218,11 +218,11 @@ public class ProvideSystemProperty extends ExternalResource {
 		}
 	}
 }
-{% endhighlight %}
+```
 
 Und schon kann man die Rule in einem Test verwenden:
 
-{% highlight java %}
+```java
 public class SomeTestUsingSystemProperty {
 
 	@Rule
@@ -233,13 +233,13 @@ public class SomeTestUsingSystemProperty {
 		assertThat(System.getProperty("someKey"), is("someValue"));
 	}
 }
-{% endhighlight %}
+```
 
 ### Benachrichtigung über die Testausführung
 
 Da man mit einer Rule Code vor und nach dem Aufruf der Testmethoden ausführen kann, lässt sich damit eine Benachrichtigung über die Testausführung realisieren. Dazu stellt JUnit die abstrakte Oberklasse `TestWatcher` bereit. Diese besitzt vier leer implementierte Methoden, die man nach Bedarf überschreiben kann: `starting()`, `succeeded()`, `failed()` und `finished()`:
 
-{% highlight java %}
+```java
 public class BeepOnFailure extends TestWatcher {
 
 	@Override
@@ -247,11 +247,11 @@ public class BeepOnFailure extends TestWatcher {
 		Toolkit.getDefaultToolkit().beep();
 	}
 }
-{% endhighlight %}
+```
 
 Die Benutzung in einem Test sieht dann so aus:
 
-{% highlight java %}
+```java
 public class FailingTestThatBeeps {
 	
 	@Rule
@@ -262,7 +262,7 @@ public class FailingTestThatBeeps {
 		fail();
 	}
 }
-{% endhighlight %}
+```
 
 ### Überprüfungen nach den Tests
 
@@ -274,13 +274,13 @@ Eine Beispielimplementierung von `Verifier` ist der weiter oben vorgestellte `Er
 
 Anstatt eines der Templates zu verwenden kann man das Interface `TestRule` auch direkt implementieren. Dieses Interface hat genau eine Methode
 
-{% highlight java %}
+```java
 Statement apply(Statement base, Description description);
-{% endhighlight %}
+```
 
 Das erste Argument `base` kapselt den auszuführenden Test, der sich mittels `evaluate()` ausführen lässt. Die `description` stellt Informationen zum Test zu Verfügung (bspw. den Testnamen). Der Rückgabewert der Methode ist ein `Statement` dass anstelle des Tests ausgeführt wird. Üblicherweise delegiert das neue `Statement` den Aufruf von `evaluate()` an den ursprünglichen Test und führt zusätzlich weitere Methoden aus. Der folgende Code zeigt beispielhaft die leicht abgewandelte Implementierung des `ExternalResource`-Templates.
 
-{% highlight java %}
+```java
 public Statement apply(Statement base, Description description) {
 	return new Statement() {
 		@Override
@@ -294,7 +294,7 @@ public Statement apply(Statement base, Description description) {
 		}
 	};
 }
-{% endhighlight %}
+```
 
 Hier wird zuerst die Template-Methode `before()` ausgeführt, dann der Test selbst mittels `base.evaluate()` und zum Schluss die zweite Template-Methode `after()`.
 
@@ -304,7 +304,7 @@ Alle Rules, die wir bisher gesehen haben, wurden für jede Methode einzeln angew
 
 Um eine `ClassRule` zu verwenden, annotiert man ein Feld in der Testklasse, das analog zu `@BeforeClass`-/`@AfterClass`-Methoden `public` und `static` sein muss. Der Typ des Feldes muss wie bei der `@Rule`-Annotation das `TestRule`-Interface implementieren. Eine solche Rule lässt sich nicht nur in einer normalen Testklasse verwenden, sondern auch in einer Test-Suite, wie das folgende Beispiel [[4][ReleaseNotes4.9]] illustriert:
 
-{% highlight java %}
+```java
 @RunWith(Suite.class)
 @SuiteClasses({A.class, B.class, C.class})
 public class UsesExternalResource {
@@ -322,14 +322,14 @@ public class UsesExternalResource {
 		};
 	};
 }
-{% endhighlight %}
+```
 
 
 ## Mehrere Regeln kombinieren
 
 Einen weiteren Vorteil von Rules gegenüber Hilfsmethoden in Testoberklassen stellt ihre Kombinierbarkeit dar. Es lassen sich beliebig viele Rules in einem Test verwenden:
 
-{% highlight java %}
+```java
 public class CombiningMultipleRules {
 
 	@Rule public TestRule beep = new BeepOnFailure();
@@ -342,11 +342,11 @@ public class CombiningMultipleRules {
 		throw new RuntimeException("Hello from " + test.getMethodName());
 	}
 }
-{% endhighlight %}
+```
 
 Das funktioniert wunderbar, solange die Rules voneinander unabhängig sind. JUnit macht absichtlich keinerlei Zusicherungen was die Reihenfolge der Abarbeitung von Rules angeht [[5][KentBeckRuleChain]]. Manchmal möchte man aber dennoch eine bestimmte Reihenfolge vorgeben. Angenommen man hat zwei Rules, von denen die erste eine bestimmte Ressource zur Verfügung stellt, die von der zweiten Rule benutzt wird. Dann möchte man sehr wohl sicherstellen, dass zuerst die Ressource bereitgestellt wird, bevor sie konsumiert wird. Dafür wurde in JUnit 4.10 die `RuleChain`-Klasse eingeführt. `RuleChain` implementiert selbst das `TestRule`-Interface, kann also verwendet werden, wie eine normale Rule [[6][ReleaseNotes4.10]]:
 
-{% highlight java %}
+```java
 public class UseRuleChain {
 	@Rule
 	public TestRule chain = RuleChain.outerRule(new LoggingRule("outer rule"))
@@ -355,7 +355,7 @@ public class UseRuleChain {
 	@Test
 	public void test() {}
 }
-{% endhighlight %}
+```
 
 Wenn man diesen Test ausführt, erhält man folgende Ausgabe:
 

@@ -12,7 +12,7 @@ The very first 4.x release of JUnit contained support for custom test runners. M
 
 The example that comes with the Javadoc of the `Parameterized` class tests an imaginary Fibonacci calculator for a number of data points:
 
-{% highlight java %}
+```java
 @RunWith(Parameterized.class)
 public class FibonacciParameterizedTest {
 
@@ -35,7 +35,7 @@ public class FibonacciParameterizedTest {
         assertEquals(expected, Fibonacci.compute(input));
     }
 }
-{% endhighlight %}
+```
 
 JUnit 4.4 introduced Theories. A theory is an abstraction of a concrete test scenario, i.e. while a test specifies the behavior in one particular case, a theory captures more than a single scenario but is usually not as detailed in its assertions.
 
@@ -43,7 +43,7 @@ When using a Parameterized test you usually specify the input along with the exp
 
 E.g. a simple theory could state that for one of the seeds, i.e. 0 or 1, the same number is returned as result. Another theory could test the recurrence relation, i.e. that `Fibonacci(n)` always equals `Fibonacci(n-1)` + `Fibonacci(n-2)`. In Java this can be written as:
 
-{% highlight java %}
+```java
 @RunWith(Theories.class)
 public class FibonacciTheories {
 
@@ -62,11 +62,11 @@ public class FibonacciTheories {
         assertEquals(compute(n - 1) + compute(n - 2), compute(n));
     }
 }
-{% endhighlight %}
+```
 
 Even shorter yet:
 
-{% highlight java %}
+```java
 @RunWith(Theories.class)
 public class FibonacciTheories {
 
@@ -80,6 +80,6 @@ public class FibonacciTheories {
         assertEquals(compute(n - 1) + compute(n - 2), compute(n));
     }
 }
-{% endhighlight %}
+```
 
 So, which test is better? Actually, I am still undecided. While theories certainly look more elegant, a parameterized tests states its assumptions more clearly. The answer seems to be, as always: It depends.
