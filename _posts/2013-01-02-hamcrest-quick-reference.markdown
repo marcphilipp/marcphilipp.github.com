@@ -6,7 +6,7 @@ comments: true
 categories: [Java, Hamcrest]
 ---
 
-Recently, we have [released JUnit 4.11](https://github.com/KentBeck/junit/blob/master/doc/ReleaseNotes4.11.md) which now uses the latest version of [Hamcrest](http://hamcrest.org/) (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn't able to find any, I have decided to create my own.
+Recently, we have [released JUnit 4.11](https://github.com/junit-team/junit/blob/master/doc/ReleaseNotes4.11.md) which now uses the latest version of [Hamcrest](http://hamcrest.org/) (1.3). Being finally able to (easily) use the power of a recent version of the matchers that come with hamcrest-core and hamcrest-library along with JUnit, I have been looking for a decent-looking printable quick reference of available matchers. Since I wasn't able to find any, I have decided to create my own.
 
 <!--more-->
 

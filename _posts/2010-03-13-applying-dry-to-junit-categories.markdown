@@ -6,7 +6,7 @@ comments: true
 categories: [JUnit]
 ---
 
-Long awaited, [JUnit 4.8](http://kentbeck.github.com/junit/doc/ReleaseNotes4.8.html) introduced support for categorizing test cases.
+Long awaited, [JUnit 4.8](http://junit.org/junit4/doc/ReleaseNotes4.8.html) introduced support for categorizing test cases.
 
 A category marker is simply a class or interface, e.g.
 
