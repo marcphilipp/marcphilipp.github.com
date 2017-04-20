@@ -10,9 +10,8 @@ Marc Philipp, andrena objects ag
 Stefan Birkner, Immobilien Scout GmbH  
 _Erschienen in Java aktuell, 1/2012, dem Magazin der [iJUG](http://www.ijug.eu/)._
 
-_Automatisierte Tests sind aus der heutigen Softwareentwicklung nicht mehr wegzudenken. JUnit ist das älteste und bekannteste Testing-Framework für Java. Doch selbst ein so etabliertes und einfach zu benutzendes Framework wird kontinuierlich weiterentwickelt. Eine der Neuerungen sind JUnit Rules, die Entwicklern eine neue mächtige Möglichkeit bieten, Tests zu formulieren und besser zu strukturieren._
-
-<!--more-->
+Automatisierte Tests sind aus der heutigen Softwareentwicklung nicht mehr wegzudenken. JUnit ist das älteste und bekannteste Testing-Framework für Java. Doch selbst ein so etabliertes und einfach zu benutzendes Framework wird kontinuierlich weiterentwickelt. Eine der Neuerungen sind JUnit Rules, die Entwicklern eine neue mächtige Möglichkeit bieten, Tests zu formulieren und besser zu strukturieren.<!--more-->
+{: .lead}
 
 Der Legende nach haben Kent Beck und Erich Gamma 1997 den Kern von JUnit auf dem Weg zu einer Konferenz im Flugzeug zwischen Zürich und Atlanta geschrieben. JUnit griff die Idee wieder auf, die Beck 1994 mit SUnit [[1][BeckSmalltalkTesting]] für Smalltalk eingeführt hatte: ein Testing-Framework, dessen Zielgruppe Programmierer sind, also dieselben Leute, die auch den Code schreiben, den es zu testen gilt. JUnit ist inzwischen weit verbreitet. Es wird nicht nur zum Schreiben von Unittests, sondern auch zur Automatisierung von Integrations- und Akzeptanztests verwendet.
 
@@ -71,7 +70,7 @@ public class TemporaryFolderWithoutRule {
 }
 ```
 
-Dieser Test kann mit der `TemporaryFolder`-Rule wesentlich kürzer und prägnanter formuliert werden, da die Rule den Framework-Code kapselt. 
+Dieser Test kann mit der `TemporaryFolder`-Rule wesentlich kürzer und prägnanter formuliert werden, da die Rule den Framework-Code kapselt.
 
 Um die Rule zu verwenden, muss innerhalb des Tests ein Feld vom Typ `TemporaryFolder` angelegt werden. Dieses Feld muss `public` sein und mit der Annotation `@Rule` markiert werden, sodass JUnit die Rule erkennt. So markierte Rules wirken sich auf die Ausführung aller Testmethoden einer Testklasse aus.
 
@@ -186,7 +185,7 @@ Die von JUnit bereitgestellten Rules sind nur der Anfang. Wer sich das Schreiben
 
 ### Bereitstellung externer Ressourcen
 
-Vielfach werden, insbesondere bei Integrationstests, externe Ressourcen wie Dateien, Server oder Verbindungen benötigt. Diese müssen dem Test zur Verfügung gestellt und nach dessen Ausführung wieder aufgeräumt werden. 
+Vielfach werden, insbesondere bei Integrationstests, externe Ressourcen wie Dateien, Server oder Verbindungen benötigt. Diese müssen dem Test zur Verfügung gestellt und nach dessen Ausführung wieder aufgeräumt werden.
 
 Dieses Ressourcenhandling lässt sich recht einfach mit einer Rule abbilden, indem man von der Basisklasse `ExternalResource` ableitet. In der neuen Rule überschreibt man die `before()`-Methode, um die Ressource bereitzustellen, und die `after()`-Methode um sie nach dem Test wieder aufzuräumen. Ein Beispiel hierfür ist die `TemporaryFolder`-Rule, die in der `before()`-Methode ein neues Verzeichnis erstellt und es in der `after()`-Methode wieder löscht.
 
@@ -253,7 +252,7 @@ Die Benutzung in einem Test sieht dann so aus:
 
 ```java
 public class FailingTestThatBeeps {
-	
+
 	@Rule
 	public BeepOnFailure beep = new BeepOnFailure();
 
@@ -312,7 +311,7 @@ public class UsesExternalResource {
 
 	@ClassRule
 	public static ExternalResource connection = new ExternalResource() {
-	
+
 		@Override protected void before() throws Throwable {
 			myServer.connect();
 		};
@@ -373,9 +372,9 @@ Die erste Regel (`outer rule`) umschließt also die mittlere (`middle rule`) und
 
 Warum sollte man Rules verwenden? Ein großer Pluspunkt von Rules ist ihre *Wiederverwendbarkeit*. Sie ermöglichen häufig benutzten Code, der bisher in `@Before`/`@After`-Methoden oder einer Testoberklasse stand, in eine eigene `TestRule`-Klasse auszulagern, die nur eine Verantwortlichkeit hat.
 
-Ein weiterer Vorteil ist die *Kombinierbarkeit* von Rules. Wie wir in diesem Artikel gesehen haben, lassen sich beliebig viele Regeln in einem Test verwenden, sowohl auf Klassen- als auch auf Methodenebene. Viele Dinge, für die es in der Vergangenheit eines eigenen Test Runners bedurfte, lassen sich jetzt mit Rules implementieren. Da man immer nur einen Test Runner aber beliebig viele Rules verwenden kann, stehen einem deutlich mehr Möglichkeiten offen. 
+Ein weiterer Vorteil ist die *Kombinierbarkeit* von Rules. Wie wir in diesem Artikel gesehen haben, lassen sich beliebig viele Regeln in einem Test verwenden, sowohl auf Klassen- als auch auf Methodenebene. Viele Dinge, für die es in der Vergangenheit eines eigenen Test Runners bedurfte, lassen sich jetzt mit Rules implementieren. Da man immer nur einen Test Runner aber beliebig viele Rules verwenden kann, stehen einem deutlich mehr Möglichkeiten offen.
 
-Rules sind die Umsetzung von *Delegation statt Vererbung* für Unittests. Wo früher Testklassenhierarchien mit Utility-Methoden gewuchert sind, kann man jetzt auf einfache Art und Weise verschiedene Rules kombinieren. 
+Rules sind die Umsetzung von *Delegation statt Vererbung* für Unittests. Wo früher Testklassenhierarchien mit Utility-Methoden gewuchert sind, kann man jetzt auf einfache Art und Weise verschiedene Rules kombinieren.
 
 Die vorgestellten, konkreten Rules demonstrieren lediglich die Vielfältigkeit der Einsatzmöglichkeiten. Eigene Regeln zu schreiben ist Dank der zur Verfügung gestellten Templateklassen einfach. Erst diese *Erweiterbarkeit* macht Rules zu einem wirklichen Novum.
 
