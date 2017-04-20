@@ -6,7 +6,7 @@ comments: true
 categories: [JUnit]
 ---
 
-In a recent [commit](http://github.com/KentBeck/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36) to JUnit Kent Beck and David Saff have added an "alpha-ready implementation of `SuiteBuilder`". As Kent Beck previously described in a [blog post](http://www.threeriversinstitute.org/blog/?p=456), the idea behind the `SuiteBuilder` runner is to use annotations on fields instead of annotations on classes.
+In a recent [commit](http://github.com/junit-team/junit/commit/f09cff79b941a525271f3f2838a9742b4c5c8d36) to JUnit Kent Beck and David Saff have added an "alpha-ready implementation of `SuiteBuilder`". As Kent Beck previously described in a [blog post](http://www.threeriversinstitute.org/blog/?p=456), the idea behind the `SuiteBuilder` runner is to use annotations on fields instead of annotations on classes.
 
 <!--more-->
 
