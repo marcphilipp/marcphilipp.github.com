@@ -3,28 +3,7 @@
 ---
 @charset "utf-8";
 
-
-
-// Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
-
-$spacing-unit:     30px;
-
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
-
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
-
-$on-palm:          600px;
-$on-laptop:        800px;
-
-
+@import url('https://fonts.googleapis.com/css?family=Arvo:400,400i|Fira+Mono:400,700|Fira+Sans:400,400i,700,700i&subset=latin-ext');
 
 // Using media queries with like this:
 // @include media-query($palm) {
@@ -40,6 +19,11 @@ $on-laptop:        800px;
 }
 
 // Override Bootstrap variables
+$font-size-base:   16px;
+$font-size-small:  $font-size-base * 0.875;
+$line-height-base: 1.5;
+$text-color:       #111;
+
 $brand-primary:         #3fbad8;
 $brand-success:         #47d973;
 $brand-info:            #5bc0de;
@@ -51,10 +35,12 @@ $jumbotron-color:     #fff;
 $jumbotron-bg:        #3fbad8;
 $jumbotron-font-size: 14px;
 
-$font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif: 'Arvo', "Times New Roman", Times, serif !default;
+$font-family-monospace: 'Fira Mono', Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $headings-font-family: $font-family-serif;
 
+$navbar-height: 55px;
 $navbar-inverse-bg: #47d973;
 $navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
 $navbar-inverse-link-color: $navbar-inverse-color;
@@ -123,6 +109,9 @@ $pre-border-color: $brand-primary;
 			}
 		}
 		> li.twitter {
+			.foreground {
+				font-size: 1.2em;
+			}
 			.foreground, :hover .background {
 				color: #55ACEE;
 			}
@@ -135,6 +124,7 @@ $pre-border-color: $brand-primary;
 		> li.xing {
 			.foreground {
 				margin-top: 1px;
+				font-size: 1.2em;
 			}
 			.foreground, :hover .background {
 				color: #006567;
