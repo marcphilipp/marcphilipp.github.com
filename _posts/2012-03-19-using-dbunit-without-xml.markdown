@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Using DbUnit Without XML"
 date: 2012-03-19 21:00
 comments: true
 categories: [DbUnit, JUnit]
+lang: en
+ref: post-db-unit-without-xml
 ---
 
 In the [previous post](/blog/2012/03/13/database-tests-with-dbunit-part-1/) we have seen how to use DbUnit to write a simple database test. By using DbUnit for this purpose, we were able to insert a complete dataset into the database without writing SQL. However, we had to use XML to specify the dataset:

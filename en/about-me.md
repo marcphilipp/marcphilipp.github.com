@@ -1,7 +1,8 @@
 ---
-layout: page
-title: About
-permalink: /about-me/
+title: About Me
+
+lang: en
+ref: about-me
 
 group: navigation
 weight: 10
@@ -15,8 +16,8 @@ I share my knowledge and insights with other developers and learn from fellow cr
 
 <img src="{{ "/img/about/me-drawing.jpg" | prepend: site.baseurl }}" class="pull-left img-thumbnail" style="width: 400px; margin-right: 15px" />
 
-When I'm not thinking about software (which sometimes really does happen), I spend time with my wife and my kids as well as the rest of my family. You might also find me running in the woods at times. 
+When I'm not thinking about software (which sometimes really does happen), I spend time with my wife and my kids as well as the rest of my family. You might also find me running in the woods at times.
 
-In addition, I am interested in typography and visual design. I originally created the [SoCraTes](http://www.socrates-conference.de)/[Softwerkskammer](http://www.softwerkskammer.org) logo. I'm a fan of [Visual Facilitation](http://www.kommunikationslotsen.de/visual-facilitating/) as well. 
+In addition, I am interested in typography and visual design. I originally created the [SoCraTes](http://www.socrates-conference.de)/[Softwerkskammer](http://www.softwerkskammer.org) logo. I'm a fan of [Visual Facilitation](http://www.kommunikationslotsen.de/visual-facilitating/) as well.
 
-If you want to contact me, feel free to write me an email (simply prepend `mail@` to this domain) or ping me on [About.me](http://about.me/marcphilipp) or [Twitter](http://www.twitter.com/marcphilipp). I'm also present, though not very active, on [Xing](https://www.xing.com/profile/Marc_Philipp9) and [LinkedIn](http://www.linkedin.com/in/marcphilipp). 
+If you want to contact me, feel free to write me an email (simply prepend `mail@` to this domain) or ping me on [About.me](http://about.me/marcphilipp) or [Twitter](http://www.twitter.com/marcphilipp). I'm also present, though not very active, on [Xing](https://www.xing.com/profile/Marc_Philipp9) and [LinkedIn](http://www.linkedin.com/in/marcphilipp).

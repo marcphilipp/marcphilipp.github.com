@@ -1,0 +1,17 @@
+---
+title: Blog
+permalink: /
+
+lang: en
+ref: blog
+is_blog_index: true
+
+group: navigation
+weight: 5
+---
+
+<p class="well">These are my blog posts in English. If you speak German, be sure to check out my <a href="{{ site.data.translations.de.blog.index | prepend: site.url }}">German posts</a>, too.</p>
+
+<hr>
+
+{% include blog_index.html %}

@@ -8,25 +8,37 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+        <a class="navbar-brand" href="{{ site.data.translations[page.lang].index | prepend: site.url }}">{{ site.title }}</a>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-main">
           {% assign sorted_pages = (site.pages | where: 'group', 'navigation' | sort: 'weight') %}
           {% for node in sorted_pages %}
             {% unless node.url contains 'page' %}
-            {% if node.url == page.url or node.url == page.nav_url %}
+            {% if node.lang == page.lang %}
+            {% if node.url == page.url or node.url == page.nav_url or (page.is_post and node.is_blog_index)%}
               <li class="active">
             {% else %}
               <li>
             {% endif %}
             <a href="{{ node.url | prepend: site.baseurl | replace:'index.html','' }}">{{ node.title }}</a></li>
+            {% endif %}
             {% endunless %}
           {% endfor %}
         </ul>
-        <ul class="nav navbar-nav navbar-right navbar-social-links hidden-xs">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ site.data.translations[page.lang].name }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% if page.is_post %}
+              {% include translations-list-items.html pages=site.posts %}
+              {% else %}
+              {% include translations-list-items.html pages=site.pages %}
+              {% endif %}
+            </ul>
+          </li>
           {% comment %}
-          <li class="email">
+          <li class="social email hidden-xs">
             <a href="{{ "/contact/" | prepend: site.baseurl }}"  data-toggle="tooltip" data-placement="bottom" title="Email me">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x background"></i>
@@ -35,7 +47,7 @@
             </a>
           </li>
           {% endcomment %}
-          <li class="twitter">
+          <li class="social twitter hidden-xs">
             <a href="http://twitter.com/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="@marcphilipp on Twitter">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x background"></i>
@@ -43,7 +55,7 @@
               </span>
             </a>
           </li>
-          <li class="github">
+          <li class="social github hidden-xs">
             <a href="http://github.com/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="marcphilipp on GitHub">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x background"></i>
@@ -51,7 +63,7 @@
               </span>
             </a>
           </li>
-          <li class="xing">
+          <li class="social xing hidden-xs">
             <a href="https://www.xing.com/profile/Marc_Philipp9"  data-toggle="tooltip" data-placement="bottom" title="Marc Philipp on Xing">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x background"></i>
@@ -59,7 +71,7 @@
               </span>
             </a>
           </li>
-          <li class="linkedin">
+          <li class="social linkedin hidden-xs">
             <a href="http://www.linkedin.com/in/marcphilipp"  data-toggle="tooltip" data-placement="bottom" title="Marc Philipp on LinkedIn">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x background"></i>

@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "JUnit 5 at Devoxx US 2017"
 date: 2017-04-20 10:58
 comments: true
 categories: [Talks, JUnit 5]
+lang: en
+ref: post-junit5-at-devoxx-us-2017
 ---
 
 A few weeks ago, I attended [Devoxx US](http://cfp.devoxx.us/2017/talk/ZCD-4979/JUnit_5_-_The_New_Testing_Framework_for_Java_and_Platform_for_the_JVM) in San Jose, CA, and gave a talk about [JUnit 5](http://junit.org/junit5/). The recording is now available on YouTube.<!--more-->

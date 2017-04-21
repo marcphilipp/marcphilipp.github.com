@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Applying DRY to JUnit Categories"
 date: 2010-03-13 22:08
 comments: true
 categories: [JUnit]
+lang: en
+ref: post-applying-dry-to-junit-categories
 ---
 
 Long awaited, [JUnit 4.8](http://junit.org/junit4/doc/ReleaseNotes4.8.html) introduced support for categorizing test cases.

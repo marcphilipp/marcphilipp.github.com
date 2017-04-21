@@ -14,10 +14,27 @@ highlighter: rouge
 permalink: /blog/:year/:month/:day/:title/
 excerpt_separator: "<!--more-->"
 
-paginate: 8
-paginate_path: "/blog/page:num/"
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      lang: en
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      is_post: true
+      layout: post
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page
 
-exclude: [ Gemfile, contact.html, portfolio.html ]
+exclude: [ Gemfile, en/contact.html, en/portfolio.html, de/ueber-mich.md ]
 
 # Piwik
 piwik_url: web864.we20e.netcup.net/piwik

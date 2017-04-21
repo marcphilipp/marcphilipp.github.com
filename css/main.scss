@@ -67,40 +67,41 @@ $pre-border-color: $brand-primary;
 /* Navbar Triangle
 -------------------------------------------------- */
 @media screen and (min-width: $screen-sm-min) {
-	.navbar-nav li.active:after, .navbar-nav li.active:before {
-		bottom: 0%;
-		left: 50%;
-		border: solid transparent;
-		content: " ";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-	}
-
-	.navbar-nav li.active:after {
-		border-bottom-color: $jumbotron-bg;
-		border-width: 8px;
-		margin-left: -8px;
-	    z-index: 1;
-	}
+    .navbar-main.navbar-nav {
+    	li.active:after, li.active:before {
+    		bottom: 0%;
+    		left: 50%;
+    		border: solid transparent;
+    		content: " ";
+    		height: 0;
+    		width: 0;
+    		position: absolute;
+    		pointer-events: none;
+    	}
+    	li.active:after {
+    		border-bottom-color: $jumbotron-bg;
+    		border-width: 8px;
+    		margin-left: -8px;
+    	    z-index: 1;
+    	}
+    }
 }
 
 /* Social Links
 -------------------------------------------------- */
 .navbar-inverse {
-	.navbar-social-links {
-		> li > a {
+	.navbar-nav {
+		> li.social > a {
 			color: $navbar-inverse-bg;
 			padding: 7px 4px 0 4px;
 		}
-		> li > a .background {
+		> li.social > a .background {
 			color: $navbar-inverse-color;
 		}
-		> li > a:hover .foreground {
+		> li.social > a:hover .foreground {
 			color: #fff;
 		}
-		> li.email {
+		> li.social.email {
 			.foreground {
 				margin-top: -1px;
 			}
@@ -108,7 +109,7 @@ $pre-border-color: $brand-primary;
 				color: $brand-warning;
 			}
 		}
-		> li.twitter {
+		> li.social.twitter {
 			.foreground {
 				font-size: 1.2em;
 			}
@@ -116,12 +117,12 @@ $pre-border-color: $brand-primary;
 				color: #55ACEE;
 			}
 		}
-		> li.github {
+		> li.social.github {
 			.foreground, :hover .background {
 				color: #000;
 			}
 		}
-		> li.xing {
+		> li.social.xing {
 			.foreground {
 				margin-top: 1px;
 				font-size: 1.2em;
@@ -130,7 +131,7 @@ $pre-border-color: $brand-primary;
 				color: #006567;
 			}
 		}
-		> li.linkedin {
+		> li.social.linkedin {
 			.foreground {
 				font-size: 1.2em;
 			}

@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Generic Matcher Pitfalls"
 date: 2010-02-16 22:45
 comments: true
 categories: [JUnit, Hamcrest]
+lang: en
+ref: post-generic-matcher-pitfalls
 ---
 
 Using [Hamcrest](http://code.google.com/p/hamcrest/) matchers in combination with `assertThat` allows for more fluid specification of JUnit assertions.

@@ -1,0 +1,18 @@
+en:
+  name: "English"
+  index:
+  blog:
+    index:
+    date_format: "%b %-d, %Y"
+    read_on: Read on
+    subscribe: Subscribe
+    via_rss: via RSS
+de:
+  name: "Deutsch"
+  index: /de/blog/
+  blog:
+    index: /de/blog/
+    date_format: "%d.%m.%Y"
+    read_on: Weiterlesen
+    subscribe: Abonnieren
+    via_rss: per RSS

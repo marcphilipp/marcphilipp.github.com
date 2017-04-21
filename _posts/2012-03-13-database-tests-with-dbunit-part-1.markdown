@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Database Tests With DbUnit (Part 1)"
 date: 2012-03-13 21:00
 comments: true
 categories: [DbUnit, JUnit]
+lang: en
+ref: post-db-unit-part1
 ---
 
 Inspired by a recent [blog post](http://blog.schauderhaft.de/2012/01/15/tipps-for-testing-database-code/) and [presentation](http://www.sigs-datacom.de/oop2012/konferenz/sessiondetails.html?tx_mwconferences_pi1%5BshowUid%5D=752&tx_mwconferences_pi1%5Banchor%5D=%23Mi64&tx_mwconferences_pi1%5Bs%5D=0) by [Jens Schauder](http://blog.schauderhaft.de/uber-jens-schauder/), this blog posts starts a series of posts about using [DbUnit](http://www.dbunit.org/) for database and integration tests. In addition, I will talk about [Database Tests with DbUnit](http://www.andrena.de/veranstaltungen/datenbanktests-mit-dbunit) at ObjektForum Karlsruhe in April. This first post introduces DbUnit and demonstrates how it can be used to write database tests.

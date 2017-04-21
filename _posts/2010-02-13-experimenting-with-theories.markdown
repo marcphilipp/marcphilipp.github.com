@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Experimenting with Theories"
 date: 2010-02-13 14:04
 comments: true
 categories: [JUnit]
+lang: en
+ref: post-experimenting-with-theories
 ---
 
 The very first 4.x release of JUnit contained support for custom test runners. Moreover, it came with the `Parameterized` test runner that allows to execute the test cases in a test class against a collection of values, i.e. parameters.

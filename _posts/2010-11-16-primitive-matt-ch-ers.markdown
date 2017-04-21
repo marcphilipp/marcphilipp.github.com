@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Primitive Matt(ch)ers?"
 date: 2010-11-16 20:34
 comments: true
 categories: [JUnit, Hamcrest]
+lang: en
+ref: post-primitive-matchers
 ---
 
 The [Hamcrest project](http://code.google.com/p/hamcrest/) provides a large number of matchers, i.e. declaratively defined predicates. Prominent uses of these matchers include testing and mocking libraries like JUnit and jMock, respectively.

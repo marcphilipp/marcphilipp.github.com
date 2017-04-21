@@ -21,4 +21,9 @@
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#ffffff">
+
+  {% assign posts = site.posts | where:"ref", page.ref | where_exp:"item", "item.id != page.id" %}{% for post in posts %}
+  <link rel="alternate" hreflang="{{ post.lang }}" href="{{ post.url }}" />{% endfor %}
+  {% assign pages=site.pages | where:"ref", page.ref | where_exp:"item", "item.url != page.url" %}{% for page in pages %}
+  <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.url }}" />{% endfor %}
 </head>

@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "JUnit 5 M1"
 date: 2016-07-09 20:38
 comments: true
 categories: [Java, JUnit]
+lang: en
+ref: post-junit5-m1
 ---
 
 I am resurrecting this blog for a very special occasion: we, the JUnit 5 team, have released the first milestone of [JUnit 5](http://junit.org/junit5/) this Thursday. A tremendous amount of work has been completed since we shipped the alpha version in February: 138 issues have been resolved, 766 commits have been pushed to master. We had fruitful discussions with many contributors and early

@@ -1,16 +1,17 @@
 ---
-layout: post
 title: "Pecha Kucha: Software Craftsmanship"
 date: 2012-06-23 13:15
 comments: true
 categories: [Software Craftsmanship]
+lang: de
+ref: post-pecha-kucha-software-craftsmanship
 ---
 
-A little more than a month ago I spoke at the [Entwicklertag](http://entwicklertag.de/) in Karlsruhe about Software Craftsmanship. More precisely, I gave my very first Pecha Kucha on my understanding of the principles and ethics behind it.
+Vor knapp einem Monat habe ich auf dem [Entwicklertag](http://entwicklertag.de/) in Karlsruhe meinen ersten _Pecha Kucha_ Kurzvortrag über Software Craftsmanship gehalten. Darin habe ich mein Verständnis der Prinzipien dargelegt und erläutert, was es m.E. bedeutet ein professioneller Softwareentwickler zu sein.
 
 <!--more-->
 
-Along with [several others](http://www.youtube.com/user/andrenaobjects), my talk was recorded and is now available on [YouTube](http://www.youtube.com/watch?v=oljTjizjKdM). Since the slides are a little hard to see in the video, I have uploaded them to [SpeakerDeck](https://speakerdeck.com/u/marcphilipp/p/pecha-kucha-software-craftsmanship).
+Wie [einige andere](http://www.youtube.com/user/andrenaobjects), wurde mein Vortrag aufgezeichnet und ist auf [YouTube](http://www.youtube.com/watch?v=oljTjizjKdM) verfügbar. Da die Folien im Video schlecht zu sehen sind, habe ich sie auf [SpeakerDeck](https://speakerdeck.com/u/marcphilipp/p/pecha-kucha-software-craftsmanship) hochgeladen.
 
 <div class="row">
   <div class="col-md-6">

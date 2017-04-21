@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "JUnit Rules"
 date: 2011-12-22 14:24
 comments: true
 categories: [JUnit]
+lang: de
+ref: post-junit-rules
 ---
 
 Marc Philipp, andrena objects ag  

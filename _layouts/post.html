@@ -4,7 +4,7 @@ layout: default
 
 <div class="jumbotron">
   <div class="container">
-    <h1>{{ page.title }} <small class="post-date">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</small></h1>
+    <h1>{{ page.title }} <small class="post-date">{{ page.date | date: site.data.translations[page.lang].blog.date_format }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</small></h1>
   </div>
 </div>
 
@@ -13,20 +13,23 @@ layout: default
   {{ content }}
   </article>
 
-{% if page.previous or page.next %}
+{% assign relevant_posts = site.posts | where: 'lang', page.lang | where_exp: 'item', 'item.ref != page.ref' %}
+{% assign previous = relevant_posts | where_exp: 'item', 'item.date < page.date' | sample %}
+{% assign next = relevant_posts | where_exp: 'item', 'item.date > page.date' | reverse | sample %}
+{% if previous or next %}
   <nav class="text-center">
     <ul class="pagination">
-    {% if page.previous %}
-      <li><a href="{{ page.previous.url | prepend: site.baseurl }}"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span> {{ page.previous.title }}</a></li>
+    {% if previous %}
+      <li><a href="{{ previous.url | prepend: site.baseurl }}"><span aria-hidden="true"><i class="fa fa-chevron-left"></i></span> {{ previous.title }}</a></li>
     {% endif %}
-    {% if page.next %}
-      <li><a href="{{ page.next.url | prepend: site.baseurl }}">{{ page.next.title }} <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a></li>
+    {% if next %}
+      <li><a href="{{ next.url | prepend: site.baseurl }}">{{ next.title }} <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span></a></li>
     {% endif %}
     </ul>
   </nav>
 {% endif %}
 
-{% if site.disqus_short_name and page.comments == true %}
+{% if site.disqus_short_name and page.comments %}
   <section class="comments">
     {% include disqus_thread.html %}
   </section>
