@@ -10,7 +10,7 @@ weight: 10
 
 <img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=256" alt="Marc Philipp" class="pull-right img-circle" style="margin-left: 15px; width:128px; height:128px;" />
 
-I am passionate about developing software striving for both technical exellence and delighted end-users. To me, software craftsmanship is the journey towards this goal. Thus, I strive to be a good software craftsman every day when I work as a software developer in a small team. In addition, I train and coach other developers from time to time.
+I am passionate about developing software striving for both technical excellence and delighted end-users. To me, software craftsmanship is the journey towards this goal. Thus, I strive to be a good software craftsman every day when I work as a software developer in a product development team. In addition, I train and coach other developers from time to time.
 
 I share my knowledge and insights with other developers and learn from fellow craftsmen by contributing to open source projects like [JUnit](http://www.junit.org) or [Project Usus](http://projectusus.org) on [GitHub](http://www.github.com/marcphilipp), by speaking at conferences, and by organizing community events like the [XP Days Germany](http://www.xpdays.de).
 
