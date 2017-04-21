@@ -22,17 +22,17 @@
 $font-size-base:   16px;
 $font-size-small:  $font-size-base * 0.875;
 $line-height-base: 1.5;
-$text-color:       #111;
+$text-color:       #444;
 
-$brand-primary:         #3fbad8;
-$brand-success:         #47d973;
-$brand-info:            #5bc0de;
-$brand-warning:         #f0ad4e;
-$brand-danger:          #d9534f;
+$brand-primary:         desaturate(#4B8BF5, 15%);
+$brand-success:         #25a162;
+$brand-info:            #4B8BF5;
+$brand-warning:         #FFCE45;
+$brand-danger:          #dc524a;
 
 $jumbotron-padding:   15px;
 $jumbotron-color:     #fff;
-$jumbotron-bg:        #3fbad8;
+$jumbotron-bg:        darken(desaturate($brand-primary, 25%), 15%);
 $jumbotron-font-size: 14px;
 
 $font-family-sans-serif: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -41,7 +41,7 @@ $font-family-monospace: 'Fira Mono', Menlo, Monaco, Consolas, "Courier New", mon
 $headings-font-family: $font-family-serif;
 
 $navbar-height: 55px;
-$navbar-inverse-bg: #47d973;
+$navbar-inverse-bg: $brand-primary;
 $navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
 $navbar-inverse-link-color: $navbar-inverse-color;
 $navbar-inverse-link-active-bg: $navbar-inverse-bg;
@@ -154,7 +154,7 @@ $pre-border-color: $brand-primary;
   .h1, .h2, .h3, .h4, .h5, .h6 {
     small,
     .small {
-      color: darken($jumbotron-bg, 15%);
+      color: darken($jumbotron-bg, 20%);
     }
   }
   @media screen and (min-width: $screen-sm-min) {
