@@ -44,7 +44,7 @@ $navbar-height: 55px;
 $navbar-inverse-bg: $brand-primary;
 $navbar-inverse-color: lighten($navbar-inverse-bg, 37%);
 $navbar-inverse-link-color: $navbar-inverse-color;
-$navbar-inverse-link-active-bg: $navbar-inverse-bg;
+$navbar-inverse-link-active-bg: transparent;
 $navbar-margin-bottom: 0;
 
 $pre-border-color: $brand-primary;
@@ -79,7 +79,7 @@ $pre-border-color: $brand-primary;
     		pointer-events: none;
     	}
     	li.active:after {
-    		border-bottom-color: $jumbotron-bg;
+    		border-bottom-color: $navbar-inverse-link-active-color;
     		border-width: 8px;
     		margin-left: -8px;
     	    z-index: 1;
@@ -143,6 +143,17 @@ $pre-border-color: $brand-primary;
 	.tooltip-inner {
 	  min-width: 90px;
 	}
+}
+
+.jumbotron, header .navbar {
+  background-image: url({{ site.baseurl }}/img/congruent_pentagon.png);
+  background-size: 300px;
+}
+header .navbar {
+  background-position: left top;
+}
+.jumbotron {
+  background-position: left top ($navbar-height * -1);
 }
 
 .jumbotron {
