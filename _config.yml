@@ -38,4 +38,4 @@ exclude: [ Gemfile, en/contact.html, en/portfolio.html ]
 
 # Piwik
 piwik_url: web864.we20e.netcup.net/piwik
-piwik_siteid: 3
+piwik_siteid: 1
