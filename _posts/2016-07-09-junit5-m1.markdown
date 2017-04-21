@@ -22,7 +22,8 @@ In addition, this release introduces a new concept I am really excited about: _d
 Stream<DynamicTest> testFactory() {
     return IntStream.range(1, 20)
             .map(this::fibonacci)
-            .mapToObj(aFibonacci -> dynamicTest("Fibonacci = " + aFibonacci, () -> isOdd(aFibonacci)));
+            .mapToObj(aFibonacci ->
+                dynamicTest("Fibonacci = " + aFibonacci, () -> isOdd(aFibonacci)));
 }
 ```
 
