@@ -7,7 +7,7 @@ lang: en
 ref: post-interview-with-uncle-bob
 ---
 
-A couple of weeks ago I had the pleasure to participate in [Uncle Bob](http://www.twitter.com/unclebobmartin)'s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with [Susann Mathis](www.susann-mathis.de) on Software Craftsmanship and professionalism in software development.
+A couple of weeks ago I had the pleasure to participate in [Uncle Bob](http://www.twitter.com/unclebobmartin)'s Clean Code course in Karlsruhe. Afterwards, I interviewed him together with [Susann Mathis](http://www.susann-mathis.de) on Software Craftsmanship and professionalism in software development.
 
 In the meantime, the interview has been published in print in the [VKSI Magazine](http://www.vksi.de/fileadmin/downloads/magazin/VKSIMagazin_6.pdf) (PDF, German) and as a video on [YouTube](http://www.youtube.com/watch?v=OIHvp7WzuH0).
 
