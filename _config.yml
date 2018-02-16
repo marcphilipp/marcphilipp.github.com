@@ -35,7 +35,3 @@ defaults:
       layout: page
 
 exclude: [ Gemfile, en/contact.html, en/portfolio.html ]
-
-# Piwik
-piwik_url: web864.we20e.netcup.net/piwik
-piwik_siteid: 1
