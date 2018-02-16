@@ -11,12 +11,12 @@ Vor knapp einem Monat habe ich auf dem [Entwicklertag](http://entwicklertag.de/)
 
 <!--more-->
 
-Wie [einige andere](http://www.youtube.com/user/andrenaobjects), wurde mein Vortrag aufgezeichnet und ist auf [YouTube](http://www.youtube.com/watch?v=oljTjizjKdM) verfügbar. Da die Folien im Video schlecht zu sehen sind, habe ich sie auf [SpeakerDeck](https://speakerdeck.com/u/marcphilipp/p/pecha-kucha-software-craftsmanship) hochgeladen.
+Wie [einige andere](https://www.youtube.com/user/andrenaobjects), wurde mein Vortrag aufgezeichnet und ist auf [YouTube](https://www.youtube.com/watch?v=oljTjizjKdM) verfügbar. Da die Folien im Video schlecht zu sehen sind, habe ich sie auf [SpeakerDeck](https://speakerdeck.com/u/marcphilipp/p/pecha-kucha-software-craftsmanship) hochgeladen.
 
 <div class="row">
   <div class="col-md-6">
 		<div class="embed-responsive embed-responsive-4by3">
-		  <iframe src="http://www.youtube.com/embed/oljTjizjKdM?rel=0" frameborder="0" allowfullscreen></iframe>
+		  <iframe src="https://www.youtube.com/embed/oljTjizjKdM?rel=0" frameborder="0" allowfullscreen></iframe>
 		</div>
   </div>
   <div class="col-md-6">

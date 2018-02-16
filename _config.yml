@@ -2,7 +2,7 @@ title: Marc Philipp
 owner: Marc Philipp
 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://www.marcphilipp.de" # the base hostname & protocol for your site
+url: "https://www.marcphilipp.de" # the base hostname & protocol for your site
 disqus_short_name: marcphilipp
 
 email: mail@marcphilipp.de

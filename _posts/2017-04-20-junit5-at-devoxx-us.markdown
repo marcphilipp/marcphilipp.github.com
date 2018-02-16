@@ -11,7 +11,7 @@ A few weeks ago, I attended [Devoxx US](http://cfp.devoxx.us/2017/talk/ZCD-4979/
 {: .lead}
 
 <div class="embed-responsive embed-responsive-16by9">
-  <iframe src="http://www.youtube.com/embed/0qI6_NKFQsY?rel=0" frameborder="0" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/0qI6_NKFQsY?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ## Abstract
