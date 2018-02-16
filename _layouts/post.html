@@ -14,8 +14,8 @@ layout: default
   </article>
 
 {% assign relevant_posts = site.posts | where: 'lang', page.lang | where_exp: 'item', 'item.ref != page.ref' %}
-{% assign previous = relevant_posts | where_exp: 'item', 'item.date < page.date' | sample %}
-{% assign next = relevant_posts | where_exp: 'item', 'item.date > page.date' | reverse | sample %}
+{% assign previous = relevant_posts | where_exp: 'item', 'item.date < page.date' | first %}
+{% assign next = relevant_posts | where_exp: 'item', 'item.date > page.date' | last %}
 {% if previous or next %}
   <nav class="text-center">
     <ul class="pagination">

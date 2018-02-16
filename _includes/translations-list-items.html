@@ -1,6 +1,6 @@
 {% for translation in site.data.translations %}
 {% assign lang = translation[0] %}
-{% assign node = (include.pages | where: 'ref', page.ref | where: 'lang', lang | sample %}
+{% assign node = include.pages | where: 'ref', page.ref | where: 'lang', lang | first %}
 {% if node and (node.url == page.url or node.url == page.nav_url) %}
 <li class="active">
 {% elsif node == nil %}
