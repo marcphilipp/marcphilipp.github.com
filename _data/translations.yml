@@ -7,6 +7,24 @@ en:
     read_on: Read on
     subscribe: Subscribe
     via_rss: via RSS
+  cities:
+    Anvers: Antwerp
+    München: Munich
+    Київ: Kyiv
+    Санкт-Петербург: Saint Petersburg
+  countries:
+    be: Belgium
+    de: Germany
+    nl: The Netherlands
+    pl: Poland
+    ru: Russia
+    ua: Ukraine
+    us: USA
+  talks:
+    with: with
+    abstract: Abstract
+    slides: Slides
+    recording: Recording
 de:
   name: "Deutsch"
   index: /de/blog/
@@ -16,3 +34,21 @@ de:
     read_on: Weiterlesen
     subscribe: Abonnieren
     via_rss: per RSS
+  cities:
+    Anvers: Antwerpen
+    Київ: Kiew
+    Санкт-Петербург: St. Petersburg
+    Kraków: Krakau
+  countries:
+    be: Belgien
+    de: Deutschland
+    nl: Niederlande
+    pl: Polen
+    ru: Russland
+    ua: Ukraine
+    us: USA
+  talks:
+    with: mit
+    abstract: Abstract
+    slides: Folien
+    recording: Aufzeichnung

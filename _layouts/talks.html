@@ -1,0 +1,58 @@
+---
+layout: page
+---
+
+{{ content }}
+
+{% assign translations = site.data.translations[page.lang] %}
+{% assign talks_by_year = site.data.talks | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+{% for entry in talks_by_year %}
+<h2>{{ entry.name }}</h2>
+<dl>
+{% for talk in entry.items %}
+    {% assign location = talk.city %}
+    {% if translations.cities[city] %}
+    {% assign location = translations.cities[city] %}
+    {% endif %}
+    {% unless page.lang == talk.country %}
+    {% assign location = location | append: ", " | append: translations.countries[talk.country] %}
+    {% endunless %}
+    <dt>
+        {{ talk.title }}
+        {% if talk.co-speakers %}
+        ({{ translations.talks.with }} {{ talk.co-speakers }})
+        {% endif %}
+    </dt>
+    <dd>
+        <em>{{ talk.event }}</em> ({{ location }})
+        <br>{{ talk.date | date: translations.blog.date_format }}
+        <ul class="list-inline">
+        {% if talk.abstract %}
+            <li>
+                <a href="{{ talk.abstract }}">
+                    <i class="fa fa-align-left" aria-hidden="true"></i>
+                    {{ translations.talks.abstract }}
+                </a>
+            </li>
+        {% endif %}
+        {% if talk.slides %}
+            <li>
+                <a href="{{ talk.slides }}">
+                    <i class="fa fa-slideshare" aria-hidden="true"></i>
+                    {{ translations.talks.slides }}
+                </a>
+            </li>
+        {% endif %}
+        {% if talk.recording %}
+            <li>
+                <a href="{{ talk.recording }}">
+                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                    {{ translations.talks.recording }}
+                </a>
+            </li>
+        {% endif %}
+        </ul>
+    </dd>
+{% endfor %}
+</dl>
+{% endfor %}
