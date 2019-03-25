@@ -11,8 +11,8 @@ layout: page
 <dl>
 {% for talk in entry.items %}
     {% assign location = talk.city %}
-    {% if translations.cities[city] %}
-    {% assign location = translations.cities[city] %}
+    {% if translations.cities[talk.city] %}
+    {% assign location = translations.cities[talk.city] %}
     {% endif %}
     {% unless page.lang == talk.country %}
     {% assign location = location | append: ", " | append: translations.countries[talk.country] %}
