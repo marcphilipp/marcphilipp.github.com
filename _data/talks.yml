@@ -248,6 +248,13 @@
   date: 2019-06-03
   abstract: https://entwicklertag.de/karlsruhe/2019/neues-von-junit-5x
 
+- title: "Schnelle und zuverlässige Builds mit Gradle und Maven"
+  event: Entwicklertag
+  city: Karlsruhe
+  country: de
+  date: 2019-06-04
+  abstract: https://entwicklertag.de/karlsruhe/2019/schnelle-und-zuverl-ssige
+
 - title: Gradle – Increase your Developer Productivity with Build Tools
   event: Java User Group
   city: Mannheim
