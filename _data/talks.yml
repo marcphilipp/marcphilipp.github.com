@@ -233,6 +233,7 @@
   country: ua
   date: 2019-04-26
   abstract: https://jeeconf.com/program/fast-and-reliable-builds-with-gradle-and-maven/
+  slides: https://speakerdeck.com/marcphilipp/fast-and-reliable-builds-with-gradle-and-maven
 
 - title: "News from JUnit 5.x: From Revolution to Continuous Evolution"
   event: JEEConf
@@ -240,6 +241,7 @@
   country: ua
   date: 2019-04-27
   abstract: https://jeeconf.com/program/news-from-junit-5-x-from-revolution-to-continuous-evolution/
+  slides: https://speakerdeck.com/marcphilipp/news-from-junit-5-dot-x-from-revolution-to-continuous-evolution-8eb4de34-655c-4dcc-8291-b7f30a1c8e66
 
 - title: "Neues von JUnit 5.x: From Revolution to Continuous Evolution"
   event: Entwicklertag
