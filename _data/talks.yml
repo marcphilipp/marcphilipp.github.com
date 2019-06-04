@@ -251,6 +251,7 @@
   country: de
   date: 2019-06-03
   abstract: https://entwicklertag.de/karlsruhe/2019/neues-von-junit-5x
+  slides: https://speakerdeck.com/marcphilipp/neues-von-junit-5-dot-x-from-revolution-to-continuous-evolution
 
 - title: "Schnelle und zuverlässige Builds mit Gradle und Maven"
   event: Entwicklertag
@@ -258,9 +259,17 @@
   country: de
   date: 2019-06-04
   abstract: https://entwicklertag.de/karlsruhe/2019/schnelle-und-zuverl-ssige
+  slides: https://speakerdeck.com/marcphilipp/schnelle-und-zuverlassige-builds-mit-gradle-und-maven
 
-- title: Gradle – Increase your Developer Productivity with Build Tools
+- title: Einführung in Gradle
   event: Java User Group
   city: Mannheim
   country: de
   date: 2019-07-18
+  abstract: http://www.majug.de/2019/07/18/einfuehrung-in-gradle/
+
+- title: Customizing and Refactoring Gradle Builds
+  event: Accento
+  city: Karlsruhe
+  country: de
+  date: 2019-09-24
