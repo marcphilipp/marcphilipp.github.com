@@ -273,3 +273,11 @@
   city: Karlsruhe
   country: de
   date: 2019-09-24
+  abstract: https://2019.accento.dev/talks/customizing-gradle/
+  slides: https://speakerdeck.com/marcphilipp/customizing-and-refactoring-gradle-builds
+
+- title: Produktive Tests
+  event: Softwerkskammer
+  city: Karlsruhe
+  country: de
+  date: 2020-01-15
