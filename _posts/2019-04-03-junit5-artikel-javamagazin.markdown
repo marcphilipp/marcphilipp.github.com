@@ -1,6 +1,6 @@
 ---
 title: "JUnit 5 im Java Magazin 3.19"
-date: 2018-04-03 20:42
+date: 2019-04-03 20:42
 comments: true
 categories: [Publications, JUnit 5]
 lang: de
