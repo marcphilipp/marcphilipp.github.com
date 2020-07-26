@@ -3,7 +3,7 @@
 {% for post in posts %}
 <h2 class="post-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a> <small class="post-date">{{ post.date | date: site.data.translations[page.lang].blog.date_format }}</small></h2>
 {{ post.excerpt }}
-<p><a href="{{ post.url | prepend: site.baseurl }}" class="btn btn-default">{{ translation.blog.read_on }} <i class="fa fa-chevron-right"></i></a></p>
+<p><a href="{{ post.url | prepend: site.baseurl }}" class="btn btn-default">{{ translation.blog.read_on }} <i class="fas fa-chevron-right"></i></a></p>
 {% unless forloop.last %}
 <hr>
 {% endunless %}

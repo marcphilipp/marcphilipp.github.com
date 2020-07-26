@@ -52,7 +52,10 @@ $pre-border-color: $brand-primary;
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "bootstrap",
-        "font-awesome",
+        "font-awesome/fontawesome",
+        "font-awesome/brands",
+        "font-awesome/regular",
+        "font-awesome/solid",
         "syntax-highlighting"
 ;
 
@@ -91,9 +94,12 @@ $pre-border-color: $brand-primary;
 -------------------------------------------------- */
 .navbar-inverse {
 	.navbar-nav {
+		> li.social {
+			font-size: .85em;
+		}
 		> li.social > a {
 			color: $navbar-inverse-bg;
-			padding: 7px 4px 0 4px;
+			padding: 9px 2px 0 2px;
 		}
 		> li.social > a .background {
 			color: $navbar-inverse-color;
@@ -125,7 +131,7 @@ $pre-border-color: $brand-primary;
 		> li.social.xing {
 			.foreground {
 				margin-top: 1px;
-				font-size: 1.2em;
+				font-size: 1.3em;
 			}
 			.foreground, :hover .background {
 				color: #006567;
