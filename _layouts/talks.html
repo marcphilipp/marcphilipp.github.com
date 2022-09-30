@@ -11,13 +11,13 @@ layout: page
 <dl>
 {% for talk in entry.items %}
     {% assign location = talk.city %}
-    {% translations.cities[talk.city] %}
+    {% if translations.cities[talk.city] %}
     {% assign location = translations.cities[talk.city] %}
     {% endif %}
     {% if location %}
-        {% unless page.lang == talk.country %}
-            {% assign location = location | append: ", " | append: translations.countries[talk.country] %}
-        {% endunless %}
+    {% unless page.lang == talk.country %}
+    {% assign location = location | append: ", " | append: translations.countries[talk.country] %}
+    {% endunless %}
     {% endif %}
     <dt>
         {{ talk.title }}
@@ -26,10 +26,7 @@ layout: page
         {% endif %}
     </dt>
     <dd>
-        <em>{{ talk.event }}</em>
-        {% if location %}
-            ({{ location }})
-        {% endif %}
+        <em>{{ talk.event }}</em> {% if location %}({{ location }}){% endif %}
         <br>{{ talk.date | date: translations.blog.date_format }}
         <ul class="list-inline">
         {% if talk.abstract %}
