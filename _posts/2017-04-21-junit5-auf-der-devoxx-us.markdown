@@ -11,7 +11,7 @@ Vor ein paar Wochen habe ich an der Konferenz [Devoxx US](http://cfp.devoxx.us/2
 {: .lead}
 
 <div class="embed-responsive embed-responsive-16by9">
-  <iframe src="https://www.youtube.com/embed/0qI6_NKFQsY?rel=0" frameborder="0" allowfullscreen></iframe>
+  <iframe src="https://www.youtube-nocookie.com/embed/0qI6_NKFQsY?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ## Code-Beispiele
