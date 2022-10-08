@@ -3,7 +3,9 @@
 ---
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css?family=Arvo:400,400i|Fira+Mono:400,700|Fira+Sans:400,400i,700,700i&subset=latin-ext');
+@import 'font-arvo.css';
+@import 'font-fira-mono.css';
+@import 'font-fira-sans.css';
 
 // Using media queries with like this:
 // @include media-query($palm) {
