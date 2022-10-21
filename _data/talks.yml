@@ -314,3 +314,10 @@
   country: us
   date: 2022-11-02
   abstract: https://dpesummit.com/speakers/marc-philipp/
+
+- title: Speeding up tests with machine learning and distributed execution
+  event: DevOpsCon
+  city: München
+  country: de
+  date: 2022-12-06
+  abstract: https://devopscon.io/continuous-delivery-automation/speeding-up-tests-with-machine-learning-and-distributed-execution/
