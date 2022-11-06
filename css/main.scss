@@ -117,6 +117,14 @@ $pre-border-color: $brand-primary;
 				color: $brand-warning;
 			}
 		}
+		> li.social.mastodon {
+			.foreground {
+				font-size: 1.3em;
+			}
+			.foreground, :hover .background {
+                color: #5b4fe5;
+			}
+		}
 		> li.social.twitter {
 			.foreground {
 				font-size: 1.2em;
