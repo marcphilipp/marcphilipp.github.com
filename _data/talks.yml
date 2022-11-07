@@ -314,6 +314,7 @@
   country: us
   date: 2022-11-02
   abstract: https://dpesummit.com/speakers/marc-philipp/
+  slides: https://speakerdeck.com/marcphilipp/how-we-built-a-distributed-testing-platform
 
 - title: Speeding up tests with machine learning and distributed execution
   event: DevOpsCon
