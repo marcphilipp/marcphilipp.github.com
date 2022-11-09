@@ -300,13 +300,14 @@
   date: 2022-09-27
   abstract: http://jug-karlsruhe.de/content/accento/
   slides: https://speakerdeck.com/marcphilipp/junit-5-wird-5
+  recording: https://youtu.be/p3n32j6-J_M
 
 - title: Evolving JUnit 5
   event: IntelliJ IDEA Conf
   date: 2022-09-30
   abstract: https://pages.jetbrains.com/intellij-idea-conf-2022/
   slides: https://speakerdeck.com/marcphilipp/evolving-junit-5
-  recording: https://www.youtube.com/watch?v=-8epeIFdKWo
+  recording: https://youtu.be/-8epeIFdKWo
 
 - title: How we Built a Distributed Testing Platform
   event: DPE Summit
