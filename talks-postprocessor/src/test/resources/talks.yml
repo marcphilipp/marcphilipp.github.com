@@ -1,0 +1,21 @@
+- title: JUnit 5 wird 5
+  event: Java User Group
+  city: Karlsruhe
+  country: de
+  date: 2022-09-27
+  abstract: http://jug-karlsruhe.de/content/accento/
+  slides: https://speakerdeck.com/marcphilipp/junit-5-wird-5
+
+- title: Evolving JUnit 5
+  event: IntelliJ IDEA Conf
+  date: 2022-09-30
+  abstract: https://pages.jetbrains.com/intellij-idea-conf-2022/
+  slides: https://speakerdeck.com/marcphilipp/evolving-junit-5
+  recording: https://www.youtube.com/watch?v=-8epeIFdKWo
+
+- title: How we Built a Distributed Testing Platform
+  event: DPE Summit
+  city: San Francisco, CA
+  country: us
+  date: 2022-11-02
+  abstract: https://dpesummit.com/speakers/marc-philipp/
