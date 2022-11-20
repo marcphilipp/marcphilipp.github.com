@@ -4,9 +4,42 @@ import com.bmuschko.gradle.docker.tasks.container.DockerRemoveContainer
 import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
 import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerPullImage
+import org.gradle.api.tasks.PathSensitivity.NONE
 
 plugins {
+    `java-conventions`
     id("com.bmuschko.docker-remote-api") version "9.0.1"
+}
+
+dependencies {
+    implementation(project(":talks-postprocessor"))
+}
+
+val postProcessTalks by tasks.registering(JavaExec::class) {
+    mainClass.set("de.marcphilipp.website.TalksPostProcessorMain")
+    classpath += configurations.runtimeClasspath
+
+    val inputYml = file("jekyll/_data/talks_original.yml")
+    args("--input-yml", inputYml)
+    inputs.file(inputYml).withPathSensitivity(NONE)
+
+    val outputYml = file("jekyll/_data/talks.yml")
+    args("--output-yml", outputYml)
+    outputs.file(outputYml)
+
+    args("--site-dir", file("jekyll"))
+
+    val imageDir = file("jekyll/img/talks")
+    args("--image-dir", imageDir)
+    outputs.dir(imageDir)
+}
+
+val prepare by tasks.registering {
+    dependsOn(postProcessTalks)
+}
+
+tasks.withType<DockerStartContainer>().configureEach {
+    dependsOn(prepare)
 }
 
 val pullJekyllImage by tasks.creating(DockerPullImage::class) {
@@ -45,7 +78,11 @@ val stopJekyllServerContainer by tasks.creating(DockerStopContainer::class) {
     targetContainerId(createJekyllServerContainer.containerName)
 }
 
-tasks.register("serveJekyllSite") {
+tasks.register("stop") {
+    dependsOn(stopJekyllServerContainer)
+}
+
+tasks.register("serve") {
     dependsOn(followJekyllServerContainer)
 }
 
@@ -68,7 +105,7 @@ val removeJekyllBuilderContainer by tasks.creating(DockerRemoveContainer::class)
     targetContainerId(createJekyllBuilderContainer.containerName)
 }
 
-tasks.register("generateJekyllSite") {
-    dependsOn(followJekyllBuilderContainer)
+tasks.register("generate") {
+    dependsOn(prepare, followJekyllBuilderContainer)
     finalizedBy(removeJekyllBuilderContainer)
 }

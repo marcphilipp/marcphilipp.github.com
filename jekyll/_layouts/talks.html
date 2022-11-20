@@ -20,6 +20,17 @@ layout: page
     {% endunless %}
     {% endif %}
     <dt>
+        {% if talk.slideImage %}
+        <div class="pull-right">
+            {% if talk.slides %}
+                <a href="{{ talk.slides }}">
+            {% endif %}
+                    <img src="/{{ talk.slideImage }}" class="pull-right img-thumbnail" style="height:100px" />
+            {% if talk.slides %}
+                </a>
+            {% endif %}
+        </div>
+        {% endif %}
         {{ talk.title }}
         {% if talk.co-speakers %}
         ({{ translations.talks.with }} {{ talk.co-speakers }})

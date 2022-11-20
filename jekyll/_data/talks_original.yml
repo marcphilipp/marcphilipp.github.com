@@ -134,7 +134,7 @@
   country: us
   date: 2017-03-23
   abstract: http://cfp.devoxx.us/2017/talk/ZCD-4979/JUnit_5_-_The_New_Testing_Framework_for_Java_and_Platform_for_the_JVM
-  slides: https://speakerdeck.com/marcphilipp/junit-5-at-devoxx-be-2017
+  slides: https://speakerdeck.com/marcphilipp/junit-5-the-new-testing-framework-for-java-and-platform-for-the-jvm
   recording: https://www.youtube.com/watch?v=0qI6_NKFQsY&t=962s
 
 - title: "JUnit 5: Architecture and Design Patterns"
@@ -183,6 +183,7 @@
   date: 2017-11-08
   abstract: https://cfp.devoxx.be/2017/talk/DQL-2850/JUnit_5_%E2%80%94_The_New_Testing_Framework_for_Java_and_Platform_for_the_JVM
   recording: https://www.youtube.com/watch?v=oGaatK5ShUs
+  slides: https://speakerdeck.com/marcphilipp/junit-5-at-devoxx-be-2017
   co-speakers: Sam Brannen
 
 - title: "JUnit 5 — The New Testing Framework for Java and Platform for the JVM"

@@ -8,6 +8,9 @@ import java.io.UncheckedIOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class JsoupFileDownloader implements FileDownloader {
 
@@ -18,7 +21,7 @@ public class JsoupFileDownloader implements FileDownloader {
                     .ignoreContentType(true)
                     .execute();
             try (InputStream in = response.bodyStream()) {
-                Files.copy(in, targetFile);
+                Files.copy(in, targetFile, REPLACE_EXISTING);
             }
         } catch (IOException e) {
             throw new UncheckedIOException(e);

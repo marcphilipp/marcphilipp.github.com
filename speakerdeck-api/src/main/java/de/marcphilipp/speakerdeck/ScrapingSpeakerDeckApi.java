@@ -24,7 +24,7 @@ public class ScrapingSpeakerDeckApi implements SpeakerDeckApi {
         try {
             return Jsoup.connect(url.toString()).get();
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw new UncheckedIOException("Failed to download " + url, e);
         }
     }
 }

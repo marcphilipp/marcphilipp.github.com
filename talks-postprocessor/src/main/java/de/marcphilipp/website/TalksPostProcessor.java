@@ -11,6 +11,8 @@ import de.marcphilipp.speakerdeck.JsoupFileDownloader;
 import de.marcphilipp.speakerdeck.ScrapingSpeakerDeckApi;
 import de.marcphilipp.speakerdeck.SpeakerDeckApi;
 import de.marcphilipp.speakerdeck.SpeakerDeckApi.PresentationIdentifier;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -23,6 +25,7 @@ import java.util.stream.StreamSupport;
 import static com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature.MINIMIZE_QUOTES;
 import static com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature.WRITE_DOC_START_MARKER;
 
+@Command
 public class TalksPostProcessor {
 
     private final SpeakerDeckApi api = new ScrapingSpeakerDeckApi();
@@ -38,6 +41,9 @@ public class TalksPostProcessor {
                 .parallel()
                 .forEach(node -> {
                     var presentationUrl = URI.create(node.get("slides").textValue());
+                    if (!SpeakerDeckApi.BASE_URI.getHost().equals(presentationUrl.getHost())) {
+                        return;
+                    }
                     var presentationIdentifier = PresentationIdentifier.parse(presentationUrl);
                     var details = api.getPresentationDetails(presentationIdentifier);
                     try {
@@ -49,7 +55,6 @@ public class TalksPostProcessor {
                         fileDownloader.download(details.imageUrl(), targetFile);
 
                         node.set("slideImage", new TextNode(rootDir.relativize(targetFile).toString()));
-                        node.set("thread", new TextNode(Thread.currentThread().getName()));
                     } catch (IOException e) {
                         throw new UncheckedIOException(e);
                     }

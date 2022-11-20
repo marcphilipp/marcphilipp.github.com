@@ -2,3 +2,5 @@ build/
 /jekyll/_site
 /jekyll/.sass-cache
 /jekyll/.jekyll-metadata
+/jekyll/img/talks/
+/jekyll/_data/talks.yml
