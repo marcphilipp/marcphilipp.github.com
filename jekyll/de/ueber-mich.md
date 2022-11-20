@@ -20,4 +20,4 @@ Wenn ich nicht über Software nachdenke (was manchmal wirklich vorkommt), verbri
 
 Mein Interesse gilt außerdem der Typographie und dem visuellen Design. So habe ich ursprünglich etwa das [SoCraTes](http://www.socrates-conference.de)/[Softwerkskammer](http://www.softwerkskammer.org)-Logo entworfen. Desweiteren bin ich ein Fan von [Visual Facilitation](http://www.kommunikationslotsen.de/visual-facilitating/).
 
-Erreichbar bin ich per E-Mail (einfach `mail@` als Präfix vor dieser Domain verwenden) oder über [About.me](http://about.me/marcphilipp) und [Twitter](http://www.twitter.com/marcphilipp). Ich bin auch auf [Xing](https://www.xing.com/profile/Marc_Philipp9) und [LinkedIn](http://www.linkedin.com/in/marcphilipp) vertreten, allerdings dort nicht sonderlich aktiv.
+Erreichbar bin ich per E-Mail (einfach `mail@` als Präfix vor dieser Domain verwenden) oder über [Xing](https://www.xing.com/profile/Marc_Philipp9) und [LinkedIn](http://www.linkedin.com/in/marcphilipp).

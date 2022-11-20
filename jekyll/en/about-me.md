@@ -20,4 +20,4 @@ When I'm not thinking about software (which sometimes really does happen), I spe
 
 In addition, I am interested in typography and visual design. I originally created the [SoCraTes](http://www.socrates-conference.de)/[Softwerkskammer](http://www.softwerkskammer.org) logo. I'm a fan of [Visual Facilitation](http://www.kommunikationslotsen.de/visual-facilitating/) as well.
 
-If you want to contact me, feel free to write me an email (simply prepend `mail@` to this domain) or ping me on [About.me](http://about.me/marcphilipp) or [Twitter](http://www.twitter.com/marcphilipp). I'm also present, though not very active, on [Xing](https://www.xing.com/profile/Marc_Philipp9) and [LinkedIn](http://www.linkedin.com/in/marcphilipp).
+If you want to contact me, feel free to write me an email (simply prepend `mail@` to this domain) or ping me on [Xing](https://www.xing.com/profile/Marc_Philipp9) or [LinkedIn](http://www.linkedin.com/in/marcphilipp).
