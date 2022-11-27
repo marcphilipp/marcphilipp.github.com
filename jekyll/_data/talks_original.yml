@@ -135,7 +135,7 @@
   date: 2017-03-23
   abstract: http://cfp.devoxx.us/2017/talk/ZCD-4979/JUnit_5_-_The_New_Testing_Framework_for_Java_and_Platform_for_the_JVM
   slides: https://speakerdeck.com/marcphilipp/junit-5-the-new-testing-framework-for-java-and-platform-for-the-jvm
-  recording: https://www.youtube.com/watch?v=0qI6_NKFQsY&t=962s
+  youtube: 0qI6_NKFQsY
 
 - title: "JUnit 5: Architecture and Design Patterns"
   event: TU Delft
@@ -150,7 +150,7 @@
   country: ru
   date: 2017-06-04
   slides: https://speakerdeck.com/marcphilipp/junit-5-at-heisenbug-2017
-  recording: https://www.youtube.com/watch?v=751gMXH-lEE
+  youtube: 751gMXH-lEE
 
 - title: "JUnit 5"
   event: solutions.hamburg
@@ -174,7 +174,7 @@
   country: ru
   date: 2017-11-03
   slides: https://speakerdeck.com/marcphilipp/junit-5-extensions
-  recording: https://www.youtube.com/watch?v=r-8EGXMFJaw
+  youtube: r-8EGXMFJaw
 
 - title: "JUnit 5 — The New Testing Framework for Java and Platform for the JVM"
   event: Devoxx Belgium
@@ -182,7 +182,7 @@
   country: be
   date: 2017-11-08
   abstract: https://cfp.devoxx.be/2017/talk/DQL-2850/JUnit_5_%E2%80%94_The_New_Testing_Framework_for_Java_and_Platform_for_the_JVM
-  recording: https://www.youtube.com/watch?v=oGaatK5ShUs
+  youtube: oGaatK5ShUs
   slides: https://speakerdeck.com/marcphilipp/junit-5-at-devoxx-be-2017
   co-speakers: Sam Brannen
 
@@ -201,7 +201,7 @@
   date: 2018-05-09
   abstract: https://2018.geecon.org/speakers/info.html?id=354
   slides: https://speakerdeck.com/marcphilipp/junit-5-extensions-from-conditional-test-execution-to-test-templates
-  recording: https://www.youtube.com/watch?v=ExoeEzNvJmA
+  youtube: ExoeEzNvJmA
 
 - title: "JUnit 5: More than just a Testing Framework for Java"
   event: WJAX
@@ -218,7 +218,7 @@
   date: 2019-01-28
   abstract: https://www.meetup.com/de-DE/Talks4Nerds/events/257129358/
   slides: https://speakerdeck.com/marcphilipp/gradle-build-happiness-german
-  recording: https://www.youtube.com/watch?v=ic5p9dQoR6g
+  youtube: ic5p9dQoR6g
 
 - title: "News from JUnit 5.x: From Revolution to Continuous Evolution"
   event: JavaLand
@@ -235,7 +235,7 @@
   date: 2019-04-26
   abstract: https://jeeconf.com/program/fast-and-reliable-builds-with-gradle-and-maven/
   slides: https://speakerdeck.com/marcphilipp/fast-and-reliable-builds-with-gradle-and-maven
-  recording: https://youtu.be/9KQWInq4l8s
+  youtube: 9KQWInq4l8s
 
 - title: "News from JUnit 5.x: From Revolution to Continuous Evolution"
   event: JEEConf
@@ -244,7 +244,7 @@
   date: 2019-04-27
   abstract: https://jeeconf.com/program/news-from-junit-5-x-from-revolution-to-continuous-evolution/
   slides: https://speakerdeck.com/marcphilipp/news-from-junit-5-dot-x-from-revolution-to-continuous-evolution-8eb4de34-655c-4dcc-8291-b7f30a1c8e66
-  recording: https://youtu.be/uyqQrS2Dbds
+  youtube: uyqQrS2Dbds
 
 - title: "Neues von JUnit 5.x: From Revolution to Continuous Evolution"
   event: Entwicklertag
@@ -292,7 +292,7 @@
   date: 2020-09-28
   abstract: https://www.andrena.de/event/objektforum-karlsruhe-september-2020
   slides: https://speakerdeck.com/marcphilipp/developer-productivity-engineering-objektforum
-  recording: https://youtu.be/PVkTSmzsvmc
+  youtube: PVkTSmzsvmc
 
 - title: JUnit 5 wird 5
   event: Java User Group
@@ -301,14 +301,14 @@
   date: 2022-09-27
   abstract: http://jug-karlsruhe.de/content/accento/
   slides: https://speakerdeck.com/marcphilipp/junit-5-wird-5
-  recording: https://youtu.be/p3n32j6-J_M
+  youtube: p3n32j6-J_M
 
 - title: Evolving JUnit 5
   event: IntelliJ IDEA Conf
   date: 2022-09-30
   abstract: https://pages.jetbrains.com/intellij-idea-conf-2022/
   slides: https://speakerdeck.com/marcphilipp/evolving-junit-5
-  recording: https://youtu.be/-8epeIFdKWo
+  youtube: -8epeIFdKWo
 
 - title: How we Built a Distributed Testing Platform
   event: DPE Summit
