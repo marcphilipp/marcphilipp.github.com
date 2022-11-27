@@ -27,7 +27,7 @@ en:
     recording: Recording
 de:
   name: "Deutsch"
-  index: /de/blog/
+  index: /de/
   blog:
     index: /de/blog/
     date_format: "%d.%m.%Y"

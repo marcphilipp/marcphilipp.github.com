@@ -155,9 +155,12 @@ $pre-border-color: $brand-primary;
 
 $header-bg-image-offset: 5px;
 
-.jumbotron, header .navbar {
+.jumbotron, header .navbar, body.landing {
   background-image: url({{ site.baseurl }}/img/congruent_pentagon.png);
   background-size: 300px;
+}
+body.landing {
+  background-color: $jumbotron-bg;
 }
 header .navbar {
   background-position: left top $header-bg-image-offset;
@@ -207,6 +210,12 @@ footer {
   width: 100%;
   height: $footer_height;
   background-color: #f5f5f5;
+}
+body.landing footer {
+  background-color: darken($jumbotron-bg, 20%);
+}
+body.landing footer .text-muted {
+  color: lighten($jumbotron-bg, 20%);
 }
 
 /* Blog
