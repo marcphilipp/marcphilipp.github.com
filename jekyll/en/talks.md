@@ -1,5 +1,6 @@
 ---
 title: Talks
+permalink: /
 
 lang: en
 ref: talks
