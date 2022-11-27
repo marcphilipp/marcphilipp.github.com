@@ -16,7 +16,7 @@ Wie [einige andere](https://www.youtube.com/user/andrenaobjects), wurde mein Vor
 <div class="row">
   <div class="col-md-6">
 		<div class="embed-responsive embed-responsive-4by3">
-		  <iframe src="https://www.youtube-nocookie.com/embed/oljTjizjKdM?rel=0" frameborder="0" allowfullscreen></iframe>
+		  <iframe src="https://yewtu.be/embed/oljTjizjKdM" frameborder="0" allowfullscreen></iframe>
 		</div>
   </div>
   <div class="col-md-6">
