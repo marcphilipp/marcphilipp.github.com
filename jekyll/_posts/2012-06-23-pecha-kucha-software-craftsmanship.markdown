@@ -20,6 +20,6 @@ Wie [einige andere](https://www.youtube.com/user/andrenaobjects), wurde mein Vor
 		</div>
   </div>
   <div class="col-md-6">
-		<script async class="speakerdeck-embed" data-id="4fe5a5d04252c80021027e97" data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+		<iframe class="speakerdeck-iframe" style="border: 0px none; background: rgba(0, 0, 0, 0.1) padding-box; margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 560px; height: 420px;" src="https://speakerdeck.com/player/4fe5a5d04252c80021027e97" title="Pecha Kucha: Software Craftsmanship" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" data-ratio="1.3333333333333333" frameborder="0"></iframe>
   </div>
 </div>
