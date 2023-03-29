@@ -325,3 +325,11 @@
   date: 2022-12-06
   abstract: https://devopscon.io/continuous-delivery-automation/speeding-up-tests-with-machine-learning-and-distributed-execution/
   slides: https://speakerdeck.com/marcphilipp/speeding-up-tests-with-machine-learning-and-distributed-execution
+
+- title: JUnit 5 wird 5
+  event: Java User Group
+  city: Frankfurt
+  country: de
+  date: 2023-03-29
+  abstract: https://jugf.github.io/posts/junit5-wird-5/
+  slides: https://speakerdeck.com/marcphilipp/junit-5-wird-5-jug-frankfurt
