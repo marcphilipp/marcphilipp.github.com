@@ -17,7 +17,7 @@ dependencies {
 
 val postProcessTalks by tasks.registering(JavaExec::class) {
     mainClass.set("de.marcphilipp.website.TalksPostProcessorMain")
-    classpath += configurations.runtimeClasspath
+    classpath = configurations.runtimeClasspath.get()
 
     val inputYml = file("jekyll/_data/talks_original.yml")
     args("--input-yml", inputYml)
