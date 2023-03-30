@@ -333,3 +333,10 @@
   date: 2023-03-29
   abstract: https://jugf.github.io/posts/junit5-wird-5/
   slides: https://speakerdeck.com/marcphilipp/junit-5-wird-5-jug-frankfurt
+
+- title: Meet the JUnit team in person
+  event: Java User Group
+  city: Zürich
+  country: ch
+  date: 2023-04-12
+  abstract: https://www.jug.ch/html/events/2023/meet_the_junit-team.html

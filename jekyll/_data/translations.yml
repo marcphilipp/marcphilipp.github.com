@@ -12,8 +12,10 @@ en:
     München: Munich
     Київ: Kyiv
     Санкт-Петербург: Saint Petersburg
+    Zürich: Zurich
   countries:
     be: Belgium
+    ch: Switzerland
     de: Germany
     nl: The Netherlands
     pl: Poland
@@ -41,6 +43,7 @@ de:
     Kraków: Krakau
   countries:
     be: Belgien
+    ch: Schweiz
     de: Deutschland
     nl: Niederlande
     pl: Polen
