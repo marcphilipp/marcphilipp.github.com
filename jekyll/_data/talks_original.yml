@@ -340,3 +340,10 @@
   country: ch
   date: 2023-04-12
   abstract: https://www.jug.ch/html/events/2023/meet_the_junit-team.html
+
+- title: Automatisierte Tests mit Machine Learning und verteilter Ausführung beschleunigen
+  event: Entwicklertag
+  city: Karlsruhe
+  country: de
+  date: 2023-06-14
+  abstract: https://www.entwicklertag.de/2023/Automatisierte_Tests_mit_Machine_Learning_und_verteilter_Ausfuehrung_beschleunigen.html
