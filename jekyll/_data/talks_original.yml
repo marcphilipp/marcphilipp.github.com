@@ -340,6 +340,7 @@
   country: ch
   date: 2023-04-12
   abstract: https://www.jug.ch/html/events/2023/meet_the_junit-team.html
+  slides: https://speakerdeck.com/marcphilipp/junit5-intro-9f055d31-3607-4897-9f5c-23671be86213
 
 - title: Automatisierte Tests mit Machine Learning und verteilter Ausführung beschleunigen
   event: Entwicklertag
