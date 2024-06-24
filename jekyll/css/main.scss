@@ -155,11 +155,39 @@ $pre-border-color: $brand-primary;
 
 $header-bg-image-offset: 5px;
 
-.jumbotron, header .navbar {
+.jumbotron, header .navbar, body.landing-page {
   background-image: url({{ site.baseurl }}/img/congruent_pentagon.png);
   background-size: 300px;
 }
-header .navbar {
+body.landing-page {
+  background-color: $jumbotron-bg;
+  color: white;
+}
+.landing-page .jumbotron {
+  background-color: transparent;
+  background-image: none;
+  text-align: center;
+  display: none;
+}
+.landing-page #content {
+  text-align: center;
+  margin: 20px 0;
+}
+@media (min-width: $screen-sm-min) {
+  .landing-page #content {
+    position: absolute;
+    margin-top: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
+  }
+}
+.landing-page footer .text-muted {
+  color: lighten($jumbotron-bg, 20%);
+}
+header .navbar, body.landing-page {
   background-position: left top $header-bg-image-offset;
 }
 .jumbotron {
@@ -207,6 +235,9 @@ footer {
   width: 100%;
   height: $footer_height;
   background-color: #f5f5f5;
+}
+.landing-page footer {
+  background-color: rgba(darken($jumbotron-bg, 20%), 50%);
 }
 
 /* Blog
