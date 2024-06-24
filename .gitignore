@@ -4,3 +4,4 @@ build/
 /jekyll/.jekyll-metadata
 /jekyll/img/talks/
 /jekyll/_data/talks.yml
+/jekyll/Gemfile.lock
