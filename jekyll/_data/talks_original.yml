@@ -363,9 +363,11 @@
   city: Oslo
   country: 'no'
   date: 2024-09-04
+  date_max: 2024-09-05
 
 - title: Running an independent open source project by example
-  event: OCX24
+  event: Open Community Experience (OCX)
   city: Mainz
   country: de
   date: 2024-10-22
+  date_max: 2024-10-24

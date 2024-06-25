@@ -36,6 +36,7 @@ layout: page
                     <em>{{ talk.event }}</em><br>
                     {% if location %}{{ location }}<br>{% endif %}
                     {{ talk.date | date: translations.blog.date_format }}
+                    {% if talk.date_max %} - {{ talk.date_max | date: translations.blog.date_format }}{% endif %}
                 </p>
                 <ul class="list-inline text-right">
                     {% if talk.abstract %}
