@@ -33,10 +33,11 @@ layout: page
                     </strong>
                 </p>
                 <p>
-                    <em>{{ talk.event }}</em> {% if location %}({{ location }}){% endif %}<br>
+                    <em>{{ talk.event }}</em><br>
+                    {% if location %}{{ location }}<br>{% endif %}
                     {{ talk.date | date: translations.blog.date_format }}
                 </p>
-                <ul class="list-inline pull-right">
+                <ul class="list-inline text-right" style="margin-bottom: 0">
                     {% if talk.abstract %}
                     <li>
                         <a href="{{ talk.abstract }}">
