@@ -22,7 +22,13 @@ layout: page
     {% endif %}
     <div class="col-sm-6 col-md-4">
         <div class="talk thumbnail clearfix">
+            {% if talk.slides %}
+            <a href="{{ talk.slides }}">
+            {% endif %}
             <img src="{{ site.baseurl }}/{% if talk.slideImage %}{{ talk.slideImage }}{% else %}img/slide_placeholder.png{% endif %}">
+            {% if talk.slides %}
+            </a>
+            {% endif %}
             <div class="caption">
                 <p>
                     <strong>
