@@ -2,7 +2,7 @@ en:
   name: "English"
   index:
   blog:
-    index:
+    index: /en/blog/
     date_format: "%b %-d, %Y"
     read_on: Read on
     subscribe: Subscribe
