@@ -2,6 +2,17 @@
 
 Running locally:
 
+## With Docker 
+
 ```terminal
-$ docker run -it --rm -v "$PWD":/usr/src/app -p "4000:4000" starefossen/github-pages
+$ ./gradle generate
+```
+
+## Without Docker
+
+```terminal
+$ ./gradlew prepare
+$ cd jekyll
+$ bundle install
+$ bundle exec jekyll serve --watch
 ```
