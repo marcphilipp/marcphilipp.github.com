@@ -68,13 +68,12 @@ layout: page
         </div>
     </div>
     {% assign remainder = forloop.index | modulo: 2 %}
-    {% if remainder == 0 %}
+    {% if remainder == 0 %}{% unless forloop.last %}
     <div class="clearfix visible-sm-block"></div>
-    {% endif %}
+    {% endunless %}{% endif %}
     {% assign remainder = forloop.index | modulo: 3 %}
     {% if remainder == 0 %}{% unless forloop.last %}
-</div>
-<div class="row">
+    <div class="clearfix visible-md-block visible-lg-block"></div>
     {% endunless %}{% endif %}
     {% endfor %}
 </div>
