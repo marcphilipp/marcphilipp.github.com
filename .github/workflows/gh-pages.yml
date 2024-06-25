@@ -33,9 +33,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/gradle-build-action@v3
+      - uses: gradle/actions/setup-gradle@v3
         with:
           arguments: prepare
+      - shell: bash
+        run: /gradlew prepare
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
