@@ -5,13 +5,13 @@ pageClass: landing-page
 redirect_from: /de/ueber-mich/
 ---
 
-<img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=256" alt="Marc Philipp" class="img-circle" style="width:128px; height:128px;" />
+<img src="{{ site.baseurl }}/img/avatar.jpg" alt="Marc Philipp" class="img-circle" style="width:215px; height:215px;" />
 
 # Marc Philipp
 
 - Software-Entwickler
-- Open Source Enthusiast
-- JUnit Team Lead
+- Open-Source-Enthusiast
+- JUnit-Team-Lead
 - Konferenz-Speaker
 - Gradle-Experte
 {: .lead .list-unstyled}
