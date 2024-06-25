@@ -3,6 +3,7 @@ permalink: /
 lang: en
 ref: landing-page
 pageClass: landing-page
+redirect_from: /en/about-me/
 ---
 
 <img src="https://secure.gravatar.com/avatar/956c7d246841e8507a1e1b96842994db?s=256" alt="Marc Philipp" class="img-circle" style="width:128px; height:128px;" />
