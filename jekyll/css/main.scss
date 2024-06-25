@@ -254,7 +254,10 @@ footer {
     object-fit: cover;
     width: 100%
   }
-  ul {
-    margin-bottom: 0;
+  &, .caption {
+    padding-bottom: 0;
+  }
+  .caption {
+    padding-top: 12px;
   }
 }
