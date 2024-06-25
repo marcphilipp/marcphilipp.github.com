@@ -356,6 +356,7 @@
   country: de
   date: 2023-07-20
   abstract: https://jug-karlsruhe.de/content/automatisierte-tests-mit-machine-learning-beschleuningen/
+  slides: https://speakerdeck.com/marcphilipp/automatisierte-tests-mit-machine-learning-und-verteilter-ausfuhrung-beschleunigen
 
 - title: Running an independent open source project by example
   event: JavaZone
