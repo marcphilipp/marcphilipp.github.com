@@ -356,3 +356,15 @@
   country: de
   date: 2023-07-20
   abstract: https://jug-karlsruhe.de/content/automatisierte-tests-mit-machine-learning-beschleuningen/
+
+- title: Running an independent open source project by example
+  event: JavaZone
+  city: Oslo
+  country: 'no'
+  date: 2024-09-04
+
+- title: Running an independent open source project by example
+  event: OCX24
+  city: Mainz
+  country: de
+  date: 2024-10-22
