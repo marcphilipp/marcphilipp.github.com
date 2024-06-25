@@ -245,3 +245,16 @@ footer {
 .post-date {
 	white-space: nowrap;
 }
+
+/* Talks
+-------------------------------------------------- */
+.talk {
+  img {
+    border-bottom: 1px solid $thumbnail-border;
+    object-fit: cover;
+    width: 100%
+  }
+  ul {
+    margin-bottom: 0;
+  }
+}

@@ -21,8 +21,8 @@ layout: page
     {% endunless %}
     {% endif %}
     <div class="col-sm-6 col-md-4">
-        <div class="thumbnail clearfix">
-            <img src="{{ site.baseurl }}/{% if talk.slideImage %}{{ talk.slideImage }}{% else %}img/slide_placeholder.png{% endif %}" style="border-bottom: 1px solid #ddd; object-fit: cover; width: 100%">
+        <div class="talk thumbnail clearfix">
+            <img src="{{ site.baseurl }}/{% if talk.slideImage %}{{ talk.slideImage }}{% else %}img/slide_placeholder.png{% endif %}">
             <div class="caption">
                 <p>
                     <strong>
@@ -37,7 +37,7 @@ layout: page
                     {% if location %}{{ location }}<br>{% endif %}
                     {{ talk.date | date: translations.blog.date_format }}
                 </p>
-                <ul class="list-inline text-right" style="margin-bottom: 0">
+                <ul class="list-inline text-right">
                     {% if talk.abstract %}
                     <li>
                         <a href="{{ talk.abstract }}">
