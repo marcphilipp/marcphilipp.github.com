@@ -6,9 +6,10 @@ layout: page
 
 {% assign translations = site.data.translations[page.lang] %}
 {% assign talks_by_year = site.data.talks | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+
 {% for entry in talks_by_year %}
 <h2>{{ entry.name }}</h2>
-<dl>
+<div class="row">
 {% for talk in entry.items %}
     {% assign location = talk.city %}
     {% if translations.cities[talk.city] %}
@@ -19,53 +20,56 @@ layout: page
     {% assign location = location | append: ", " | append: translations.countries[talk.country] %}
     {% endunless %}
     {% endif %}
-    <dt>
-        {% if talk.slideImage %}
-        <div class="pull-right">
-            {% if talk.slides %}
-                <a href="{{ talk.slides }}">
-            {% endif %}
-                    <img src="/{{ talk.slideImage }}" class="pull-right img-thumbnail" style="height:100px" />
-            {% if talk.slides %}
-                </a>
-            {% endif %}
+    <div class="col-sm-6">
+        <div class="thumbnail clearfix">
+            <img src="{{ site.baseurl }}/{% if talk.slideImage %}{{ talk.slideImage }}{% else %}img/slide_placeholder.png{% endif %}" style="border-bottom: 1px solid #ddd">
+            <div class="caption">
+                <p>
+                    <strong>
+                        {{ talk.title }}
+                        {% if talk.co-speakers %}
+                        ({{ translations.talks.with }} {{ talk.co-speakers }})
+                        {% endif %}
+                    </strong>
+                </p>
+                <p>
+                    <em>{{ talk.event }}</em> {% if location %}({{ location }}){% endif %}<br>
+                    {{ talk.date | date: translations.blog.date_format }}
+                </p>
+                <ul class="list-inline pull-right">
+                    {% if talk.abstract %}
+                    <li>
+                        <a href="{{ talk.abstract }}">
+                            <i class="fas fa-align-left" aria-hidden="true"></i>
+                            {{ translations.talks.abstract }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if talk.slides %}
+                    <li>
+                        <a href="{{ talk.slides }}">
+                            <i class="fab fa-slideshare" aria-hidden="true"></i>
+                            {{ translations.talks.slides }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if talk.youtube %}
+                    <li>
+                        <a href="https://yewtu.be/watch?v={{ talk.youtube }}">
+                            <i class="fas fa-play-circle" aria-hidden="true"></i>
+                            {{ translations.talks.recording }}
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        {% endif %}
-        {{ talk.title }}
-        {% if talk.co-speakers %}
-        ({{ translations.talks.with }} {{ talk.co-speakers }})
-        {% endif %}
-    </dt>
-    <dd>
-        <em>{{ talk.event }}</em> {% if location %}({{ location }}){% endif %}
-        <br>{{ talk.date | date: translations.blog.date_format }}
-        <ul class="list-inline">
-        {% if talk.abstract %}
-            <li>
-                <a href="{{ talk.abstract }}">
-                    <i class="fas fa-align-left" aria-hidden="true"></i>
-                    {{ translations.talks.abstract }}
-                </a>
-            </li>
-        {% endif %}
-        {% if talk.slides %}
-            <li>
-                <a href="{{ talk.slides }}">
-                    <i class="fab fa-slideshare" aria-hidden="true"></i>
-                    {{ translations.talks.slides }}
-                </a>
-            </li>
-        {% endif %}
-        {% if talk.youtube %}
-            <li>
-                <a href="https://yewtu.be/watch?v={{ talk.youtube }}">
-                    <i class="fas fa-play-circle" aria-hidden="true"></i>
-                    {{ translations.talks.recording }}
-                </a>
-            </li>
-        {% endif %}
-        </ul>
-    </dd>
-{% endfor %}
-</dl>
+    </div>
+    {% assign remainder = forloop.index | modulo: 2 %}
+    {% if remainder == 0 %}{% unless forloop.last %}
+</div>
+<div class="row">
+    {% endunless %}{% endif %}
+    {% endfor %}
+</div>
 {% endfor %}
