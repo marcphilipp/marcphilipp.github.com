@@ -5,6 +5,9 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://www.marcphilipp.de" # the base hostname & protocol for your site
 disqus_short_name: marcphilipp
 
+friendly_captcha_sitekey: FCMNNLKPCHTQMILM
+contact_form_endpoint: http://localhost:8080
+
 email: mail@marcphilipp.de
 github_username:  marcphilipp
 
@@ -36,4 +39,4 @@ defaults:
     values:
       layout: page
 
-exclude: [ Gemfile, en/contact.html, en/portfolio.html ]
+exclude: [ Gemfile, en/portfolio.html ]

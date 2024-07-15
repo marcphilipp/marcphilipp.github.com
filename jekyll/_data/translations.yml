@@ -13,6 +13,23 @@ en:
     Київ: Kyiv
     Санкт-Петербург: Saint Petersburg
     Zürich: Zurich
+  contact:
+    name:
+      label: Name
+      placeholder: Your name
+      error: Please enter your name
+    email:
+      label: Email
+      placeholder: Your email address
+      error: Please enter a valid email address
+    message:
+      label: Message
+      placeholder: Your message
+      error: Please enter a message
+    submit: Submit
+    thanks:
+      message: Thank you for your message
+      explanation: I will reply via email as soon as possible. Cheers!
   countries:
     be: Belgium
     ch: Switzerland
@@ -42,6 +59,23 @@ de:
     Київ: Kiew
     Санкт-Петербург: St. Petersburg
     Kraków: Krakau
+  contact:
+    name:
+      label: Name
+      placeholder: Dein Name
+      error: Bitte gib deinen Namen ein
+    email:
+      label: E-Mail
+      placeholder: Deine E-Mail-Adresse
+      error: Bitte gib eine gültige E-Mail-Adresse ein
+    message:
+      label: Nachricht
+      placeholder: Deine Nachricht
+      error: Bitte gib eine Nachricht ein
+    submit: Absenden
+    thanks:
+      message: Danke für deine Nachricht
+      explanation: Ich werde sobald wie möglich per E-Mail antworten.
   countries:
     be: Belgien
     ch: Schweiz
