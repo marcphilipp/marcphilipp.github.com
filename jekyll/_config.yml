@@ -6,6 +6,7 @@ url: "https://www.marcphilipp.de" # the base hostname & protocol for your site
 disqus_short_name: marcphilipp
 
 friendly_captcha_sitekey: FCMNNLKPCHTQMILM
+#contact_form_endpoint: http://127.0.0.1:8080/submit
 contact_form_endpoint: https://contact.marcphilipp.de/submit
 
 email: mail@marcphilipp.de
