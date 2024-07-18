@@ -2,54 +2,74 @@
 layout: page
 ---
 
-{{ content }}
-
 {% assign translations = site.data.translations[page.lang] %}
 
-<hr>
-
-<form role="form" id="contact-form" action="{{ site.contact_form_endpoint }}" method="POST">
-    <input type="hidden" name="language" value="{{ page.lang | upcase }}">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="contact-form-name">{{ translations.contact.name.label }}</label>
-                <input type="text" name="name" class="form-control" id="contact-form-name" placeholder="{{ translations.contact.name.placeholder }}" data-error="{{ translations.contact.name.error }}" required>
-                <div class="help-block with-errors"></div>
+<div id="contact-form-container">
+    {{ content }}
+    <hr>
+    <form role="form" id="contact-form">
+        <input type="hidden" name="language" value="{{ page.lang | upcase }}">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="contact-form-name">{{ translations.contact.name.label }}</label>
+                    <input type="text" name="name" class="form-control" id="contact-form-name" placeholder="{{ translations.contact.name.placeholder }}" data-error="{{ translations.contact.name.error }}" required>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="contact-form-email">{{ translations.contact.email.label }}</label>
+                    <input type="email" name="email" class="form-control" id="contact-form-email" placeholder="{{ translations.contact.email.placeholder }}" data-error="{{ translations.contact.email.error }}" required>
+                    <div class="help-block with-errors"></div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="contact-form-email">{{ translations.contact.email.label }}</label>
-                <input type="email" name="email" class="form-control" id="contact-form-email" placeholder="{{ translations.contact.email.placeholder }}" data-error="{{ translations.contact.email.error }}" required>
-                <div class="help-block with-errors"></div>
-            </div>
+        <div class="form-group">
+            <label for="contact-form-message">{{ translations.contact.message.label }}</label>
+            <textarea class="form-control" name="message" rows="8" id="contact-form-message" placeholder="{{ translations.contact.message.placeholder }}" data-error="{{ translations.contact.message.error }}" required></textarea>
+            <div class="help-block with-errors"></div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="contact-form-message">{{ translations.contact.message.label }}</label>
-        <textarea class="form-control" name="message" rows="8" id="contact-form-message" placeholder="{{ translations.contact.message.placeholder }}" data-error="{{ translations.contact.message.error }}" required></textarea>
-        <div class="help-block with-errors"></div>
-    </div>
-    <div class="form-group">
-        <div id="friendly-captcha" class="frc-captcha" data-sitekey="{{ site.friendly_captcha_sitekey }}" data-start="auto" data-lang="{{ page.lang }}" data-solution-field-name="friendlyCaptchaSolution"></div>
-    </div>
-    <button type="submit" class="btn btn-lg btn-primary">{{ translations.contact.submit }}</button>
-</form>
+        <div class="form-group">
+            <div id="friendly-captcha" class="frc-captcha" data-sitekey="{{ site.friendly_captcha_sitekey }}" data-start="auto" data-lang="{{ page.lang }}" data-solution-field-name="friendlyCaptchaSolution"></div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">
+            {{ translations.contact.submit }}
+            <i class="fa fa-spinner fa-spin hidden" id="submission-indicator"></i>
+        </button>
+    </form>
+</div>
+<div class="alert alert-success hidden" role="alert" id="success-message">
+    <p class="lead">{{ translations.contact.thanks.message }}!</p>
+    <p>{{ translations.contact.thanks.explanation }}</p>
+</div>
 
-<script
-        type="module"
-        src="{{ "/js/friendly-captcha-widget.module.min.js" | prepend: site.baseurl }}"
-async
-defer
-></script>
+<script type="module" src="{{ "/js/friendly-captcha-widget.module.min.js" | prepend: site.baseurl }}" async defer></script>
 <script nomodule src="{{ "/js/friendly-captcha-widget.min.js" | prepend: site.baseurl }}" async defer></script>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        $("#contact-form").validator().on('submit', function (e) {
-            if (e.isDefaultPrevented() || document.querySelector("#friendly-captcha-solution").value === "") {
-                e.preventDefault();
+    document.addEventListener('DOMContentLoaded', () => {
+        $("#contact-form").validator().on('submit', (e) => {
+            let fieldsAreValid = !e.isDefaultPrevented();
+            let captchaIsSolved = document.querySelector("[name='friendlyCaptchaSolution']").value !== "";
+            if (fieldsAreValid && captchaIsSolved) {
+                document.querySelector('button[type="submit"]').disabled = true;
+                document.getElementById('submission-indicator').classList.remove('hidden');
+                let formElement = document.getElementById("contact-form");
+                const formData = new FormData(formElement);
+                const json = JSON.stringify(Object.fromEntries(formData.entries()));
+                fetch('{{ site.contact_form_endpoint }}', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: json
+                }).then(() => {
+                    document.getElementById('contact-form-container').classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
+                });
             }
+            e.preventDefault();
         });
     });
 </script>
