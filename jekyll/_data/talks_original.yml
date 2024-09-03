@@ -362,12 +362,12 @@
   event: JavaZone
   city: Oslo
   country: 'no'
-  date: 2024-09-04
-  date_max: 2024-09-05
+  date: 2024-09-05
+  abstract: https://2024.javazone.no/program/203ec22b-ec45-41c5-9f61-e29b0ff01538
 
 - title: Running an independent open source project by example
   event: Open Community Experience (OCX)
   city: Mainz
   country: de
   date: 2024-10-22
-  date_max: 2024-10-24
+  abstract: https://www.ocxconf.org/event/778b82cc-6834-48a4-a58e-f883c5a7b8c9/websitePage:26bc9d91-446a-49e1-9f08-8fcc4680073e?session=22499491-9d93-4d48-b821-7317482e8ea4&shareLink=true
