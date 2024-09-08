@@ -69,6 +69,14 @@ layout: page
                         </a>
                     </li>
                     {% endif %}
+                    {% if talk.recording %}
+                    <li>
+                        <a href="{{ talk.recording }}">
+                            <i class="fas fa-play-circle" aria-hidden="true"></i>
+                            {{ translations.talks.recording }}
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
