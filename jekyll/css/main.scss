@@ -143,6 +143,14 @@ $pre-border-color: $brand-primary;
 				color: #007BB6;
 			}
 		}
+		> li.social.bluesky {
+			.foreground {
+				margin-top: 1px;
+			}
+			.foreground, :hover .background {
+				color: #0085ff;
+			}
+		}
 	}
 	.tooltip-inner {
 	  min-width: 90px;
