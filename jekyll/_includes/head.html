@@ -26,4 +26,6 @@
   <link rel="alternate" hreflang="{{ post.lang }}" href="{{ post.url }}" />{% endfor %}
   {% assign pages=site.pages | where:"ref", page.ref | where_exp:"item", "item.url != page.url" %}{% for page in pages %}
   <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.url }}" />{% endfor %}
+
+  <script src="https://kit.fontawesome.com/a9e46159c9.js" crossorigin="anonymous"></script>
 </head>

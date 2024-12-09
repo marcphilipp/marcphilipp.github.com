@@ -20,10 +20,10 @@ layout: default
   <nav class="text-center">
     <ul class="pagination">
     {% if previous %}
-      <li><a href="{{ previous.url | prepend: site.baseurl }}"><span aria-hidden="true"><i class="fas fa-chevron-left"></i></span> {{ previous.title }}</a></li>
+      <li><a href="{{ previous.url | prepend: site.baseurl }}"><span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span> {{ previous.title }}</a></li>
     {% endif %}
     {% if next %}
-      <li><a href="{{ next.url | prepend: site.baseurl }}">{{ next.title }} <span aria-hidden="true"><i class="fas fa-chevron-right"></i></span></a></li>
+      <li><a href="{{ next.url | prepend: site.baseurl }}">{{ next.title }} <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span></a></li>
     {% endif %}
     </ul>
   </nav>

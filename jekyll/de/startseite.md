@@ -19,6 +19,6 @@ redirect_from: /de/ueber-mich/
 <div class="btn-group" role="group" style="min-width: 200px">
     <a class="btn btn-success" href="/de/kontakt" role="button"><i class="fa fa-envelope"></i> Kontakt</a>
     <a class="btn btn-default" href="{{ site.url }}/de/vortraege" role="button"><i class="fa fa-microphone"></i> <span class="hidden-xs">Vorträge</span></a>
-    <a class="btn btn-default" href="https://github.com/marcphilipp" role="button"><i class="fab fa-github"></i> <span class="hidden-xs">Projekte</span></a>
-    <a class="btn btn-default" href="https://www.linkedin.com/in/marcphilipp" role="button"><i class="fab fa-linkedin"></i> <span class="hidden-xs">Lebenslauf</span></a>
+    <a class="btn btn-default" href="https://github.com/marcphilipp" role="button"><i class="fa-brands fa-github"></i> <span class="hidden-xs">Projekte</span></a>
+    <a class="btn btn-default" href="https://www.linkedin.com/in/marcphilipp" role="button"><i class="fa-brands fa-linkedin"></i> <span class="hidden-xs">Lebenslauf</span></a>
 </div>

@@ -54,10 +54,6 @@ $pre-border-color: $brand-primary;
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "bootstrap",
-        "font-awesome/fontawesome",
-        "font-awesome/brands",
-        "font-awesome/regular",
-        "font-awesome/solid",
         "syntax-highlighting"
 ;
 

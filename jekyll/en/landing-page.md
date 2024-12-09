@@ -20,6 +20,6 @@ redirect_from: /en/about-me/
 <div class="btn-group" role="group" style="min-width: 200px">
     <a class="btn btn-success" href="/en/contact" role="button"><i class="fa fa-envelope"></i> Contact</a>
     <a class="btn btn-default" href="{{ site.url }}/en/talks" role="button"><i class="fa fa-microphone"></i> <span class="hidden-xs">Talks</span></a>
-    <a class="btn btn-default" href="https://github.com/marcphilipp" role="button"><i class="fab fa-github"></i> <span class="hidden-xs">Projects</span></a>
-    <a class="btn btn-default" href="https://www.linkedin.com/in/marcphilipp" role="button"><i class="fab fa-linkedin"></i> <span class="hidden-xs">CV</span></a>
+    <a class="btn btn-default" href="https://github.com/marcphilipp" role="button"><i class="fa-brands fa-github"></i> <span class="hidden-xs">Projects</span></a>
+    <a class="btn btn-default" href="https://www.linkedin.com/in/marcphilipp" role="button"><i class="fa-brands fa-linkedin"></i> <span class="hidden-xs">CV</span></a>
 </div>

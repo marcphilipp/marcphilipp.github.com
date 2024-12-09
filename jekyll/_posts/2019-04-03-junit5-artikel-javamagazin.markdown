@@ -14,4 +14,4 @@ Mein Artikel "Neues von JUnit" aus dem [Java Magazin 3.19](https://jaxenter.de/a
 
 > Im September 2017 wurde die Version 5.0 von JUnit nach fast zweijähriger Entwicklung endlich fertiggestellt. Das JUnit-Team hat die Arbeit danach jedoch keineswegs eingestellt, sondern neben einigen Bugfix-Releases mittlerweile drei neue Featurereleases veröffentlicht.
 
-<a href="https://jaxenter.de/junit-5-beyond-testing-framework-81787" class="btn btn-primary btn-lg">Zum Artikel <span aria-hidden="true"><i class="fas fa-external-link-square-alt"></i></span></a>
+<a href="https://jaxenter.de/junit-5-beyond-testing-framework-81787" class="btn btn-primary btn-lg">Zum Artikel <span aria-hidden="true"><i class="fa-solid fa-external-link-square-alt"></i></span></a>
