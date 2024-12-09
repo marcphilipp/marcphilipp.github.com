@@ -1,3 +1,6 @@
+.idea
+.gradle
+.tool-versions
 build/
 /jekyll/_site
 /jekyll/.sass-cache
