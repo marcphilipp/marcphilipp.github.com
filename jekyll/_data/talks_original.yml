@@ -375,3 +375,10 @@
   abstract: https://www.ocxconf.org/event/778b82cc-6834-48a4-a58e-f883c5a7b8c9/websitePage:26bc9d91-446a-49e1-9f08-8fcc4680073e?session=22499491-9d93-4d48-b821-7317482e8ea4&shareLink=true
   slides: https://speakerdeck.com/marcphilipp/behind-the-scenes-of-junit-5-running-an-independent-open-source-project-by-example-e32a91a4-f8f4-4e16-ae61-e49a1ed353cb
   youtube: fsrtgVpOI3Q
+
+- title: The JUnit Crew Presents What's New
+  event: IntelliJ IDEA Livestream
+  date: 2024-11-27
+  abstract: https://blog.jetbrains.com/idea/2024/11/new-livestream-the-junit-crew-presents-the-latest-features-2/
+  slides: https://speakerdeck.com/marcphilipp/the-junit-crew-presents-whats-new
+  youtube: w93zN-zzLMA
