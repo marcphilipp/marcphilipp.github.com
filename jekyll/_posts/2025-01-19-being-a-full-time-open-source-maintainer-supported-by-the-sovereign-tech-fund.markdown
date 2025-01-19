@@ -14,6 +14,6 @@ I have been intrigued and following its work since its inception. When I left Gr
 
 As explained in [my announcement on GitHub](https://github.com/junit-team/junit5/discussions/4014), the work is comprised of a set of predefined milestones that have been agreed upon as part of the contract. The goal is to improve the long-term sustainability of the project as well as downstream projects. JUnit will, of course, remain an independent project, and the investment does not mean that the STF will be influencing JUnit's roadmap apart from the milestones they are commissioning.
 
-Fast-forward to today, it's already 2025 and the first five months of work supported by the STF have already passed. So what has been achieved so far? In this series of blog post, I will go into detail on each milestone and share some observations I made along the way.
+Fast-forward to today, it's already 2025 and the first five months of work supported by the STF have already passed. So what has been achieved so far? In this series of blog posts, I will go into detail for each milestone and share some observations I made along the way.
 
 * [STF Milestone 1: Adopt Renovate](/blog/2025/01/19/stf-milestone-1-adopt-renovate/)
