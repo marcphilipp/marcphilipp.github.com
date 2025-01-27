@@ -17,3 +17,4 @@ As explained in [my announcement on GitHub](https://github.com/junit-team/junit5
 Fast-forward to today, it's already 2025 and the first five months of work supported by the STF have already passed. So what has been achieved so far? In this series of blog posts, I will go into detail for each milestone and share some observations I made along the way.
 
 * [STF Milestone 1: Adopt Renovate](/blog/2025/01/19/stf-milestone-1-adopt-renovate/)
+* [STF Milestone 9: Jupiter extension improvements](/blog/2025/01/27/stf-milestone-9-jupiter-extension-improvements/)
