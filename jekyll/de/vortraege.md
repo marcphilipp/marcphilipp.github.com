@@ -6,5 +6,5 @@ ref: talks
 
 layout: talks
 group: navigation
-weight: 15
+weight: 2
 ---
