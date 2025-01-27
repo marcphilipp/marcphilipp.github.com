@@ -10,6 +10,9 @@ layout: default
 
 <div class="container">
   <article role="article">
+  {% if page.note %}
+    <div class="well">{{ page.note | markdownify }}</div>
+  {% endif %}
   {{ content }}
   </article>
 

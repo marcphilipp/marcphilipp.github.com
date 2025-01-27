@@ -249,6 +249,9 @@ footer {
 .post-date {
 	white-space: nowrap;
 }
+.well :last-child {
+	margin-bottom: 0;
+}
 
 /* Talks
 -------------------------------------------------- */

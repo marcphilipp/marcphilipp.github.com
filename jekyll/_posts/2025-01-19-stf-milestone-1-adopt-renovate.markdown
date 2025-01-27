@@ -4,9 +4,9 @@ date: 2025-01-19 00:01
 categories: [Sovereign Tech Fund, JUnit 5]
 lang: en
 ref: stf-milestone-1-adopt-renovate
+note: |
+  This post is part of the series on my work on JUnit supported by the [Sovereign Tech Fund](https://www.sovereign.tech/programs/fund) (STF). Please refer to the [initial post](/blog/2025/01/19/being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund/) for context and a list of all posts.
 ---
-
-> This post is part of the series on my work on JUnit supported by the [Sovereign Tech Fund](https://www.sovereign.tech/programs/fund) (STF). Please refer to the [initial post](/blog/2025/01/19/being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund/) for context and a list of all posts.
 
 When drafting the project description for the STF, it was important to choose something as a first milestone that I could get done in under a month and that would have a direct benefit to the project right away and improve its maintainability. That's why I eventually decided on migrating to Renovate for automating updates to dependencies and build tools.<!--more-->
 {: .lead}
