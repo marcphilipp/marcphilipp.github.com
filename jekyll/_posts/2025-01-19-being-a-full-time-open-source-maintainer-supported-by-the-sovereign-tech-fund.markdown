@@ -18,3 +18,4 @@ Fast-forward to today, it's already 2025 and the first five months of work suppo
 
 * [STF Milestone 1: Adopt Renovate](/blog/2025/01/19/stf-milestone-1-adopt-renovate/)
 * [STF Milestone 9: Jupiter extension improvements](/blog/2025/01/27/stf-milestone-9-jupiter-extension-improvements/)
+* [STF Milestone 2: Open Test Reporting](/blog/2025/03/21/stf-milestone-2-open-test-reporting/)
