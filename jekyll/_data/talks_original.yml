@@ -382,3 +382,17 @@
   abstract: https://blog.jetbrains.com/idea/2024/11/new-livestream-the-junit-crew-presents-the-latest-features-2/
   slides: https://speakerdeck.com/marcphilipp/the-junit-crew-presents-whats-new
   youtube: w93zN-zzLMA
+
+- title: Catching up with JUnit 5
+  event: JCON Europe
+  city: Köln
+  country: de
+  date: 2025-05-12
+  co-speakers: Christian Stein
+  abstract: https://schedule.jcon.one/session/837895
+
+- title: Catching up with JUnit
+  event: IntelliJ IDEA Conf
+  city: Amsterdam
+  country: nl
+  date: 2025-06-03
