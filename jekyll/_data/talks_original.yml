@@ -390,6 +390,7 @@
   date: 2025-05-12
   co-speakers: Christian Stein
   abstract: https://schedule.jcon.one/session/837895
+  slides: https://speakerdeck.com/marcphilipp/catching-up-with-junit-5
 
 - title: Catching up with JUnit
   event: IntelliJ IDEA Conf
