@@ -397,7 +397,7 @@
   event: IntelliJ IDEA Conf
   city: Amsterdam
   country: nl
-  date: 2025-06-03
+  date: 2025-06-04
   abstract: https://lp.jetbrains.com/intellij-idea-conf-2025/
   slides: https://speakerdeck.com/marcphilipp/catching-up-with-junit
   code: https://github.com/marcphilipp/junit5-demo
