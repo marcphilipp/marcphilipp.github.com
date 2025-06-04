@@ -391,6 +391,7 @@
   co-speakers: Christian Stein
   abstract: https://schedule.jcon.one/session/837895
   slides: https://speakerdeck.com/marcphilipp/catching-up-with-junit-5
+  code: https://github.com/marcphilipp/jcon-junit-workshop-code
 
 - title: Catching up with JUnit
   event: IntelliJ IDEA Conf
@@ -399,3 +400,4 @@
   date: 2025-06-03
   abstract: https://lp.jetbrains.com/intellij-idea-conf-2025/
   slides: https://speakerdeck.com/marcphilipp/catching-up-with-junit
+  code: https://github.com/marcphilipp/junit5-demo

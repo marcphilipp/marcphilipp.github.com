@@ -44,6 +44,7 @@ en:
   talks:
     with: with
     abstract: Abstract
+    code: Code
     slides: Slides
     recording: Recording
 de:
@@ -90,5 +91,6 @@ de:
   talks:
     with: mit
     abstract: Abstract
+    code: Code
     slides: Folien
     recording: Aufzeichnung

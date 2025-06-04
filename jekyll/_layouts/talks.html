@@ -61,6 +61,14 @@ layout: page
                         </a>
                     </li>
                     {% endif %}
+                    {% if talk.code %}
+                    <li>
+                        <a href="{{ talk.code }}">
+                            <i class="fa-brands fa-github" aria-hidden="true"></i>
+                            {{ translations.talks.code }}
+                        </a>
+                    </li>
+                    {% endif %}
                     {% if talk.youtube %}
                     <li>
                         <a href="https://www.youtube.com/watch?v={{ talk.youtube }}">
