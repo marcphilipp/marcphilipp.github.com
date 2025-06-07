@@ -20,3 +20,4 @@ Fast-forward to today, it's already 2025 and the first five months of work suppo
 * [STF Milestone 9: Jupiter extension improvements](/blog/2025/01/27/stf-milestone-9-jupiter-extension-improvements/)
 * [STF Milestone 2: Open Test Reporting](/blog/2025/03/21/stf-milestone-2-open-test-reporting/)
 * [STF Milestone 3: Release verification and automation](/blog/2025/04/01/stf-milestone-3-release-verification-and-automation/)
+* [STF Milestone 4: Parameterized test classes](/blog/2025/06/07/stf-milestone-4-parameterized-test-classes/)
