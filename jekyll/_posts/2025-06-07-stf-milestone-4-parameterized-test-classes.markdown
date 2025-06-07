@@ -86,7 +86,7 @@ Prior to JUnit 5.13, one would typically achieve that by writing an abstract bas
 For example, the following test class implements two tests against Java's `List` interface that are executed against three implementations of `List` that are part of the JDK.
 
 ```java
-public class ListTests {
+class ListTests {
 
     private static abstract class AbstractListTests {
 
@@ -148,7 +148,7 @@ This test can be rewritten using `@ParameterizedClass` and a `@MethodSource` as 
 ```java
 @ParameterizedClass
 @MethodSource("listImplementations")
-public class ParameterizedListTests {
+class ParameterizedListTests {
 
     static Stream<?> listImplementations() {
         return Stream.of(
@@ -192,7 +192,7 @@ The same use case can also be implemented using `@ValueSource` (and constructor 
 ```java
 @ParameterizedClass(name = "[{index}] {0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
-public class ParameterizedWithValueSourceListTests {
+class ParameterizedWithValueSourceListTests {
 
     List<String> list;
 
@@ -221,7 +221,7 @@ If you find yourself using such a _conversion_ in multiple places, it might make
 ```java
 @ParameterizedClass(name = "[{index}] {0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
-public class ParameterizedWithValueSourceAndConverterListTests {
+class ParameterizedWithValueSourceAndConverterListTests {
 
     @Parameter
     @ConvertWith(ClassToInstanceConverter.class)
@@ -271,7 +271,7 @@ Of course, that also works with constructor injections, for example, using a Jav
 ```java
 @ParameterizedClass(name = "[{index}] {0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
-public record ParameterizedWithValueSourceAndConverterRecordListTests(
+record ParameterizedWithValueSourceAndConverterRecordListTests(
         @Instantiate List<String> list) {
 
     @Test
@@ -308,7 +308,7 @@ This also removes the need to reset the state of the parameters in an `@AfterEac
 ```java
 @ParameterizedClass
 @MethodSource("listImplementations")
-public class ParameterizedListWithSuppliersTests {
+class ParameterizedListWithSuppliersTests {
 
     static Stream<?> listImplementations() {
         return Stream.of(
@@ -355,7 +355,7 @@ This may be used, for example, to initialize an argument as demonstrated in the 
 ```java
 @ParameterizedClass(name = "{0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
-public record CustomInitializationListTests(
+record CustomInitializationListTests(
         @Instantiate List<String> list) {
 
     @BeforeParameterizedClassInvocation
@@ -399,7 +399,7 @@ The `@Nested` class additionally contains a `@ParameterizedTest` method  to test
 
 @ParameterizedClass(name = "[{index}] {0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
-public class ParameterizedWithNestedListTests {
+class ParameterizedWithNestedListTests {
 
     @Parameter
     @Instantiate
