@@ -8,7 +8,7 @@ note: |
   This post is part of the series on my work on JUnit supported by the [Sovereign Tech Fund](https://www.sovereign.tech/programs/fund) (STF). Please refer to the [initial post](/blog/2025/01/19/being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund/) for context and a list of all posts.
 ---
 
-In version 5.0, JUnit Jupiter allowed introduced support for parameterizing test methods.
+In version 5.0, JUnit Jupiter introduced support for parameterizing test methods.
 In JUnit 4, only test classes could be parameterized.
 Therefore, being able to do so on the method level provided more flexibility.
 However, there are cases where a set of tests should be executed against the same sets of arguments.
@@ -196,8 +196,8 @@ public class ParameterizedWithValueSourceListTests {
 
     List<String> list;
 
-    ParameterizedWithValueSourceListTests(Class<? extends List<String>> list) {
-        this.list = ReflectionSupport.newInstance(list);
+    ParameterizedWithValueSourceListTests(Class<? extends List<String>> listType) {
+        this.list = ReflectionSupport.newInstance(listType);
     }
     
     @Test
@@ -212,7 +212,10 @@ public class ParameterizedWithValueSourceListTests {
 }
 ```
 
-Since `@ValueSource` only supports class literals, not concrete instances, the constructor relies on JUnit's `ReflectionSupport` class to instantiate the `List`.
+Since `@ValueSource` only supports class literals, not concrete instances, the constructor relies on JUnit's `ReflectionSupport` class to instantiate the `List` via the implementations' default constructors.
+Whether it's ok to use reflection here is, of course, debatable.
+Personally, I think it's acceptable in this case since test code is executed with every build and would fail right away.
+
 If you find yourself using such a _conversion_ in multiple places, it might make sense to extract it into a custom `ArgumentConverter` and annotate the parameter with `@ConvertWith` instead.
 
 ```java
@@ -221,7 +224,7 @@ If you find yourself using such a _conversion_ in multiple places, it might make
 public class ParameterizedWithValueSourceAndConverterListTests {
 
     @Parameter
-    @ConvertWith(Instantiate.class)
+    @ConvertWith(ClassToInstanceConverter.class)
     List<String> list;
 
     @Test
@@ -242,14 +245,24 @@ public class ParameterizedWithValueSourceAndConverterListTests {
 }
 ```
 
-The custom `ArgumentConverter` implementation is called `Instantiate` in this example and contains the code that was part of the constructor in the previous example.
+The custom `ArgumentConverter` implementation is called `ClassToInstanceConverter` in this example and contains the code that was part of the constructor in the previous example.
 
 ```java
-class Instantiate extends SimpleArgumentConverter {
+class ClassToInstanceConverter extends SimpleArgumentConverter {
     @Override
     protected Object convert(Object source, Class<?> targetType) {
         return ReflectionSupport.newInstance((Class<?>) source);
     }
+}
+```
+
+You can even make this shorter by utilizing JUnit's support for composed annotations.
+
+```java
+@Retention(RUNTIME)
+@Target({PARAMETER, FIELD})
+@ConvertWith(ClassToInstanceConverter.class)
+@interface Instantiate {
 }
 ```
 
@@ -259,16 +272,20 @@ Of course, that also works with constructor injections, for example, using a Jav
 @ParameterizedClass(name = "[{index}] {0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
 public record ParameterizedWithValueSourceAndConverterRecordListTests(
-        @ConvertWith(Instantiate.class) List<String> list) {
-    
+        @Instantiate List<String> list) {
+
     @Test
     void newListIsEmpty() {
-        // same as above...
+        assertTrue(list.isEmpty());
     }
 
     @Test
     void itemCanBeAdded() {
-        // same as above...
+        var added = list.add("value");
+
+        assertTrue(added);
+        assertTrue(list.contains("value"));
+        assertEquals("value", list.getFirst());
     }
 
     @AfterEach
@@ -339,7 +356,7 @@ This may be used, for example, to initialize an argument as demonstrated in the 
 @ParameterizedClass(name = "{0}")
 @ValueSource(classes = {ArrayList.class, LinkedList.class, Vector.class})
 public record CustomInitializationListTests(
-        @ConvertWith(Instantiate.class) List<String> list) {
+        @Instantiate List<String> list) {
 
     @BeforeParameterizedClassInvocation
     static void before(List<String> list) {
@@ -385,7 +402,7 @@ The `@Nested` class additionally contains a `@ParameterizedTest` method  to test
 public class ParameterizedWithNestedListTests {
 
     @Parameter
-    @ConvertWith(Instantiate.class)
+    @Instantiate
     List<String> list;
 
     @Test
@@ -413,7 +430,7 @@ public class ParameterizedWithNestedListTests {
     class Interoperability {
 
         @Parameter
-        @ConvertWith(Instantiate.class)
+        @Instantiate
         List<String> secondList;
 
         @Test
@@ -456,3 +473,7 @@ Therefore, you should take that into consideration when deciding whether to use 
 
 Parameterized test classes are a powerful testing tool that has long been missing from JUnit Jupiter.
 I'm super happy that I've finally had the chance to resolve this long-standing and highly-voted issue thanks to the [Sovereign Tech Fund](/blog/2025/01/19/being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund/).
+
+---
+
+Edit: Thanks to my fellow JUnit 5 co-maintainer [Sam Brannen](https://github.com/sbrannen) for his feedback which I applied after initially publishing this post.
