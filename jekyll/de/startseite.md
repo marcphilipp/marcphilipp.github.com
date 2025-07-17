@@ -14,6 +14,7 @@ redirect_from: /de/ueber-mich/
 - JUnit-Team-Lead
 - Konferenz-Speaker
 - Gradle-Experte
+- Java Champion
 {: .lead .list-unstyled}
 
 <div class="btn-group" role="group" style="min-width: 200px">
