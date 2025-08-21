@@ -158,3 +158,8 @@ object SequenceTests {
     }
 }
 ```
+
+## Wrapping up
+
+Thanks to these improvements writing JUnit Jupiter tests in Kotlin has just gotten more convenient and idiomatic.
+Please give [JUnit 6.0.0-RC1](https://docs.junit.org/6.0.0-RC1/release-notes/) a try and let us know what you think and provide feedback on [GitHub](https://github.com/junit-team/junit-framework/).
