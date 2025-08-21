@@ -22,3 +22,4 @@ Fast-forward to today, it's already 2025 and the first five months of work suppo
 * [STF Milestone 3: Release verification and automation](/blog/2025/04/01/stf-milestone-3-release-verification-and-automation/)
 * [STF Milestone 4: Parameterized test classes](/blog/2025/06/07/stf-milestone-4-parameterized-test-classes/)
 * [STF Milestone 5: Discovery issues](/blog/2025/08/16/stf-milestone-5-discovery-issues/)
+* [STF Milestone 6: Improved Kotlin support](/blog/2025/08/21/stf-milestone-6-improved-kotlin-support/)
