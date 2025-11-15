@@ -403,6 +403,14 @@
   code: https://github.com/marcphilipp/junit5-demo
   youtube: -cY5BJaHz6E
 
+- title: JUnit 6.0
+  event: Java User Group
+  city: Karlsruhe
+  country: de
+  date: 2025-10-16
+  abstract: https://jug-karlsruhe.de/content/dukes-day/#lightning-talk-junit-60-mit-marc-philipp
+  slides: https://speakerdeck.com/marcphilipp/junit-6-dot-0
+
 - title: The road to JUnit 6
   event: JavaLand
   city: Rust
