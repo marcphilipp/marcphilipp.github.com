@@ -402,3 +402,10 @@
   slides: https://speakerdeck.com/marcphilipp/catching-up-with-junit
   code: https://github.com/marcphilipp/junit5-demo
   youtube: -cY5BJaHz6E
+
+- title: The road to JUnit 6
+  event: JavaLand
+  city: Rust
+  country: de
+  date: 2026-03-10
+  abstract: https://meine.doag.org/events/javaland/2026/agenda/#agendaId.6823
