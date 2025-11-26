@@ -411,6 +411,13 @@
   abstract: https://jug-karlsruhe.de/content/dukes-day/#lightning-talk-junit-60-mit-marc-philipp
   slides: https://speakerdeck.com/marcphilipp/junit-6-dot-0
 
+- title: JUnit 6.0
+  event: JCON Event
+  city: Berlin
+  country: de
+  date: 2025-11-26
+  slides: https://speakerdeck.com/marcphilipp/junit-6-ace77095-ee30-4844-9ca7-58d4f103dfe4
+
 - title: The road to JUnit 6
   event: JavaLand
   city: Rust
