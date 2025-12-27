@@ -424,3 +424,10 @@
   country: de
   date: 2026-03-10
   abstract: https://meine.doag.org/events/javaland/2026/agenda/#agendaId.6823
+
+- title: The road to JUnit 6
+  event: JCON Europe
+  city: Köln
+  country: de
+  date: 2026-04-21
+  abstract: https://schedule.jcon.one/2026/session/1037213
