@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 6: Improved Kotlin support"
 date: 2025-08-21 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: 2025-08-21-stf-milestone-6-improved-kotlin-support
 note: |

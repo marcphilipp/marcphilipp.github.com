@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 4: Parameterized test classes"
 date: 2025-06-07 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: 2025-06-07-stf-milestone-4-parameterized-test-classes
 note: |

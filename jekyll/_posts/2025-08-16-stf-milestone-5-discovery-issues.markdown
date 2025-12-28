@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 5: Discovery issues"
 date: 2025-08-16 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: 2025-08-16-stf-milestone-5-discovery-issues
 note: |

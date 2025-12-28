@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 9: Jupiter extension improvements"
 date: 2025-01-27 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: stf-milestone-9-jupiter-extension-improvements
 note: |

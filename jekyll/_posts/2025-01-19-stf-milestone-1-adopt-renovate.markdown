@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 1: Adopt Renovate"
 date: 2025-01-19 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: stf-milestone-1-adopt-renovate
 note: |

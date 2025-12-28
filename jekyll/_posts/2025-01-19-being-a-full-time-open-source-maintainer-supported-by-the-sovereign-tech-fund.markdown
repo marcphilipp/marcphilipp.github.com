@@ -1,7 +1,7 @@
 ---
 title: Being a full-time open source maintainer supported by the Sovereign Tech Fund
 date: 2025-01-19 00:00
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund
 ---

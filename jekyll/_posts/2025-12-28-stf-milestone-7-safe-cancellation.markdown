@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 7: Safe cancellation"
 date: 2025-12-28 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: 2025-08-21-stf-milestone-7-safe-cancellation
 note: |

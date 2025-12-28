@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 2: Open Test Reporting"
 date: 2025-03-21 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: stf-milestone-2-open-test-reporting
 note: |

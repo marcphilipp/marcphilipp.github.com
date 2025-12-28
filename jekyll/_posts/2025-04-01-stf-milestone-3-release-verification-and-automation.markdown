@@ -1,7 +1,7 @@
 ---
 title: "STF Milestone 3: Release verification and automation"
 date: 2025-04-01 00:01
-categories: [Sovereign Tech Fund, JUnit 5]
+categories: [Sovereign Tech Fund, JUnit]
 lang: en
 ref: stf-milestone-3-release-verification-and-automation
 note: |

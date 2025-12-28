@@ -2,7 +2,7 @@
 title: "JUnit 5 auf der Devoxx US 2017"
 date: 2017-04-21 16:12
 comments: true
-categories: [Talks, JUnit 5]
+categories: [Talks, JUnit]
 lang: de
 ref: post-junit5-at-devoxx-us-2017
 ---
