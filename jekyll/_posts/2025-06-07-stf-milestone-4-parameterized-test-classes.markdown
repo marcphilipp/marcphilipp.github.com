@@ -79,7 +79,7 @@ In the example above, a Java _record_ is used and the class-level parameters are
 This allows reducing the boilerplate of declaring a constructor and assigning its parameters to fields.
 Regular classes may be used as well, though.
 
-## A common usecase
+### A common use case
 
 A common use case for parameterizing a test class is to run its tests against different implementations of an interface.
 Prior to JUnit 5.13, one would typically achieve that by writing an abstract base test class and creating a subclass for each concrete implementation.
@@ -185,7 +185,7 @@ class ParameterizedListTests {
 
 This allows to get rid of the abstract base class and subclasses resulting in a much simpler structure.
 
-## Converters
+### Converters
 
 The same use case can also be implemented using `@ValueSource` (and constructor injection) instead of `@MethodSource` as follows.
 
@@ -296,7 +296,7 @@ record ParameterizedWithValueSourceAndConverterRecordListTests(
 }
 ```
 
-## Mutable vs. immutable arguments
+### Mutable vs. immutable arguments
 
 When using _mutable_ data as parameters, one has to be mindful of tests that change state.
 In the above example, if `itemCanBeAdded()` were to run before `newListIsEmpty()` without the `@AfterEach` lifecycle method, `newListIsEmpty()` would fail because the `list` would no longer be empty.
@@ -336,7 +336,7 @@ class ParameterizedListWithSuppliersTests {
 }
 ```
 
-## Argument sources
+### Argument sources
 
 In addition to `@ValueSource` and `@MethodSource`, JUnit provides the following annotations for specifying the sources of arguments:
 
@@ -347,7 +347,7 @@ In addition to `@ValueSource` and `@MethodSource`, JUnit provides the following 
 
 Please refer to JUnit's [User Guide](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests-sources) for details.
 
-## Lifecycle methods
+### Lifecycle methods
 
 Parameterized classes may declare `@BeforeParameterizedClassInvocation` and `@AfterParameterizedClassInvocation` lifecycle methods which are called once before/after each invocation of the parameterized class with a set of arguments.
 This may be used, for example, to initialize an argument as demonstrated in the following example.
@@ -386,7 +386,7 @@ record CustomInitializationListTests(
 }
 ```
 
-## Cartesian products
+### Cartesian products
 
 The `@ParameterizedClass` annotation may be combined with `@Nested`, also within an enclosing `@ParameterizedClass`-annotated test class.
 Moreover, a `@ParameterizedClass` may contain `@ParameterizedTest` methods.
@@ -469,7 +469,7 @@ class ParameterizedWithNestedListTests {
 A word of warning: the number of combinations can quickly become very large!
 Therefore, you should take that into consideration when deciding whether to use this feature.
 
-## Summary
+### Summary
 
 Parameterized test classes are a powerful testing tool that has long been missing from JUnit Jupiter.
 I'm super happy that I've finally had the chance to resolve this long-standing and highly-voted issue thanks to the [Sovereign Tech Fund](/blog/2025/01/19/being-a-full-time-open-source-maintainer-supported-by-the-sovereign-tech-fund/).
