@@ -25,3 +25,4 @@ Fast-forward to today, it's already 2025 and the first five months of work suppo
 * [STF Milestone 6: Improved Kotlin support](/blog/2025/08/21/stf-milestone-6-improved-kotlin-support/)
 * [STF Milestone 7: Safe cancellation](/blog/2025/12/28/stf-milestone-7-safe-cancellation/)
 * [STF Milestone 8: Improved parallel test execution](/blog/2026/01/18/stf-milestone-8-improved-parallel-test-execution/)
+* [STF Milestone 10: Documentation improvements](/blog/2026/01/25/stf-milestone-10-documentation-improvements/)
