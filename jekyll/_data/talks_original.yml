@@ -424,6 +424,7 @@
   country: de
   date: 2026-03-10
   abstract: https://meine.doag.org/events/javaland/2026/agenda/#agendaId.6823
+  slides: https://slides.marcphilipp.de/2026-javaland-the-road-to-junit-6/
 
 - title: The road to JUnit 6
   event: JCON Europe
