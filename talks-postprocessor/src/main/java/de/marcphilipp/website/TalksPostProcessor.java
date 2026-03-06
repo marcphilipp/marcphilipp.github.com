@@ -8,10 +8,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import de.marcphilipp.speakerdeck.FileDownloader;
 import de.marcphilipp.speakerdeck.JsoupFileDownloader;
-import de.marcphilipp.speakerdeck.ScrapingSpeakerDeckApi;
-import de.marcphilipp.speakerdeck.SpeakerDeckApi;
-import de.marcphilipp.speakerdeck.SpeakerDeckApi.PresentationIdentifier;
-import picocli.CommandLine;
+import de.marcphilipp.speakerdeck.MetadataScraper;
 import picocli.CommandLine.Command;
 
 import java.io.IOException;
@@ -28,7 +25,6 @@ import static com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature.WRITE_
 @Command
 public class TalksPostProcessor {
 
-    private final SpeakerDeckApi api = new ScrapingSpeakerDeckApi();
     private final FileDownloader fileDownloader = new JsoupFileDownloader();
     private final ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(WRITE_DOC_START_MARKER).enable(MINIMIZE_QUOTES));
 
@@ -41,25 +37,34 @@ public class TalksPostProcessor {
                 .parallel()
                 .forEach(node -> {
                     var presentationUrl = URI.create(node.get("slides").textValue());
-                    if (!SpeakerDeckApi.BASE_URI.getHost().equals(presentationUrl.getHost())) {
-                        return;
-                    }
-                    var presentationIdentifier = PresentationIdentifier.parse(presentationUrl);
-                    var details = api.getPresentationDetails(presentationIdentifier);
-                    try {
-                        String fileName = Paths.get(details.imageUrl().getPath()).getFileName().toString();
-                        String extension = fileName.substring(fileName.lastIndexOf('.'));
-
-                        Path usernameDir = Files.createDirectories(imageDir.resolve(presentationIdentifier.user().userName()));
-                        Path targetFile = usernameDir.resolve(presentationIdentifier.presentation() + extension);
-                        fileDownloader.download(details.imageUrl(), targetFile);
-
-                        node.set("slideImage", new TextNode(rootDir.relativize(targetFile).toString()));
-                    } catch (IOException e) {
-                        throw new UncheckedIOException(e);
-                    }
+                    MetadataScraper.getImage(presentationUrl)
+                            .ifPresent(imageUrl -> downloadImageAndUpdateMetadata(rootDir, imageDir, node, imageUrl, presentationUrl));
                 });
 
         mapper.writeValue(targetYamlFile.toFile(), arrayNode);
+    }
+
+    private void downloadImageAndUpdateMetadata(Path rootDir, Path imageDir, ObjectNode node, URI imageUrl, URI presentationUrl) {
+        try {
+            var extension = getExtensionIncludingDot(imageUrl);
+            var fileName = presentationUrl.getPath().substring(1);
+            if (fileName.endsWith("/")) {
+                fileName = fileName.substring(0, fileName.length() - 1);
+            }
+            fileName += extension;
+
+            Path targetFile = imageDir.resolve(fileName);
+            Files.createDirectories(targetFile.getParent());
+            fileDownloader.download(imageUrl, targetFile);
+
+            node.set("slideImage", new TextNode(rootDir.relativize(targetFile).toString()));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private static String getExtensionIncludingDot(URI imageUrl) {
+        String fileName = Paths.get(imageUrl.getPath()).getFileName().toString();
+        return fileName.substring(fileName.lastIndexOf('.'));
     }
 }
