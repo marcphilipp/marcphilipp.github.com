@@ -274,3 +274,6 @@ footer {
 .contact-form-message {
 	resize: vertical;
 }
+a.email > span:nth-child(2) {
+	display: none;
+}
